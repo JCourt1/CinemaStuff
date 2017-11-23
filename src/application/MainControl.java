@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 
 public class MainControl {
 	
@@ -32,6 +34,10 @@ public class MainControl {
 	
 	@FXML 
 	private Button backButton;
+	
+	@FXML
+	private AnchorPane Main_Client;
+	
 	
 	
 	@FXML
@@ -61,7 +67,7 @@ public class MainControl {
 			/* else if user is client : */
 			stage = (Stage) regButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Main_Client.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
@@ -143,9 +149,24 @@ public class MainControl {
 		
 	}
 	
-	
-	
-	
+	@FXML 
+	public void GoToBook(ActionEvent event) throws Exception{
+		
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("/application/Cinema_Room.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	
 
+}@FXML 
+public void Test(ActionEvent event) throws Exception{
+		
+		Stage primaryStage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	
+}
 }
