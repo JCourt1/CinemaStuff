@@ -1,4 +1,4 @@
-package userStuff;
+package application.models;
 
 public class Client extends User{
 	
