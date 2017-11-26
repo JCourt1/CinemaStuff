@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<seances>
+    <seance>
+        <day>2017-12-15</day>
+        <film>Indiana Jones</film>
+        <time>12</time>
+    </seance>
+    <seance>
+        <day>2017-12-15</day>
+        <film>Indiana Jones</film>
+        <time>13</time>
+    </seance>
+    <seance>
+        <day>2017-12-15</day>
+        <film>Indiana Jones</film>
+        <time>14</time>
+    </seance>
+    <seance>
+        <day>2017-12-18</day>
+        <film>Jaws</film>
+        <time>18</time>
+    </seance>
+    <seance>
+        <day>2017-12-18</day>
+        <film>Jaws</film>
+        <time>18</time>
+    </seance>
+</seances>
