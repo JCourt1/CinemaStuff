@@ -15,14 +15,4 @@
         <film>Indiana Jones</film>
         <time>14</time>
     </seance>
-    <seance>
-        <day>2017-12-18</day>
-        <film>Jaws</film>
-        <time>18</time>
-    </seance>
-    <seance>
-        <day>2017-12-18</day>
-        <film>Jaws</film>
-        <time>18</time>
-    </seance>
 </seances>

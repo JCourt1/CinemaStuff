@@ -19,8 +19,13 @@ public class Seance {
 	private final StringProperty film;
 	
 	
-	public Seance(int year, int month, int dayOfMonth, int time, String film){
-		this.day = new SimpleObjectProperty<LocalDate>(LocalDate.of(year, month, dayOfMonth));
+	public Seance() {
+        this(LocalDate.of(2000, 0, 00), 0, null);
+    }
+	
+	
+	public Seance(LocalDate date, int time, String film){
+		this.day = new SimpleObjectProperty<LocalDate>(date);
 		this.time = new SimpleIntegerProperty(time);
 		this.film = new SimpleStringProperty(film);
 	}

@@ -1,6 +1,6 @@
 package application.views;
 
-import application.Main;
+import application.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +35,7 @@ public class MainControl {
 	@FXML 
 	private Button backButton;
 	
-	private Main main;
+	private MainApplication main;
 	
 	
 	@FXML
@@ -75,23 +75,7 @@ public class MainControl {
 		else if((txtUsername.getText().equals("employee") && txtPassword.getText().equals("password")) || (txtUsername.getText().equals("") && txtPassword.getText().equals(""))) {
 			lblStatus.setText("Employee login Successful");
 			
-			stage = (Stage) regButton.getScene().getWindow();
-			
-			FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(Main.class.getResource("views/Main_Employee.fxml"));
-    		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
-    		
-    		Scene scene = new Scene(mainEmployeeView);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-     		stage.setScene(scene);
-     		
-     		
-     		EmployeeController controller = loader.getController();
-    		controller.setMain(this.main);
-    		
-     		
-			stage.show();
-			
+			main.showMain_Employee();
 		}
 		
 		else {
@@ -164,7 +148,7 @@ public class MainControl {
 		
 	}
 	
-	public void setMain(Main main) {
+	public void setMain(MainApplication main) {
         this.main = main;
     }
 	

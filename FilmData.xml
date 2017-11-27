@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<films>
+    <film>
+        <name>Indiana Jones</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Star Wars</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Harry Potter</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Pulp Fiction</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Indiana Jones 2</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Indiana Jones 3</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Indiana Jones 4</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Indiana Jones 5</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Hello</name>
+        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
+</films>

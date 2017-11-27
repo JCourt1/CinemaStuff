@@ -45,18 +45,19 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="saveBtn" layoutX="303.0" layoutY="30.0" mnemonicParsing="false" onAction="#save" text="Save" />
-                        <BorderPane layoutX="17.0" layoutY="77.0" prefHeight="378.0" prefWidth="653.0">
+                        <BorderPane fx:id="bPane" layoutX="17.0" layoutY="77.0" prefHeight="378.0" prefWidth="653.0">
                            <left>
                               <AnchorPane prefHeight="285.0" prefWidth="131.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button layoutX="36.0" layoutY="98.0" mnemonicParsing="false" text="Button" />
-                                    <Button layoutX="36.0" layoutY="150.0" mnemonicParsing="false" text="Button" />
-                                    <Button layoutX="36.0" layoutY="206.0" mnemonicParsing="false" text="Button" />
+                                    <Button fx:id="addFilm" layoutX="18.0" layoutY="88.0" mnemonicParsing="false" onAction="#displayAddFilmPane" text="Add new film" />
+                                    <Button layoutX="18.0" layoutY="141.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="98.0" text="Delete film" />
+                                    <Button layoutX="5.0" layoutY="210.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="116.0" text="Change screenings" />
                                  </children>
                               </AnchorPane>
                            </left>
                         </BorderPane>
+                        <Button fx:id="saveSeancesBtn" layoutX="22.0" layoutY="22.0" mnemonicParsing="false" onAction="#saveSeances" text="SaveSeances" />
+                        <Button fx:id="saveFilmsBtn" layoutX="149.0" layoutY="22.0" mnemonicParsing="false" onAction="#saveFilms" text="SaveFilms" />
                      </children>
                   </AnchorPane>
             </content>

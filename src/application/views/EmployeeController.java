@@ -1,6 +1,7 @@
 package application.views;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -8,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -15,9 +17,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import application.models.films.Seance;
-import application.Main;
+import application.views.modifyFilmsOrScreenings.addFilmsController;
+import application.MainApplication;
 import application.models.films.Film;
 
 public class EmployeeController implements Initializable{
@@ -38,16 +42,21 @@ public class EmployeeController implements Initializable{
 	private Button searchButton;
 	
 	@FXML
-	private Button saveBtn;
+	private Button saveSeancesBtn;
+	@FXML
+	private Button saveFilmsBtn;
+	
 	
 	// test 
 	@FXML
-	private Button addSeance;
+	private Button addFilm;
 	// test 
 	
+	@FXML
+	private BorderPane bPane;
 	
 	
-	private Main main;
+	private MainApplication main;
 	
 	
 	public EmployeeController(){
@@ -64,11 +73,15 @@ public class EmployeeController implements Initializable{
 	}
 	
 	
-	
+	@FXML
+	private void saveFilms(){
+		File file = new File("FilmData.xml");
+		main.saveFilmDataToFile(file);
+	}
 	
 	
 	@FXML
-	private void save(){
+	private void saveSeances(){
 		File file = new File("SeanceData.xml");
 		main.saveSeanceDataToFile(file);
 	}
@@ -76,9 +89,20 @@ public class EmployeeController implements Initializable{
 	// test
 	
 	@FXML
-	private void addSeance(){
-		Seance anotherSeance = new Seance(2017, 12, 18, 18, "Jaws");
-		main.getSeanceData().add(anotherSeance);
+	private void displayAddFilmPane(){
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApplication.class.getResource("views/modifyFilmsOrScreenings/ModifyFilms.fxml"));
+        try {
+        	AnchorPane modifyFilms = (AnchorPane) loader.load();
+        
+			bPane.setRight(modifyFilms);
+			addFilmsController controller = loader.getController();
+    		controller.setMain(this.main);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("error!");
+		}
 	}
 	
 	
@@ -119,7 +143,7 @@ public class EmployeeController implements Initializable{
 	}
 	
 	
-	public void setMain(Main main) {
+	public void setMain(MainApplication main) {
         this.main = main;
 
         // Add observable list data to the table

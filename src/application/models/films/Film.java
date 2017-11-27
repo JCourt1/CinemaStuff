@@ -11,19 +11,18 @@ import javafx.beans.property.StringProperty;
 public class Film {
 
     private final StringProperty name;
+    private final StringProperty path;
+    
+    
+    
+    public Film() {
+        this(null, null);
+    }
     
 
-    /**
-     * 
-     * 
-     * @param name
-     */
-    public Film(String name) {
+    public Film(String name, String path) {
         this.name = new SimpleStringProperty(name);
-        
-        
-        
-        
+        this.path = new SimpleStringProperty(path);
         
     }
 
@@ -38,5 +37,29 @@ public class Film {
     public StringProperty nameProperty() {
         return name;
     }
+    
+    
+    
+    
+    
+    public String getPath() {
+        return path.get();
+    }
+
+    public void setPath(String path) {
+        this.path.set(path);
+    }
+    
+    public StringProperty pathProperty() {
+        return path;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
