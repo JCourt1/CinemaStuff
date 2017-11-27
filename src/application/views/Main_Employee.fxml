@@ -56,8 +56,6 @@
                               </AnchorPane>
                            </left>
                         </BorderPane>
-                        <Button fx:id="saveSeancesBtn" layoutX="22.0" layoutY="22.0" mnemonicParsing="false" onAction="#saveSeances" text="SaveSeances" />
-                        <Button fx:id="saveFilmsBtn" layoutX="149.0" layoutY="22.0" mnemonicParsing="false" onAction="#saveFilms" text="SaveFilms" />
                      </children>
                   </AnchorPane>
             </content>

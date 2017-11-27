@@ -49,10 +49,10 @@ public class addFilmsController implements Initializable {
 		String path = picName.getText();
 		Film film = new Film(name, path);
 		main.getFilmData().add(film);
+		File file = new File("FilmData.xml");
+		main.saveFilmDataToFile(file);
+		
 	}
-	
-	
-	
 	
 	
 	

@@ -36,4 +36,8 @@
         <name>Hello</name>
         <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
     </film>
+    <film>
+        <name>Werewolf in London</name>
+        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
 </films>

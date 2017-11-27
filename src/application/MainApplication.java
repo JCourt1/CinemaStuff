@@ -40,9 +40,9 @@ public class MainApplication extends Application {
      */
     public MainApplication() {
         // Add some sample data
-//    	seanceData.add(new Seance(2017, 12, 15, 12, "Indiana Jones"));
-//    	seanceData.add(new Seance(2017, 12, 15, 13, "Indiana Jones"));
-//    	seanceData.add(new Seance(2017, 12, 15, 14, "Indiana Jones"));
+    	seanceData.add(new Seance(12, "Indiana Jones"));
+    	seanceData.add(new Seance(13, "Indiana Jones"));
+    	seanceData.add(new Seance(14, "Indiana Jones"));
     	
         
     }

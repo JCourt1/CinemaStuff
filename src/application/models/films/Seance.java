@@ -14,18 +14,19 @@ import application.util.LocalDateAdapter;
 
 public class Seance {
 	
+	
 	private final ObjectProperty<LocalDate> day;
 	private final IntegerProperty time;
 	private final StringProperty film;
 	
 	
 	public Seance() {
-        this(LocalDate.of(2000, 0, 00), 0, null);
+        this(0, null);
     }
 	
 	
-	public Seance(LocalDate date, int time, String film){
-		this.day = new SimpleObjectProperty<LocalDate>(date);
+	public Seance(int time, String film){
+		this.day = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 1, 1));
 		this.time = new SimpleIntegerProperty(time);
 		this.film = new SimpleStringProperty(film);
 	}
@@ -34,6 +35,18 @@ public class Seance {
 	public LocalDate getDay(){
 		return day.get();
 	}
+	
+	public void setDay(LocalDate day) {
+        this.day.set(day);
+    }
+
+    public ObjectProperty<LocalDate> dayProperty() {
+        return day;
+    }
+	
+	
+	
+	
 	
 	
 	public String getFilm() {

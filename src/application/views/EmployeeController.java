@@ -41,10 +41,6 @@ public class EmployeeController implements Initializable{
 	@FXML
 	private Button searchButton;
 	
-	@FXML
-	private Button saveSeancesBtn;
-	@FXML
-	private Button saveFilmsBtn;
 	
 	
 	// test 
@@ -73,11 +69,7 @@ public class EmployeeController implements Initializable{
 	}
 	
 	
-	@FXML
-	private void saveFilms(){
-		File file = new File("FilmData.xml");
-		main.saveFilmDataToFile(file);
-	}
+	
 	
 	
 	@FXML
@@ -126,18 +118,13 @@ public class EmployeeController implements Initializable{
 			
 			String seanceTime = Integer.toString(seance.getTime());
 			
-			System.out.println(seanceFilm + selectedFilmName + seanceDay + chosenDate);
-			
 			if (seanceFilm.equals(selectedFilmName)) {
 				
 				if (seanceDay.equals(chosenDate)) {
 					
-					String result = seanceFilm + " " + seanceDay + seanceTime;
-					tempSeanceData.add(result);
+					tempSeanceData.add(seanceTime);
 				}
 			}
-			
-			System.out.println(tempSeanceData);
 		}
 		seanceList.setItems(tempSeanceData);
 	}
