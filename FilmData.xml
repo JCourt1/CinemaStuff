@@ -40,4 +40,16 @@
         <name>Werewolf in London</name>
         <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
     </film>
+    <film>
+        <name>Hello</name>
+        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>dfgdfg</name>
+        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>erdr</name>
+        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
 </films>

@@ -1,10 +1,12 @@
 package application.views.modifyFilmsOrScreenings;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import application.MainApplication;
 import application.models.films.Film;
@@ -52,6 +54,20 @@ public class addFilmsController implements Initializable {
 		File file = new File("FilmData.xml");
 		main.saveFilmDataToFile(file);
 		
+		try {
+            BufferedImage image;
+
+            File imageFile = new File(path);
+            image = ImageIO.read(imageFile);
+
+            ImageIO.write(image, "png",new File("resources/images/out.png"));
+
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+		
+		
+		
 	}
 	
 	
@@ -71,3 +87,6 @@ public class addFilmsController implements Initializable {
 	
 
 }
+
+
+
