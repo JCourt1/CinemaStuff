@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -20,36 +21,26 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import application.models.films.Seance;
+import application.views.modifyFilmsOrScreenings.ModifyExisting;
 import application.views.modifyFilmsOrScreenings.addFilmsController;
 import application.MainApplication;
 import application.models.films.Film;
 
 public class EmployeeController implements Initializable{
 	
-	@FXML
-	private TableView<Film> filmTable;
-	
-	@FXML
-	private TableColumn<Film, String> filmNameColumn;
-	
-	@FXML
-	private ListView<String> seanceList;
-	
-	@FXML
-	private DatePicker datePicker;
-	
-	@FXML
-	private Button searchButton;
 	
 	
+	@FXML private ListView<String> seanceList;
+	@FXML private DatePicker datePicker;
 	
-	// test 
-	@FXML
-	private Button addFilm;
-	// test 
+	@FXML private Button searchButton;
 	
-	@FXML
-	private BorderPane bPane;
+	@FXML private ComboBox<String> films;
+	
+	@FXML private Button addFilm;
+	@FXML private Button modifyExisting;
+	
+	@FXML private BorderPane bPane;
 	
 	
 	private MainApplication main;
@@ -64,7 +55,8 @@ public class EmployeeController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		filmNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		
+		
 		
 	}
 	
@@ -98,12 +90,32 @@ public class EmployeeController implements Initializable{
 	}
 	
 	
+	@FXML
+	private void displayModifyExisting(){
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApplication.class.getResource("views/modifyFilmsOrScreenings/ModifyExisting.fxml"));
+        try {
+        	AnchorPane modifyExisting = (AnchorPane) loader.load();
+        
+			bPane.setRight(modifyExisting);
+			ModifyExisting controller = loader.getController();
+    		controller.setMain(this.main);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("error!");
+		}
+	}
+	
+	
+	
+	
 	// test
 	
 	
 	@FXML
 	private void showScreenings() {
-		Film selectedFilm = filmTable.getSelectionModel().getSelectedItem();
+		String selectedFilm = films.getSelectionModel().getSelectedItem();
 		ObservableList<String> tempSeanceData = FXCollections.observableArrayList();
 		LocalDate ld = datePicker.getValue();
 		
@@ -112,18 +124,20 @@ public class EmployeeController implements Initializable{
 			
 			
 			String seanceFilm = seance.filmProperty().get();
-			String selectedFilmName = selectedFilm.nameProperty().get();
 			String seanceDay = seance.getDay().toString();
 			String chosenDate = ld.toString();
 			
 			String seanceTime = Integer.toString(seance.getTime());
 			
-			if (seanceFilm.equals(selectedFilmName)) {
-				
+			if (seanceFilm.equals(selectedFilm)) {
 				if (seanceDay.equals(chosenDate)) {
 					
 					tempSeanceData.add(seanceTime);
+					
 				}
+			} else {
+				System.out.println("something went wrong");
+				
 			}
 		}
 		seanceList.setItems(tempSeanceData);
@@ -132,9 +146,11 @@ public class EmployeeController implements Initializable{
 	
 	public void setMain(MainApplication main) {
         this.main = main;
-
-        // Add observable list data to the table
-        filmTable.setItems(main.getFilmData());
+        ObservableList<String> listOfFilms = FXCollections.observableArrayList();
+        for (Film film: main.getFilmData()) {
+        	listOfFilms.add(film.getName());
+        }
+        films.setItems(listOfFilms);
     }
 	
 

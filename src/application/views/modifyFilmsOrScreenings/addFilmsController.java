@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
@@ -25,6 +27,11 @@ public class addFilmsController implements Initializable {
 	@FXML private Button saveBtn;
 	@FXML private Label picName;
 	@FXML private Button uploadPic;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+	}
 	
 	
 	public addFilmsController(){
@@ -47,20 +54,20 @@ public class addFilmsController implements Initializable {
 	
 	@FXML
 	private void saveFilm(){
-		String name = filmName.getText();
-		String path = picName.getText();
-		Film film = new Film(name, path);
-		main.getFilmData().add(film);
-		File file = new File("FilmData.xml");
-		main.saveFilmDataToFile(file);
+		String filmN = filmName.getText();
+		String oldPath = picName.getText();
+		String newPath = "resources/images/" + filmN + ".png";
 		
 		try {
             BufferedImage image;
-
-            File imageFile = new File(path);
+            File imageFile = new File(oldPath);
             image = ImageIO.read(imageFile);
-
-            ImageIO.write(image, "png",new File("resources/images/out.png"));
+            ImageIO.write(image, "png",new File(newPath));
+            
+            Film film = new Film(filmN, newPath);
+    		main.getFilmData().add(film);
+    		File file = new File("FilmData.xml");
+    		main.saveFilmDataToFile(file);
 
         } catch (IOException e) {
         	e.printStackTrace();
@@ -69,19 +76,10 @@ public class addFilmsController implements Initializable {
 		
 		
 	}
-	
-	
-	
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public void setMain(MainApplication main) {
-		// TODO Auto-generated method stub
 		this.main = main;
+		
 	}
 	
 	

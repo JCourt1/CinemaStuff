@@ -1,55 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <films>
     <film>
-        <name>Indiana Jones</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Star Wars</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Harry Potter</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Pulp Fiction</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Indiana Jones 2</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Indiana Jones 3</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Indiana Jones 4</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Indiana Jones 5</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Hello</name>
-        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Werewolf in London</name>
-        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
-        <name>Hello</name>
-        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
-    </film>
-    <film>
         <name>dfgdfg</name>
         <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
     </film>
     <film>
         <name>erdr</name>
         <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Groundhog Day</name>
+        <path>resources/images/Groundhog Day.png</path>
+    </film>
+    <film>
+        <name>Hello</name>
+        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Indiana Jones</name>
+        <path>CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>lotr</name>
+        <path>resources/images/lotr.png</path>
+    </film>
+    <film>
+        <name>pulp fiction</name>
+        <path>resources/images/pulp fiction.png</path>
+    </film>
+    <film>
+        <name>Star Wars</name>
+        <path>resources/images/Star Wars.png</path>
+    </film>
+    <film>
+        <name>Werewolf in London</name>
+        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
+    </film>
+    <film>
+        <name>Men in black</name>
+        <path>resources/images/Men in black.png</path>
+    </film>
+    <film>
+        <name>Hklsdjfljdsf</name>
+        <path>resources/images/Hklsdjfljdsf.png</path>
     </film>
 </films>

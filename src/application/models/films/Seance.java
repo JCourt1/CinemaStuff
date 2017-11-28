@@ -26,7 +26,7 @@ public class Seance {
 	
 	
 	public Seance(int time, String film){
-		this.day = new SimpleObjectProperty<LocalDate>(LocalDate.of(2000, 1, 1));
+		this.day = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 12, 10));
 		this.time = new SimpleIntegerProperty(time);
 		this.film = new SimpleStringProperty(film);
 	}
