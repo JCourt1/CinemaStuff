@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Maint_Client" prefHeight="582.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainControl">
+<AnchorPane id="Maint_Client" prefHeight="582.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainClientControl">
    <children>
       <Label alignment="CENTER" layoutX="244.0" layoutY="23.0" prefHeight="62.0" prefWidth="194.0" text="Welcome to Cineworld" textAlignment="CENTER">
          <font>
@@ -58,7 +58,9 @@
                           <columns>
                           	<TableColumn prefWidth="110.39992904663086" text="Movie" />
                             <TableColumn minWidth="8.00006103515625" prefWidth="162.40003967285156" text="Screening date" />
+                             <TableColumn minWidth="9.5999755859375" prefWidth="123.20001220703125" text="Screening time" />
                             <TableColumn prefWidth="127.99993896484375" text="Booking date" />
+                           
                             <TableColumn minWidth="9.5999755859375" prefWidth="123.20001220703125" text="Cancel" />
                           </columns>
                            <columnResizePolicy>
@@ -87,11 +89,6 @@
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <Label layoutX="29.0" layoutY="343.0" prefHeight="34.0" prefWidth="171.0" text="Phone Number:">
-                           <font>
-                              <Font size="23.0" />
-                           </font>
-                        </Label>
                         <Label layoutX="435.0" layoutY="79.0" text="Username: ">
                            <font>
                               <Font size="23.0" />
@@ -102,13 +99,12 @@
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="220.0" layoutY="87.0" />
-                        <TextField layoutX="220.0" layoutY="175.0" />
-                        <TextField layoutX="220.0" layoutY="258.0" />
-                        <TextField layoutX="220.0" layoutY="347.0" />
-                        <TextField layoutX="555.0" layoutY="83.0" />
-                        <TextField layoutX="555.0" layoutY="139.0" />
-                        <Button layoutX="536.0" layoutY="317.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="104.0" text="Save">
+                        <TextField fx:id="firstName" layoutX="220.0" layoutY="87.0" />
+                        <TextField fx:id="lastName" layoutX="220.0" layoutY="175.0" />
+                        <TextField fx:id="email" layoutX="220.0" layoutY="258.0" />
+                        <TextField fx:id="username" layoutX="555.0" layoutY="83.0" />
+                        <TextField fx:id="password" layoutX="555.0" layoutY="139.0" />
+                        <Button layoutX="536.0" layoutY="317.0" mnemonicParsing="false" onAction="#Save" prefHeight="47.0" prefWidth="104.0" text="Save">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -118,7 +114,6 @@
           </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" text="Back" />
-      <Button layoutX="633.0" layoutY="42.0" mnemonicParsing="false" text="Log out" />
+      <Button fx:id="LogOutButton" layoutX="633.0" layoutY="42.0" mnemonicParsing="false" onAction="#Logout" text="Log out" />
    </children>
 </AnchorPane>

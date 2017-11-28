@@ -24,6 +24,8 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		ClientDatabaseWriter.readFile();
+		MovieDatabaseWriter.readFile();
 		launch(args);
 	}
 }

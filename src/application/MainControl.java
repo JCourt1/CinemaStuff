@@ -5,14 +5,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
 public class MainControl {
+	
+	@FXML
+	private javafx.scene.control.ScrollPane ScrollPane;
 	
 	@FXML
 	private Label lblStatus;
@@ -32,6 +37,7 @@ public class MainControl {
 	@FXML 
 	private Button regButton;
 	
+	
 	@FXML 
 	private Button backButton;
 	
@@ -39,6 +45,7 @@ public class MainControl {
 	private AnchorPane Main_Client;
 	
 	
+public static int id;	
 	
 	@FXML
 	public void Login(ActionEvent event) throws Exception {
@@ -47,24 +54,14 @@ public class MainControl {
 		
 		Stage stage;
 		
-		if (txtUsername.getText().equals("client") && txtPassword.getText().equals("pass")) {
-			lblStatus.setText("Login Successful");
+		if(Client.getUserNames().contains(txtUsername.getText())) {
+			int index = Client.getUserNames().indexOf(txtUsername.getText());
+			if(Client.getPasswords().get(index).equals(txtPassword.getText())) {
+			
+			id=Client.getIDs().get(index);
 			
 			
 			
-			
-			
-			/* if user is staff:
-			 * Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			 * 
-			 * */
-			
-			/* else if user is client : */
 			stage = (Stage) regButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Main_Client.fxml"));
 			Scene scene = new Scene(root);
@@ -72,22 +69,37 @@ public class MainControl {
 			stage.setScene(scene);
 			stage.show();
 			
-		} 
-		
-		else if(txtUsername.getText().equals("employee") && txtPassword.getText().equals("password")) {
-			lblStatus.setText("Employee login Successful");
 			
-			stage = (Stage) regButton.getScene().getWindow();
-			Parent root = FXMLLoader.load(getClass().getResource("/application/Main_Client.fxml"));
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
-			stage.show();
+			
+			}
+			
+			else {
+				
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText(null);
+				alert.setContentText("Your password is incorrect");
+
+				alert.showAndWait();
+			}
+			
 		}
+		
+		
+		
+			// add an else if when the employee database is populated
+			
+		
+			
 		
 		else {
 			
-			lblStatus.setText("Login Failed");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("Your username does not exist");
+
+			alert.showAndWait();
 		}
 	}
 	
@@ -122,7 +134,7 @@ public class MainControl {
 		
 		if (event.getSource()==backButton) {
 			stage = (Stage) backButton.getScene().getWindow();
-			root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/application/Registration.fxml"));
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
@@ -149,24 +161,7 @@ public class MainControl {
 		
 	}
 	
-	@FXML 
-	public void GoToBook(ActionEvent event) throws Exception{
-		
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("/application/Cinema_Room.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+
 	
 
-}@FXML 
-public void Test(ActionEvent event) throws Exception{
-		
-		Stage primaryStage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	
-}
 }
