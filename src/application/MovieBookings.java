@@ -39,4 +39,8 @@ public static void reset() {
 	MovieBookings.seats.clear();
 }
 
+public static ArrayList<String> getBookedSeats(){
+	return MovieBookings.seats;
+}
+
 }

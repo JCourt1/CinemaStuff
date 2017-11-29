@@ -46,11 +46,13 @@ public class MainClientControl {
 	@FXML 
 	public void GoToBook(ActionEvent event) throws Exception{
 		
-		Stage primaryStage = new Stage();
+		Stage stage;
+		stage = (Stage) LogOutButton.getScene().getWindow();
 		Parent root = FXMLLoader.load(getClass().getResource("/application/Cinema_Room.fxml"));
 		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setScene(scene);
+		stage.show();
 	
 
 }
@@ -94,7 +96,6 @@ email.setText(Client.getClientDataExternal(MainControl.id).get(5));
 username.setText(Client.getClientDataExternal(MainControl.id).get(1));
 password.setText(Client.getClientDataExternal(MainControl.id).get(2));
 	
-//table.setele
 
 }	
 
