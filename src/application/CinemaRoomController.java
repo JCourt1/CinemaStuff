@@ -194,20 +194,17 @@ public class CinemaRoomController {
 		hashtable.put("f6", f6);
 		
 		
-		
-		
-		System.out.println("INITIALIZED");
 
 		
 		for(int i=0; i<MovieBookings.getBookedSeats().size(); i++) {
 		for(int j=0; j<seatList.length;j++) {
 			if(seatList[j].equals(MovieBookings.getBookedSeats().get(i))) {
 				
-			hashtable.get(seatList[j]).setFill(Color.web("#ea2020"));
+			hashtable.get(seatList[j]).setFill(Color.RED);
 				
 			}
 			else{
-				hashtable.get(seatList[i]).setFill(Color.web("#156835"));
+				hashtable.get(seatList[i]).setFill(Color.GREEN);
 			}
 			}
 		}

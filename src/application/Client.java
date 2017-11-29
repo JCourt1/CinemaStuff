@@ -13,11 +13,6 @@ public class Client {
 	private static ArrayList<ArrayList<String[]>>  movieslist = new ArrayList<ArrayList<String[]>>();
 	
 	
-	private static String lastName;
-	private static String firstName;
-	private  static String email;
-	private	static String username;
-	private static String password;
 	
 	public static int lastID() { 
 		if(Client.ids.size()>0) {
@@ -67,36 +62,7 @@ public class Client {
 	
 	
 	
-	public static String getUserName() {
-		return Client.username;
-	}
-
-
 	
-	
-	public static String getPassword() {
-		return Client.password;
-	}
-	
-
-	
-	
-	
-	public static String getLastName() {
-		return Client.lastName;
-	}
-	
-
-	
-	public static String getFirstName() {
-		return Client.firstName;
-	}
-	
-
-	
-	public static String getEmail() {
-		return  Client.email;
-	}
 
 	public static void addToList(String username, String password, String firstName, String lastName, String email) {
 		Client.usernames.add(username);
@@ -160,15 +126,7 @@ public class Client {
 	}
 	
 	
-	public static ArrayList<ArrayList<String>> getAllClientData() {
-		
-		 ArrayList<ArrayList<String>> allData = new  ArrayList<ArrayList<String>>();
-		 
-		 for(int i=0; i<Client.ids.size(); i++) {
-			 allData.add(Client.getClientData(i));
-		 }
-		 return allData;
-	}
+	
 	
 	public static void printClientDetails(int id) {
 		int index = Client.ids.indexOf(id);

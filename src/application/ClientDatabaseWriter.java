@@ -30,7 +30,7 @@ public class ClientDatabaseWriter {
     	   
        }
       	
-      	bufferedWriter.write(Client.getClientData(i).get(Client.getClientData(i).size()-1)); //this is so that there is not comma after last word of line
+      	bufferedWriter.write(Client.getClientData(i).get(Client.getClientData(i).size()-1)); //this is so that there is no comma after last word of line
       	bufferedWriter.newLine();
        }
        int i=Client.getNumberOfClients()-1;
@@ -65,10 +65,10 @@ public static void readFile() {
         // Always wrap FileReader in BufferedReader.
         BufferedReader bufferedReader = 
             new BufferedReader(fileReader);
-        bufferedReader.readLine();
         Client.reset();
+        bufferedReader.readLine();
         while((line = bufferedReader.readLine()) != null) {
-            System.out.println(line); 
+            System.out.println(line); //just for testing
         	
         	
         	client = line.split(";");
