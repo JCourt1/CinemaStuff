@@ -11,7 +11,7 @@ public class ClientDatabaseWriter {
 	
 	public static void writeFile() {
 	try {
-		String fileName = "C:\\Users\\David\\Documents\\UCL\\Introductory programming\\coursework\\CinemaBooking\\src\\application\\Client_Database.txt";
+		String fileName = "src/application/Client_Database.txt";
         FileWriter fileWriter =
             new FileWriter(fileName);
 
@@ -55,7 +55,7 @@ public static void readFile() {
 	
 	String line = null;
 	String [] client;
-	String fileName = "C:\\Users\\David\\Documents\\UCL\\Introductory programming\\coursework\\CinemaBooking\\src\\application\\Client_Database.txt";
+	String fileName = "src/application/Client_Database.txt";
 	try {
 		
         // FileReader reads text files in the default encoding.

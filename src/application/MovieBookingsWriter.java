@@ -12,7 +12,7 @@ public class MovieBookingsWriter {
 
 	public static void writeFile() {
 		try {
-			String fileName = "C:\\Users\\David\\Documents\\UCL\\Introductory programming\\coursework\\CinemaBooking\\src\\application\\Booking_Database.txt";
+			String fileName = "src/application/Booking_Database.txt";
 	        FileWriter fileWriter =
 	            new FileWriter(fileName);
 
@@ -62,7 +62,7 @@ public class MovieBookingsWriter {
 		String line = null;
 		String [] booking;
 		ArrayList<String> times = new ArrayList<String>();
-		String fileName = "C:\\Users\\David\\Documents\\UCL\\Introductory programming\\coursework\\CinemaBooking\\src\\application\\Booking_Database.txt";
+		String fileName = "src/application/Booking_Database.txt";
 		try {
 			
 	        // FileReader reads text files in the default encoding.

@@ -9,6 +9,15 @@ public class Movies {
 	private static ArrayList<String> enddates = new  ArrayList<String>();
 	private static ArrayList<ArrayList<String>> times = new  ArrayList<ArrayList<String>>();
 	
+	
+	public static ArrayList<ArrayList<String>> getTimes(){
+		return Movies.times;
+	}
+	
+	public static ArrayList<String> getTitles(){
+		return Movies.titles;
+	}
+	
 
 
 

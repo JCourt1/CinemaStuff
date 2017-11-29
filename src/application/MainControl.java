@@ -83,6 +83,14 @@ public static int id;
 				alert.showAndWait();
 			}
 			
+		} else if (txtUsername.getText().equals("") && txtPassword.getText().equals("")) {
+			
+			stage = (Stage) regButton.getScene().getWindow();
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/employee/Main_Employee.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.show();
 		}
 		
 		
