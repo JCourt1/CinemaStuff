@@ -28,6 +28,7 @@ public class ModifyScreeningsController extends ControllerDaddy {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		times.getItems().add("None");
 		for (int i = 9; i < 21; i++){
 			String j;
 			if (i<10) j = "0" + Integer.toString(i);
@@ -52,6 +53,35 @@ public class ModifyScreeningsController extends ControllerDaddy {
 	// if just film, show all screenings of that film.
 	// if film and time... etc.
 	
+	@FXML
+	private void changeScreeningList(){
+		
+		String time = ""; 
+		String film = "";
+		String date = "";
+		
+		if (!(times.getSelectionModel().getSelectedItem() == null)) {
+			
+			time = (String) times.getSelectionModel().getSelectedItem();
+		}
+		
+		if (!(films.getSelectionModel().getSelectedItem() == null)) {
+			
+			film = (String) films.getSelectionModel().getSelectedItem();
+		}
+		
+		if (!(dateP.getValue() == null)) {
+			
+			date = dateP.getValue().toString();
+			
+		}
+		
+		
+		
+		
+		System.out.println(time + date + film);
+			
+	}
 	
 	
 
