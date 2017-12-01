@@ -3,3 +3,7 @@
 .Button {
 	-fx-color: red;
 }
+
+.table-column {
+  -fx-alignment: CENTER;
+}

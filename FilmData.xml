@@ -18,7 +18,7 @@
     </film>
     <film>
         <name>Indiana Jones</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
+        <path>resources/images/ABook.png</path>
     </film>
     <film>
         <name>lotr</name>
