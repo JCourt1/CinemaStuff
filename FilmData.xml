@@ -44,4 +44,8 @@
         <name>Hklsdjfljdsf</name>
         <path>resources/images/Hklsdjfljdsf.png</path>
     </film>
+    <film>
+        <name>The Godfather 2</name>
+        <path>resources/images/The Godfather 2.png</path>
+    </film>
 </films>
