@@ -1,7 +1,6 @@
 package application.views.plan;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,11 +9,13 @@ import java.util.ResourceBundle;
 import application.MainApplication;
 import application.models.films.Film;
 import application.models.films.Seance;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -22,8 +23,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class ViewByDateController implements Initializable {
@@ -42,6 +45,8 @@ public class ViewByDateController implements Initializable {
 	@FXML private TableColumn<Seance, String> filmNameColumn2;
 	@FXML private TableColumn<Seance, LocalDate> dateColumn;
 	@FXML private TableColumn<Seance, Integer> timeColumn;
+	
+	@FXML private Button addScreenings;
 	
 	
 
@@ -82,6 +87,8 @@ public class ViewByDateController implements Initializable {
 				filmNameColumn.setCellValueFactory(new PropertyValueFactory<Film, String>("name"));
 				
 				imageColumn.setCellValueFactory(cellData -> cellData.getValue().pathProperty());
+				
+				
 				imageColumn.setCellFactory(new Callback<TableColumn<Film,String>,TableCell<Film,String>>(){        
 					@Override
 					public TableCell<Film,String> call(TableColumn<Film,String> param) {                
@@ -156,6 +163,49 @@ public class ViewByDateController implements Initializable {
 		updateFilmTable();
 		
 	}
+	
+	
+	@FXML
+	private void goToAddScreenings() {
+		try {
+
+			FXMLLoader loader = new FXMLLoader();
+			
+            loader.setLocation(MainApplication.class.getResource("views/plan/AddScreenings.fxml"));
+            
+            
+            AnchorPane newPage = (AnchorPane) loader.load();
+            
+            
+            AddScreeningsController controller = loader.getController();
+            controller.setMain(this.main);
+
+            // Create the dialog Stage.
+            Stage tempStage = new Stage();
+            tempStage.setTitle("Add Screening");
+            //tempStage.initModality(Modality.WINDOW_MODAL);
+            
+            
+            Scene scene = new Scene(newPage);
+            tempStage.setScene(scene);
+
+            // Set the person into the controller.
+            
+
+            // Show the dialog and wait until the user closes it
+            //tempStage.showAndWait();
+            tempStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
