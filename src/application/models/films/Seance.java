@@ -16,18 +16,18 @@ public class Seance {
 	
 	
 	private final ObjectProperty<LocalDate> day;
-	private final IntegerProperty time;
+	private final StringProperty time;
 	private final StringProperty film;
 	
 	
 	public Seance() {
-        this(0, null);
+        this(null, null, null);
     }
 	
 	
-	public Seance(int time, String film){
-		this.day = new SimpleObjectProperty<LocalDate>(LocalDate.of(2017, 12, 10));
-		this.time = new SimpleIntegerProperty(time);
+	public Seance(LocalDate date, String time, String film){
+		this.day = new SimpleObjectProperty<LocalDate>(date);
+		this.time = new SimpleStringProperty(time);
 		this.film = new SimpleStringProperty(film);
 	}
 	
@@ -62,15 +62,15 @@ public class Seance {
     }
     
     
-    public int getTime() {
+    public String getTime() {
         return time.get();
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time.set(time);
     }
 
-    public IntegerProperty timeProperty() {
+    public StringProperty timeProperty() {
         return time;
     }
 

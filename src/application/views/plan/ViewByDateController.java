@@ -180,7 +180,6 @@ public class ViewByDateController implements Initializable {
             AddScreeningsController controller = loader.getController();
             controller.setMain(this.main);
 
-            // Create the dialog Stage.
             Stage tempStage = new Stage();
             tempStage.setTitle("Add Screening");
             //tempStage.initModality(Modality.WINDOW_MODAL);
@@ -188,11 +187,7 @@ public class ViewByDateController implements Initializable {
             
             Scene scene = new Scene(newPage);
             tempStage.setScene(scene);
-
-            // Set the person into the controller.
             
-
-            // Show the dialog and wait until the user closes it
             //tempStage.showAndWait();
             tempStage.show();
 		} catch(Exception e) {

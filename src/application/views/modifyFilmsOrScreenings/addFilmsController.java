@@ -54,24 +54,24 @@ public class addFilmsController implements Initializable {
 	
 	@FXML
 	private void saveFilm(){
-		String filmN = filmName.getText();
-		String oldPath = picName.getText();
-		String newPath = "resources/images/" + filmN + ".png";
-		
-		try {
-            BufferedImage image;
-            File imageFile = new File(oldPath);
-            image = ImageIO.read(imageFile);
-            ImageIO.write(image, "png",new File(newPath));
-            
-            Film film = new Film(filmN, newPath);
-    		main.getFilmData().add(film);
-    		File file = new File("FilmData.xml");
-    		main.saveFilmDataToFile(file);
-
-        } catch (IOException e) {
-        	e.printStackTrace();
-        }
+//		String filmN = filmName.getText();
+//		String oldPath = picName.getText();
+//		String newPath = "resources/images/" + filmN + ".png";
+//		
+//		try {
+//            BufferedImage image;
+//            File imageFile = new File(oldPath);
+//            image = ImageIO.read(imageFile);
+//            ImageIO.write(image, "png",new File(newPath));
+//            
+//            Film film = new Film(filmN, newPath, description, ticketPrice);
+//    		main.getFilmData().add(film);
+//    		File file = new File("FilmData.xml");
+//    		main.saveFilmDataToFile(file);
+//
+//        } catch (IOException e) {
+//        	e.printStackTrace();
+//        }
 		
 		
 		

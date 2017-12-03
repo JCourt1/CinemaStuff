@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -16,6 +17,7 @@ import application.models.films.SeanceListWrapper;
 import application.views.EmployeeController;
 import application.views.MainControl;
 import application.views.plan.BaseEmployeeController;
+import application.views.plan.util.Fader;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +34,7 @@ import javafx.scene.layout.BorderPane;
 public class MainApplication extends Application {
 	
 	private Stage primaryStage;
+	private Parent root;
 	
 	private ObservableList<Seance> seanceData = FXCollections.observableArrayList();
 	private ObservableList<Film> filmData = FXCollections.observableArrayList();
@@ -41,9 +44,9 @@ public class MainApplication extends Application {
      */
     public MainApplication() {
         // Add some sample data
-    	seanceData.add(new Seance(12, "Indiana Jones"));
-    	seanceData.add(new Seance(13, "Indiana Jones"));
-    	seanceData.add(new Seance(14, "Indiana Jones"));
+    	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "12:00", "Indiana Jones"));
+    	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "13:00", "Indiana Jones"));
+    	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "14:00", "Indiana Jones"));
     	
         
     }
@@ -62,49 +65,42 @@ public class MainApplication extends Application {
     
     
     
-    public void showMain_Employee(){
-    	try {
-    		
-    		File file1 = new File("FilmData.xml");
-            
-            loadFilmDataFromFile(file1);
-            
-            
-            File file2 = new File("SeanceData.xml");
-            if (file2 != null) {
-            	loadSeanceDataFromFile(file2);
-            }
-    		
-    		
-    		
-    		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
-    		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
-    		
-    		Scene scene = new Scene(mainEmployeeView);
-    		primaryStage.setScene(scene);
-    		
-    		BaseEmployeeController controller = loader.getController();
-    		controller.setMain(this);
-    		
-    		
-    		
-    		
-    		
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
+//    public void showBase_Employee(){
+//    	try {
+//    		File file1 = new File("FilmData.xml");
+//    		if (file1 != null) loadFilmDataFromFile(file1);
+//            
+//            File file2 = new File("SeanceData.xml");
+//            if (file2 != null) loadSeanceDataFromFile(file2);
+//    		
+//    		FXMLLoader loader = new FXMLLoader();
+//    		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
+//    		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
+//    		
+//    		Scene scene = new Scene(mainEmployeeView);
+//    		primaryStage.setScene(scene);
+//    		
+//    		
+//    		BaseEmployeeController controller = loader.getController();
+//    		controller.setMain(this);
+//    		
+//    		
+//    	} catch (IOException e) {
+//    		e.printStackTrace();
+//    	}
+//    }
     
     
     public void initLogin() {
     	try {
     		
+    		
+    		
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.getResource("views/Login.fxml"));
     		
-			Parent root = loader.load();
-			Scene scene = new Scene(root,400,400);
+			root = loader.load();
+			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("application/views.css").toExternalForm());
 			primaryStage.setScene(scene);
 			

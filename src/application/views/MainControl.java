@@ -1,6 +1,12 @@
 package application.views;
 
+import java.io.File;
+import java.io.IOException;
+
 import application.MainApplication;
+import application.views.plan.BaseEmployeeController;
+import application.views.plan.util.Fader;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,30 +16,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainControl {
 	
-	@FXML
-	private Label lblStatus;
+	@FXML private Label lblStatus;
+	@FXML private TextField txtUsername;
+	@FXML private TextField txtPassword;
+	@FXML private TextField confirmPassword;
+	@FXML private TextField staffID;
 	
-	@FXML
-	private TextField txtUsername;
-	
-	@FXML
-	private TextField txtPassword;
-	
-	@FXML
-	private TextField confirmPassword;
-	
-	@FXML
-	private TextField staffID;
-	
-	@FXML 
-	private Button regButton;
-	
-	@FXML 
-	private Button backButton;
+	@FXML private Button regButton;
+	@FXML private Button backButton;
 	
 	private MainApplication main;
 	
@@ -41,28 +37,10 @@ public class MainControl {
 	@FXML
 	public void Login(ActionEvent event) throws Exception {
 		
-		/* check to see if username/password combo corresponds to a registered staff member, or a client */
-		
 		Stage stage;
 		
 		if (txtUsername.getText().equals("client") && txtPassword.getText().equals("pass")) {
 			lblStatus.setText("Login Successful");
-			
-			
-			
-			
-			
-			/* if user is staff:
-			 * Stage primaryStage = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource("/application/Main.fxml"));
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			 * 
-			 * */
-			
-			/* else if user is client : */
 			stage = (Stage) regButton.getScene().getWindow();
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Main_Client.fxml"));
 			Scene scene = new Scene(root,400,400);
@@ -75,7 +53,15 @@ public class MainControl {
 		else if((txtUsername.getText().equals("employee") && txtPassword.getText().equals("password")) || (txtUsername.getText().equals("") && txtPassword.getText().equals(""))) {
 			lblStatus.setText("Employee login Successful");
 			
-			main.showMain_Employee();
+			FadeTransition fadeTrans = new FadeTransition();
+			fadeTrans.setDuration(Duration.millis(500));
+			fadeTrans.setNode(txtUsername.getParent());
+			fadeTrans.setFromValue(1);
+			fadeTrans.setToValue(0);
+			
+			fadeTrans.setOnFinished(e -> showBase_Employee());
+			
+			fadeTrans.play();
 		}
 		
 		else {
@@ -83,6 +69,35 @@ public class MainControl {
 			lblStatus.setText("Login Failed");
 		}
 	}
+	
+	
+	public void showBase_Employee(){
+    	try {
+    		File file1 = new File("FilmData.xml");
+    		if (file1 != null) main.loadFilmDataFromFile(file1);
+            
+            File file2 = new File("SeanceData.xml");
+            if (file2 != null) main.loadSeanceDataFromFile(file2);
+    		
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
+    		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
+    		
+    		Scene scene = new Scene(mainEmployeeView);
+    		main.getPrimaryStage().setScene(scene);
+    		mainEmployeeView.setOpacity(0);
+    		
+    		BaseEmployeeController controller = loader.getController();
+    		controller.setMain(this.main);
+    		Fader.fadeIn(mainEmployeeView);
+    		
+    		
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+	
+	
 	
 	
 	

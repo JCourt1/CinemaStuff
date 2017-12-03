@@ -127,7 +127,7 @@ public class EmployeeController implements Initializable{
 			String seanceDay = seance.getDay().toString();
 			String chosenDate = ld.toString();
 			
-			String seanceTime = Integer.toString(seance.getTime());
+			String seanceTime = seance.getTime();
 			
 			if (seanceFilm.equals(selectedFilm)) {
 				if (seanceDay.equals(chosenDate)) {
