@@ -18,13 +18,13 @@ public class Fader {
 	
 	
 	public static void fadeIn(Pane pane) {
-		FadeTransition fadeOut = new FadeTransition();
-		fadeOut.setDuration(Duration.millis(1000));
-		fadeOut.setNode(pane);
-		fadeOut.setFromValue(0);
-		fadeOut.setToValue(1);
+		FadeTransition fadeIn = new FadeTransition();
+		fadeIn.setDuration(Duration.millis(2000));
+		fadeIn.setNode(pane);
+		fadeIn.setFromValue(0);
+		fadeIn.setToValue(1);
 		
-		fadeOut.play();
+		fadeIn.play();
 	}
 	
 	

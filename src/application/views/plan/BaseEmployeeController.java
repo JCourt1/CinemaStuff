@@ -14,34 +14,41 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class BaseEmployeeController implements Initializable{
 	
-	
+
+	private MainApplication main;
+	private ViewByDateController viewByDateController;
 	
 	@FXML private Button exportData;
 	@FXML private Button manageFilms;
 	@FXML private Button logOut;
 	@FXML private ComboBox<String> viewBy;
-	@FXML private AnchorPane viewByWindow;
-	
-	
-	private MainApplication main;
+	@FXML private BorderPane viewByWindow;
+	private AnchorPane root;
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
         viewBy.getItems().addAll("Date", "Films");
         viewBy.setValue("Date");
        
 		
 	}
 	
-	public void setMain(MainApplication main) {
+	public void setMain(MainApplication main, AnchorPane root) {
+        this.root = root;
         this.main = main;
+        this.main.getPrimaryStage().sizeToScene();
+        
+        root.setOpacity(0);
+		Fader.fadeIn(root);
         
         displayContent();
     }
@@ -63,22 +70,20 @@ public class BaseEmployeeController implements Initializable{
         loader.setLocation(MainApplication.class.getResource(path));
         
         try {
-        viewByWindow.getChildren().clear();
-        viewByWindow.getChildren().add((AnchorPane) loader.load());
+            viewByWindow.getChildren().clear();
+            viewByWindow.setCenter((AnchorPane) loader.load());
+//            viewByWindow.getChildren().add((AnchorPane) loader.load());
+            
+            } catch (Exception e) {
+            	e.printStackTrace();
+            }
         
-        } catch (Exception e) {
-        	e.printStackTrace();
+        if (doc.equals("viewByDate.fxml")) {
+        	viewByDateController = loader.getController();
+        	viewByDateController.setMain(this.main);
         }
         
-        switch (doc) {
-        	case "viewFilmInfo.fxml":
-        		ViewFilmInfoController controller = loader.getController();
-        		controller.setMain(this.main);
-        		break;
-        	default: 
-        		ViewByDateController controller2 = loader.getController();
-        		controller2.setMain(this.main);
-        }
+        
 	}
 	
 	@FXML
@@ -106,6 +111,10 @@ public class BaseEmployeeController implements Initializable{
             tempStage.setScene(scene);
             
             tempStage.showAndWait();
+            
+//            displayContent();
+            
+            viewByDateController.refreshData();
 //            tempStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

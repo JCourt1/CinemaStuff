@@ -1,9 +1,6 @@
 package application;
 	
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 
 import javax.xml.bind.JAXBContext;
@@ -14,21 +11,16 @@ import application.models.films.Film;
 import application.models.films.FilmListWrapper;
 import application.models.films.Seance;
 import application.models.films.SeanceListWrapper;
-import application.views.EmployeeController;
 import application.views.MainControl;
-import application.views.plan.BaseEmployeeController;
-import application.views.plan.util.Fader;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 
 public class MainApplication extends Application {
@@ -38,12 +30,28 @@ public class MainApplication extends Application {
 	
 	private ObservableList<Seance> seanceData = FXCollections.observableArrayList();
 	private ObservableList<Film> filmData = FXCollections.observableArrayList();
+	
+	@Override
+	public void start(Stage pStage) {
+		primaryStage = pStage;
+		primaryStage.setTitle("Cinema Booking System");
+		
+		initLogin();
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
 
     /**
      * Constructor
      */
     public MainApplication() {
         // Add some sample data
+    	
+    	
+    	filmData.add(new Film("TestFilm", "resources/images/ABook.png", "film about nothing", 5));
+    	
     	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "12:00", "Indiana Jones"));
     	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "13:00", "Indiana Jones"));
     	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "14:00", "Indiana Jones"));
@@ -63,203 +71,105 @@ public class MainApplication extends Application {
         return filmData;
     }
     
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
     
     
-//    public void showBase_Employee(){
-//    	try {
-//    		File file1 = new File("FilmData.xml");
-//    		if (file1 != null) loadFilmDataFromFile(file1);
-//            
-//            File file2 = new File("SeanceData.xml");
-//            if (file2 != null) loadSeanceDataFromFile(file2);
-//    		
-//    		FXMLLoader loader = new FXMLLoader();
-//    		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
-//    		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
-//    		
-//    		Scene scene = new Scene(mainEmployeeView);
-//    		primaryStage.setScene(scene);
-//    		
-//    		
-//    		BaseEmployeeController controller = loader.getController();
-//    		controller.setMain(this);
-//    		
-//    		
-//    	} catch (IOException e) {
-//    		e.printStackTrace();
-//    	}
-//    }
     
     
     public void initLogin() {
     	try {
-    		
-    		
-    		
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApplication.class.getResource("views/Login.fxml"));
     		
 			root = loader.load();
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(getClass().getResource("application/views.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("views/application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			
 			MainControl controller = loader.getController();
             controller.setMain(this);
-			
-			
+            primaryStage.sizeToScene();
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
     }
     
-    
-    
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-    
-  
-    
-	
-	@Override
-	public void start(Stage pStage) {
-		primaryStage = pStage;
-		primaryStage.setTitle("Cinema Booking System");
-		
-		initLogin();
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	///// Loading and saving data to and from filmData and seanceData
 	
-	
-	
-	
-	
-	public void loadSeanceDataFromFile(File file) {
-    	try {
-    		
-    		JAXBContext context = JAXBContext.newInstance(SeanceListWrapper.class);
-    		Unmarshaller unmarshalleur = context.createUnmarshaller();
-    		
-    		SeanceListWrapper wrap = (SeanceListWrapper) unmarshalleur.unmarshal(file);
-    		
-    		seanceData.clear();
-    		seanceData.addAll(wrap.getSeances());
-    		
-    	} catch (Exception e) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Could not load: " + file.getPath());
+    public void loadData(File file) {
+		try {
+			
+			
+			switch (file.toString()) {
+				case "FilmData.xml":
+					JAXBContext context = JAXBContext.newInstance(FilmListWrapper.class);
+		    		Unmarshaller unmarshalleur = context.createUnmarshaller();
+		    		FilmListWrapper wrap = (FilmListWrapper) unmarshalleur.unmarshal(file);
+		    		filmData.clear();
+		    		filmData.addAll(wrap.getFilms());
+					break;
+				case "SeanceData.xml":
+					JAXBContext context2 = JAXBContext.newInstance(SeanceListWrapper.class);
+					Unmarshaller unmarshalleur2 = context2.createUnmarshaller();
+					SeanceListWrapper wrap2 = (SeanceListWrapper) unmarshalleur2.unmarshal(file);
+					seanceData.clear();
+					seanceData.addAll(wrap2.getSeances());
+					break;	
+			}
 
-            alert.showAndWait();
-    	}
-    }
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText("Could not load: " + file.getPath());
+
+			alert.showAndWait();
+		}
+		
+	}
     
-    public void saveSeanceDataToFile(File file) {
-    	try {
-    		
-    		JAXBContext context = JAXBContext.newInstance(SeanceListWrapper.class);
-    		Marshaller marshalleur = context.createMarshaller();
-    		marshalleur.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    		
-    		SeanceListWrapper wrap = new SeanceListWrapper();
-    		wrap.setSeances(seanceData);
-    		
-    		//Save XML to the file
-    		marshalleur.marshal(wrap, file);
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
+    
+    
+    
+    public void saveData(File file) {
+		try {
+			
+			
+			switch (file.toString()) {
+				case "FilmData.xml":
+					JAXBContext context = JAXBContext.newInstance(FilmListWrapper.class);
+		    		Marshaller marshalleur = context.createMarshaller();
+		    		marshalleur.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		    		
+		    		FilmListWrapper wrap = new FilmListWrapper();
+		    		wrap.setFilms(filmData);
+		    		
+		    		//Save XML to the file
+		    		marshalleur.marshal(wrap, file);
+					break;
+				case "SeanceData.xml":
+					JAXBContext context2 = JAXBContext.newInstance(SeanceListWrapper.class);
+		    		Marshaller marshalleur2 = context2.createMarshaller();
+		    		marshalleur2.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		    		
+		    		SeanceListWrapper wrap2 = new SeanceListWrapper();
+		    		wrap2.setSeances(seanceData);
+		    		
+		    		marshalleur2.marshal(wrap2, file);
+					break;	
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not save data in file: " + file.getPath());
 
             alert.showAndWait();
-    	}
-    }
-    
-    public void loadFilmDataFromFile(File file) {
-    	try {
-    		
-    		JAXBContext context = JAXBContext.newInstance(FilmListWrapper.class);
-    		Unmarshaller unmarshalleur = context.createUnmarshaller();
-    		
-    		FilmListWrapper wrap = (FilmListWrapper) unmarshalleur.unmarshal(file);
-    		
-    		filmData.clear();
-    		filmData.addAll(wrap.getFilms());
-    		
-    	} catch (Exception e) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Could not load: " + file.getPath());
-
-            alert.showAndWait();
-    	}
-    }
-    
-    public void saveFilmDataToFile(File file) {
-    	try {
-    		
-    		JAXBContext context = JAXBContext.newInstance(FilmListWrapper.class);
-    		Marshaller marshalleur = context.createMarshaller();
-    		marshalleur.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    		
-    		FilmListWrapper wrap = new FilmListWrapper();
-    		wrap.setFilms(filmData);
-    		
-    		//Save XML to the file
-    		marshalleur.marshal(wrap, file);
-    		
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setContentText("Could not save data in file: " + file.getPath());
-
-            alert.showAndWait();
-    	}
-    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		}
+		
+	}
 	
 	
 	

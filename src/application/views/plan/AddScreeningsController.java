@@ -6,30 +6,27 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.sun.javafx.tk.Toolkit;
-
 import application.MainApplication;
 import application.models.films.Film;
 import application.models.films.Seance;
 import application.views.plan.util.MultiSelect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -38,12 +35,16 @@ public class AddScreeningsController implements Initializable {
 	private MainApplication main;
 	private ArrayList<String> tempDates;
 	private ObservableList<String> list;
+	private Stage tempStage;
 	
 //	@FXML private ComboBox<String> films;
 	@FXML private ComboBox<Film> films;
 	@FXML private ListView<String> times;
 	
 	
+	
+	
+	@FXML private Label chooseADate;
 	@FXML private DatePicker dates;
 	@FXML private Button saveBtn;
 	@FXML private ImageView pic;
@@ -63,10 +64,11 @@ public class AddScreeningsController implements Initializable {
 		}
 		
 		File file = new File("SeanceData.xml");
-		main.saveSeanceDataToFile(file);
+		
+		main.saveData(file);
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
-//        alert.initOwner(main.getPrimaryStage());
+        alert.initOwner(tempStage);
         alert.setTitle("Save successful");
         
         String pluralOrNot = "";
@@ -74,7 +76,6 @@ public class AddScreeningsController implements Initializable {
         	pluralOrNot += "s";
         }
         alert.setHeaderText(String.format("Screening%s successfully saved", pluralOrNot));
-//        alert.setContentText(errorMessage);
         
         alert.showAndWait();
 		
@@ -87,15 +88,20 @@ public class AddScreeningsController implements Initializable {
 	private void datePicked() {
 		
 		tempDates = new ArrayList<String>();
+		times.getSelectionModel().clearSelection();
 		
 		if (dates.getValue() != null) {
+			chooseADate.setText("");
 			for (Seance screening : main.getSeanceData()) {
 				if (screening.getDay().equals(dates.getValue())) {
-					System.out.println("bon");
 				tempDates.add(screening.getTime());
 				}
 			}
-		}
+		} else {
+			chooseADate.setText("Choose a date to see what times are available");
+		} 
+		
+		
 		times.refresh();
 		
 		
@@ -107,16 +113,28 @@ public class AddScreeningsController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		chooseADate.setText("Choose a date to see what times are available");
 	}
 	
 	
 	
 	
 	
-	public void setMain(MainApplication main) {
-		this.main = main;
+	
+	
+	
+	
+	public void setMain(MainApplication main, Stage tempStage) {
 		
+		this.main = main;
+		this.tempStage = tempStage;
+		
+		
+		
+		
+		
+		
+
 		
 		films.setItems(main.getFilmData());
 		films.setCellFactory((comboBox) -> {
@@ -189,39 +207,54 @@ public class AddScreeningsController implements Initializable {
 							setGraphic(null);
 						} else {
 							setText(item);
-							
 							setDisable(false); //this was causing the problem. It needs to be reset
 							setStyle("-fx-background-color: lightblue");
-							
-							if (dates.getValue() != null) {
+
+							if (dates.getValue() == null) {
+								setDisable(true);
+							} else {
+								
+								//
+								setStyle("-fx-background-color: lightgreen");
+
 								LocalDate date = dates.getValue();
 								for (String time : tempDates) {
 									if (time.equals(item)) {
 										setText(item + " - already booked");
 										setDisable(true);
 										setStyle("-fx-background-color: red");
-										
-										System.out.println(time + " " + item);
-										String listString = String.join(", ", tempDates);
-										System.out.println(listString);
 										return;
 									}
 								}
-								
-								
 							}
-
-
 						}
-
-
 					}
-
 				};
 			}
 		});
 		
 		
-	}
+		
+		
+		
+		
+		
+		
+		
+		
+	}	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

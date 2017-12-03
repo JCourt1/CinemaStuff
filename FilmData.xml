@@ -1,69 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <films>
     <film>
-        <name>dfgdfg</name>
-        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
-        <ticketPrice>0</ticketPrice>
-    </film>
-    <film>
-        <name>erdr</name>
-        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
-        <ticketPrice>0</ticketPrice>
-    </film>
-    <film>
+        <description>Groundhog day</description>
         <name>Groundhog Day</name>
         <path>resources/images/Groundhog Day.png</path>
-        <ticketPrice>0</ticketPrice>
+        <ticketPrice>5</ticketPrice>
     </film>
     <film>
-        <name>Hello</name>
-        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
-        <ticketPrice>0</ticketPrice>
-    </film>
-    <film>
+        <description>aadwd</description>
         <name>Indiana Jones</name>
-        <path>resources/images/ABook.png</path>
-        <ticketPrice>0</ticketPrice>
+        <path>resources/images/Indiana Jones.png</path>
+        <ticketPrice>8</ticketPrice>
     </film>
     <film>
-        <name>lotr</name>
-        <path>resources/images/lotr.png</path>
-        <ticketPrice>0</ticketPrice>
+        <description>pulp fiction</description>
+        <name>Pulp fiction</name>
+        <path>resources/images/Pulp fiction.png</path>
+        <ticketPrice>8</ticketPrice>
     </film>
     <film>
-        <name>pulp fiction</name>
-        <path>resources/images/pulp fiction.png</path>
-        <ticketPrice>0</ticketPrice>
+        <description>n American Werewolf in London is a 1981 horror comedy film written and directed by John Landis and starring David Naughton, Jenny Agutter and Griffin Dunne</description>
+        <name>Werewolf in London 2</name>
+        <path>resources/images/Werewolf in London 2.png</path>
+        <ticketPrice>8</ticketPrice>
     </film>
     <film>
-        <name>Star Wars</name>
-        <path>resources/images/Star Wars.png</path>
-        <ticketPrice>0</ticketPrice>
-    </film>
-    <film>
-        <name>Werewolf in London</name>
-        <path>/Users/josephcourtley/Documents/workspace/CinemaStuff/resources/images/ABook.png</path>
-        <ticketPrice>0</ticketPrice>
-    </film>
-    <film>
+        <description>fghfghfgh</description>
         <name>Men in black</name>
         <path>resources/images/Men in black.png</path>
-        <ticketPrice>0</ticketPrice>
+        <ticketPrice>8</ticketPrice>
     </film>
     <film>
-        <name>Hklsdjfljdsf</name>
-        <path>resources/images/Hklsdjfljdsf.png</path>
-        <ticketPrice>0</ticketPrice>
-    </film>
-    <film>
+        <description>Another description.</description>
         <name>The Godfather 2</name>
         <path>resources/images/The Godfather 2.png</path>
-        <ticketPrice>0</ticketPrice>
+        <ticketPrice>5</ticketPrice>
     </film>
     <film>
         <description>The Last of the Mohicans is a 1992 American epic historical drama, set in 1757 during the French and Indian War.</description>
         <name>Last of the Mohicans</name>
         <path>resources/images/Last of the Mohicans.png</path>
-        <ticketPrice>5</ticketPrice>
+        <ticketPrice>8</ticketPrice>
+    </film>
+    <film>
+        <description>A new Hope</description>
+        <name>Star Wars</name>
+        <path>resources/images/Star Wars.png</path>
+        <ticketPrice>8</ticketPrice>
+    </film>
+    <film>
+        <description>A German submarine patrols the Atlantic Ocean during World War II, manned by a crew that must contend with tense conflicts and long stretches of confined boredom.</description>
+        <name>Das Boot</name>
+        <path>resources/images/Das Boot.png</path>
+        <ticketPrice>8</ticketPrice>
     </film>
 </films>

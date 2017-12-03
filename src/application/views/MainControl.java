@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -32,7 +33,6 @@ public class MainControl {
 	@FXML private Button backButton;
 	
 	private MainApplication main;
-	
 	
 	@FXML
 	public void Login(ActionEvent event) throws Exception {
@@ -53,8 +53,21 @@ public class MainControl {
 		else if((txtUsername.getText().equals("employee") && txtPassword.getText().equals("password")) || (txtUsername.getText().equals("") && txtPassword.getText().equals(""))) {
 			lblStatus.setText("Employee login Successful");
 			
+			try {
+	    		File file1 = new File("FilmData.xml");
+	    		main.loadData(file1);
+	            
+	            File file2 = new File("SeanceData.xml");
+	            main.loadData(file2);
+	    		
+	    	} catch (Exception e) {
+	    		
+	    		System.out.println("can't load data");
+	    		return;
+	    	}
+			
 			FadeTransition fadeTrans = new FadeTransition();
-			fadeTrans.setDuration(Duration.millis(500));
+			fadeTrans.setDuration(Duration.millis(1000));
 			fadeTrans.setNode(txtUsername.getParent());
 			fadeTrans.setFromValue(1);
 			fadeTrans.setToValue(0);
@@ -62,6 +75,7 @@ public class MainControl {
 			fadeTrans.setOnFinished(e -> showBase_Employee());
 			
 			fadeTrans.play();
+//			showBase_Employee();
 		}
 		
 		else {
@@ -72,29 +86,29 @@ public class MainControl {
 	
 	
 	public void showBase_Employee(){
+    	
+    	
     	try {
-    		File file1 = new File("FilmData.xml");
-    		if (file1 != null) main.loadFilmDataFromFile(file1);
-            
-            File file2 = new File("SeanceData.xml");
-            if (file2 != null) main.loadSeanceDataFromFile(file2);
-    		
-    		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
-    		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
-    		
-    		Scene scene = new Scene(mainEmployeeView);
-    		main.getPrimaryStage().setScene(scene);
-    		mainEmployeeView.setOpacity(0);
-    		
-    		BaseEmployeeController controller = loader.getController();
-    		controller.setMain(this.main);
-    		Fader.fadeIn(mainEmployeeView);
-    		
-    		
+    	FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
+		AnchorPane baseEmployeeView = (AnchorPane) loader.load();
+		
+		Scene scene = new Scene(baseEmployeeView);
+		
+		main.getPrimaryStage().setScene(scene);
+		baseEmployeeView.setOpacity(0);
+		main.getPrimaryStage().setScene(scene);
+		BaseEmployeeController controller = loader.getController();
+		controller.setMain(this.main, baseEmployeeView);
     	} catch (IOException e) {
+    		
     		e.printStackTrace();
     	}
+    	
+    	
+    	
+    	
+    	
     }
 	
 	
@@ -163,12 +177,10 @@ public class MainControl {
 		
 	}
 	
+	
 	public void setMain(MainApplication main) {
         this.main = main;
     }
-	
-	
-	
 	
 	
 
