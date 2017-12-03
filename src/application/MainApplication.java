@@ -15,6 +15,7 @@ import application.models.films.Seance;
 import application.models.films.SeanceListWrapper;
 import application.views.EmployeeController;
 import application.views.MainControl;
+import application.views.plan.BaseEmployeeController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,6 +61,7 @@ public class MainApplication extends Application {
     }
     
     
+    
     public void showMain_Employee(){
     	try {
     		
@@ -76,13 +78,13 @@ public class MainApplication extends Application {
     		
     		
     		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(MainApplication.class.getResource("views/Main_Employee.fxml"));
+    		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
     		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
     		
     		Scene scene = new Scene(mainEmployeeView);
     		primaryStage.setScene(scene);
     		
-    		EmployeeController controller = loader.getController();
+    		BaseEmployeeController controller = loader.getController();
     		controller.setMain(this);
     		
     		

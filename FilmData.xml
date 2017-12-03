@@ -18,7 +18,7 @@
     </film>
     <film>
         <name>Indiana Jones</name>
-        <path>CinemaStuff/resources/images/ABook.png</path>
+        <path>resources/images/ABook.png</path>
     </film>
     <film>
         <name>lotr</name>
@@ -43,5 +43,9 @@
     <film>
         <name>Hklsdjfljdsf</name>
         <path>resources/images/Hklsdjfljdsf.png</path>
+    </film>
+    <film>
+        <name>The Godfather 2</name>
+        <path>resources/images/The Godfather 2.png</path>
     </film>
 </films>
