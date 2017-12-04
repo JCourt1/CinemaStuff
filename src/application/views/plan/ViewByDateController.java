@@ -113,8 +113,9 @@ public class ViewByDateController implements Initializable {
 							box.setSpacing(10) ;
 							imageview.setPreserveRatio(true);
 							imageview.setImage(image); 
-							imageview.setFitHeight(70);
-							imageview.setFitWidth(70);
+							imageview.setFitHeight(130);
+//							imageview.setFitWidth(70);
+							
 
 
 							box.getChildren().addAll(imageview);
