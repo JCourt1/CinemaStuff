@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -12,7 +13,7 @@ import javax.imageio.ImageIO;
 import application.MainApplication;
 import application.models.films.Film;
 import application.models.films.Seance;
-import application.views.plan.util.FilmSaveException;
+import application.views.plan.util.DataSaveException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,6 +54,8 @@ public class ManageFilmsController implements Initializable {
 	@FXML private CheckBox toEditFilm;
 	@FXML private ComboBox<Film> chooseExistingFilm;
 	@FXML private Label oldPicPath;
+	
+	private ViewByDateController viewByDateController;
 
 	private Stage stage;
 	
@@ -83,23 +86,39 @@ public class ManageFilmsController implements Initializable {
 	@FXML
 	private void deleteFilm() {
 		
-		films = main.getFilmData();
-		int size = films.size();
+		String filmName = chooseExistingFilm.getSelectionModel().getSelectedItem().getName();
 		
-		for (int i = 0; i < size; i++) {
-			
-			if (films.get(i).equals(chooseExistingFilm.getSelectionModel().getSelectedItem())) {
-				films.remove(i);
-				
+		File picToDelete = new File("resources/images/" + filmName + ".png");
+		
+		if (picToDelete.exists()) {
+			picToDelete.delete();
+		}
+		
+		Iterator<Film> films = main.getFilmData().iterator();
+		while (films.hasNext()) {
+			Film f = films.next();
+			if (f.getName().equals(filmName)) {
+				films.remove();
 				File file = new File("FilmData.xml");
 				main.saveData(file);
-				
-//				viewByDate.
-				
-				
-				return;
 			}
+			
 		}
+		
+		
+		Iterator<Seance> seances = main.getSeanceData().iterator();
+		while (seances.hasNext()) {
+			Seance s = seances.next();
+			if (s.getFilm().equals(filmName)) {
+				seances.remove();
+			}
+			
+		}
+		File file2 = new File("SeanceData.xml");
+		main.saveData(file2);
+		
+		viewByDateController.refreshData();
+		
 	}
 	
 	
@@ -157,7 +176,6 @@ public class ManageFilmsController implements Initializable {
 		Integer ticketPrice = ticketCost.getValue();
 		
 		
-
 		BufferedImage image;
 		File imageFile = new File(oldPath);
 		try {
@@ -166,12 +184,11 @@ public class ManageFilmsController implements Initializable {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			return;
 		}
 		
-			if (toEditFilm.isSelected() && chooseExistingFilm.getValue() != null) {
-				
-				try {
+		if (toEditFilm.isSelected() && chooseExistingFilm.getValue() != null) {
+
+			try {
 				String oldName = chooseExistingFilm.getSelectionModel().getSelectedItem().getName();
 
 				for (Film film : main.getFilmData()) {
@@ -184,7 +201,7 @@ public class ManageFilmsController implements Initializable {
 						alert.setHeaderText(String.format("Overwrite existing film details?"));
 						Optional<ButtonType> result = alert.showAndWait();
 						if(!result.isPresent()) {
-							throw new FilmSaveException("You need to confirm the save");
+							throw new DataSaveException("You need to confirm the save");
 
 						} else if(result.get() == ButtonType.OK) {
 							film.setName(filmN);
@@ -202,22 +219,26 @@ public class ManageFilmsController implements Initializable {
 							File file2 = new File("SeanceData.xml");
 							main.saveData(file2);
 							
+							
+							
+							
+							
+							
 							return;
 
 						} else if(result.get() == ButtonType.CANCEL)
-							throw new FilmSaveException("Cancel selected");
+							throw new DataSaveException("Cancel selected");
 					}
 				}
-				} catch (FilmSaveException e) {
-					e.toString();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
+			} catch (DataSaveException e) {
+				e.toString();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
+		}
 		
-
+		
 
 		Film newFilm = new Film(filmN, newPath, descrip, ticketPrice);
 
@@ -304,8 +325,9 @@ public class ManageFilmsController implements Initializable {
 		
 	}
 	
-	public void setMain(MainApplication main) {
+	public void setMain(MainApplication main, ViewByDateController viewByDateController) {
 		this.main = main;
+		this.viewByDateController = viewByDateController;
 	
 	chooseExistingFilm.setItems(main.getFilmData());
 	chooseExistingFilm.setCellFactory((comboBox) -> {

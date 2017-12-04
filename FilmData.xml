@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <films>
     <film>
-        <description>Groundhog day</description>
-        <name>Groundhog Day</name>
-        <path>resources/images/Groundhog Day.png</path>
-        <ticketPrice>5</ticketPrice>
-    </film>
-    <film>
-        <description>aadwd</description>
-        <name>Indiana Jones</name>
-        <path>resources/images/Indiana Jones.png</path>
-        <ticketPrice>8</ticketPrice>
-    </film>
-    <film>
         <description>pulp fiction</description>
         <name>Pulp fiction</name>
         <path>resources/images/Pulp fiction.png</path>
         <ticketPrice>8</ticketPrice>
     </film>
     <film>
-        <description>n American Werewolf in London is a 1981 horror comedy film written and directed by John Landis and starring David Naughton, Jenny Agutter and Griffin Dunne</description>
+        <description>An American Werewolf in London is a 1981 horror comedy film written and directed by John Landis and starring David Naughton, Jenny Agutter and Griffin Dunne</description>
         <name>Werewolf in London 2</name>
         <path>resources/images/Werewolf in London 2.png</path>
         <ticketPrice>8</ticketPrice>
@@ -52,6 +40,12 @@
         <description>A German submarine patrols the Atlantic Ocean during World War II, manned by a crew that must contend with tense conflicts and long stretches of confined boredom.</description>
         <name>Das Boot</name>
         <path>resources/images/Das Boot.png</path>
+        <ticketPrice>8</ticketPrice>
+    </film>
+    <film>
+        <description>The future of civilization rests in the fate of the One Ring, which has been lost for centuries. Powerful forces are unrelenting in their search for it. But fate has placed it in the hands of a young Hobbit named Frodo Baggins (Elijah Wood), who inherits the Ring and steps into legend. </description>
+        <name>Lord of the Rings</name>
+        <path>resources/images/Lord of the Rings.png</path>
         <ticketPrice>8</ticketPrice>
     </film>
 </films>

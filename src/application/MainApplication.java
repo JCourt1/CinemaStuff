@@ -47,16 +47,7 @@ public class MainApplication extends Application {
      * Constructor
      */
     public MainApplication() {
-        // Add some sample data
     	
-    	
-    	filmData.add(new Film("TestFilm", "resources/images/ABook.png", "film about nothing", 5));
-    	
-    	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "12:00", "Indiana Jones"));
-    	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "13:00", "Indiana Jones"));
-    	seanceData.add(new Seance(LocalDate.of(2017, 12, 10), "14:00", "Indiana Jones"));
-    	
-        
     }
 
     /**

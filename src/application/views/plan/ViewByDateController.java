@@ -4,26 +4,37 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.MainApplication;
 import application.models.films.Film;
 import application.models.films.Seance;
+import application.views.plan.util.DataSaveException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -36,6 +47,7 @@ public class ViewByDateController implements Initializable {
 	
 	
 	private MainApplication main;
+	private ObjectProperty<TableRow<Film>> selectedRow = new SimpleObjectProperty<>();
 
 	private ObservableList<Film> filteredFilmData;
 	private ObservableList<Seance> filteredSeanceData;
@@ -55,6 +67,7 @@ public class ViewByDateController implements Initializable {
 
 
 	@FXML private Button addScreenings;
+	@FXML private Button deleteScreenings;
 
 
 	@FXML
@@ -69,13 +82,22 @@ public class ViewByDateController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		
+		//setting what goes in the filmtable columns name, description and image
 
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<Film, String>("name"));
-
-
-
 		filmDescripColumn.setCellValueFactory(new PropertyValueFactory<Film, String>("description"));
+		imageColumn.setCellValueFactory(cellData -> cellData.getValue().pathProperty());
+		
+		
+		// setting what goes in the screenings table
+		
+		filmNameColumn2.setCellValueFactory(cellData -> cellData.getValue().filmProperty());
+		dateColumn.setCellValueFactory(new PropertyValueFactory<Seance, LocalDate>("day"));
+		timeColumn.setCellValueFactory(new PropertyValueFactory<Seance, Integer>("time"));
 
+		
+		//setting how to render the Film Description column
+		
 		filmDescripColumn.setCellFactory(new Callback<TableColumn<Film, String>, TableCell<Film, String>>() {
 
 			@Override
@@ -94,10 +116,9 @@ public class ViewByDateController implements Initializable {
 			}
 
 		});
-
-
-		imageColumn.setCellValueFactory(cellData -> cellData.getValue().pathProperty());
-
+		
+		//setting the rendering of images in the table
+		
 		imageColumn.setCellFactory(new Callback<TableColumn<Film,String>,TableCell<Film,String>>(){        
 			@Override
 			public TableCell<Film,String> call(TableColumn<Film,String> param) {                
@@ -113,7 +134,7 @@ public class ViewByDateController implements Initializable {
 							box.setSpacing(10) ;
 							imageview.setPreserveRatio(true);
 							imageview.setImage(image); 
-							imageview.setFitHeight(130);
+							imageview.setFitHeight(170);
 //							imageview.setFitWidth(70);
 							
 
@@ -127,10 +148,14 @@ public class ViewByDateController implements Initializable {
 			}
 
 		});
-
+		
+		
+		// setting a listener on the selected item in the film table to update the screenings table
 
 		filmTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
 			filteredSeanceData.clear();
+			
 			if (newSelection == null) {
 				screeningsTable.getSelectionModel().clearSelection();
 			} else {
@@ -138,23 +163,120 @@ public class ViewByDateController implements Initializable {
 				String name = newSelection.getName();
 				for (Seance seance : main.getSeanceData()) {
 					if (seance.getFilm().equals(name)) {
-						filteredSeanceData.add(seance);
+
+						if (datePicker.getValue() != null) {
+							if (datePicker.getValue().equals(seance.getDay())) {
+								filteredSeanceData.add(seance);
+							}
+						} else {
+							filteredSeanceData.add(seance);
+						}
 					}
 				}
-
-
-
 			} 
+		});
 
-			
+		// deselect rows if you click on them when they are already selected
+
+		filmTable.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> {
+			Node source = evt.getPickResult().getIntersectedNode();
+
+			while (source != null && !(source instanceof TableRow)) {
+				source = source.getParent();
+			}
+
+			if (source == null || (source instanceof TableRow && ((TableRow) source).equals(selectedRow.get()))) {
+				filmTable.getSelectionModel().clearSelection();
+				selectedRow = new SimpleObjectProperty<>();
+				return;
+			}
+
+			selectedRow.set((TableRow) source);
+
 		});
 		
 		
-		filmNameColumn2.setCellValueFactory(cellData -> cellData.getValue().filmProperty());
-		dateColumn.setCellValueFactory(new PropertyValueFactory<Seance, LocalDate>("day"));
-		timeColumn.setCellValueFactory(new PropertyValueFactory<Seance, Integer>("time"));
 		
-	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// adding a listener to the date picker to update what is displayed in the film table and screenings table
+		
+		datePicker.valueProperty().addListener((obs, oldSelection, newSelection) -> {
+			
+			
+			
+			if (newSelection == null) {
+				filteredSeanceData.clear();
+				filteredFilmData.clear();
+				
+				for (Film film : main.getFilmData()) {
+					filteredFilmData.add(film);
+				}
+				refreshData();
+
+				return;
+			}
+			
+			
+			if (newSelection.isBefore(LocalDate.now())) {
+				System.out.println("You can't pick a time before today");
+				return;
+			}
+			
+			Film chosenFilm = filmTable.getSelectionModel().getSelectedItem();
+			
+			filteredSeanceData.clear();
+			filteredFilmData.clear();
+
+				ArrayList<String> filmNames = new ArrayList<String>();
+				
+				for (Seance seance : main.getSeanceData()) {
+
+					if (seance.getDay().equals(newSelection)) {
+						filteredSeanceData.add(seance);
+
+						String filmName = seance.getFilm();
+						if (!(filmNames.contains(filmName))) {
+
+							filmNames.add(filmName);
+						}
+					}
+				}
+				
+				
+				for (Film film : main.getFilmData()) {
+					if (filmNames.contains(film.getName())) {
+						filteredFilmData.add(film);
+					}
+				}
+				
+				if (chosenFilm != null) {
+					
+					filmTable.getSelectionModel().selectFirst();
+					for (int i = 0; i < filmTable.getItems().size(); i++) {
+				        if (filmTable.getItems().get(i).getName() == chosenFilm.getName()) {
+				            filmTable.getSelectionModel().select(i);
+				        }
+				    }
+
+				}
+				
+				
+				
+				
+				refreshData();
+			
+
+		}
+
+		);}
 
 
 
@@ -162,48 +284,84 @@ public class ViewByDateController implements Initializable {
 	@FXML
 	private void chooseDate() {
 		
-		System.out.println("h1");
+		
 
-		if (datePicker.getValue() == null) {
-			System.out.println("h2");
-			filteredFilmData = FXCollections.observableArrayList(main.getFilmData());
-			refreshData();
-			//			FXCollections.copy(filteredFilmData, main.getFilmData());
+//		if (datePicker.getValue() == null) {
+//			
+//			filteredFilmData = FXCollections.observableArrayList(main.getFilmData());
+//			refreshData();
+//			//			FXCollections.copy(filteredFilmData, main.getFilmData());
+//			return;
+//		}
+//
+//		LocalDate datePicked = datePicker.getValue();
+//
+//		if (datePicked.isBefore(LocalDate.now())) {
+//			System.out.println("You can't pick a time before today");
+//			return;
+//		} 
+//
+//		filteredFilmData.clear();
+//		ArrayList<String> filmNames = new ArrayList<String>();
+//
+//		for (Seance seance : main.getSeanceData()) {
+//			if (seance.getDay().equals(datePicked)) {
+//
+//				String filmName = seance.getFilm();
+//				if (!(filmNames.contains(filmName))) {
+//
+//					filmNames.add(filmName);
+//				}
+//			}
+//		}
+//
+//		for (Film film : main.getFilmData()) {
+//			if (filmNames.contains(film.getName())) {
+//				filteredFilmData.add(film);
+//			}
+//		}
+//
+//		refreshData();
+
+	}
+	
+	
+	@FXML
+	private void deleteScreenings() {
+		
+		Seance screening = screeningsTable.getSelectionModel().getSelectedItem();
+		
+		if (screening == null) {
+			System.out.println("No screening selected");
 			return;
 		}
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.initOwner(filmTable.getScene().getWindow());
+		alert.setTitle("Delete Screenings");
+		alert.setHeaderText(String.format("Delete Existing Screenings?"));
+		Optional<ButtonType> result = alert.showAndWait();
+		try {
+			if(!result.isPresent()) {
+				throw new DataSaveException("You need to confirm the save");
 
-		LocalDate datePicked = datePicker.getValue();
-
-		if (datePicked.isBefore(LocalDate.now())) {
-			System.out.println("You can't pick a time before today");
-			return;
-		} 
-
-		filteredFilmData.clear();
-		ArrayList<String> filmNames = new ArrayList<String>();
-
-		for (Seance seance : main.getSeanceData()) {
-			if (seance.getDay().equals(datePicked)) {
-
-				String filmName = seance.getFilm();
-				if (!(filmNames.contains(filmName))) {
-
-					filmNames.add(filmName);
-				}
-			}
+			} else if(result.get() == ButtonType.OK) {
+				
+				main.getSeanceData().remove(screening);
+				File file = new File("SeanceData.xml");
+				main.saveData(file);
+				filteredSeanceData.remove(screening);
+				
+				refreshData();
+				
+				
+			} else if(result.get() == ButtonType.CANCEL) {
+				throw new DataSaveException("Cancel selected");
+			} 
+		} catch (DataSaveException e) {
+			e.toString();
 		}
 
-		for (Film film : main.getFilmData()) {
-			if (filmNames.contains(film.getName())) {
-				filteredFilmData.add(film);
-			}
-		}
-
-		for (Film film: filteredFilmData) {
-			System.out.println(film.getName() + film.getPath());
-		}
-
-		refreshData();
 
 	}
 

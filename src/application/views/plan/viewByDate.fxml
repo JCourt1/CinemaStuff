@@ -9,29 +9,29 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="607.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.plan.ViewByDateController">
+<AnchorPane prefHeight="777.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.plan.ViewByDateController">
    <children>
-      <Separator layoutX="572.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Label layoutX="714.0" layoutY="6.0" text="Screenings" />
-      <Separator layoutY="23.0" prefHeight="3.0" prefWidth="347.0" AnchorPane.rightAnchor="0.0" />
+      <Separator layoutX="774.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="7.0" />
+      <Label layoutX="983.0" layoutY="5.0" text="Screenings" />
+      <Separator layoutX="777.0" layoutY="23.0" prefHeight="3.0" prefWidth="481.0" />
       <Separator layoutX="3.0" layoutY="58.0" prefHeight="3.0" prefWidth="553.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Button fx:id="addScreenings" layoutX="586.0" layoutY="27.0" mnemonicParsing="false" onAction="#goToAddScreenings" prefHeight="27.0" prefWidth="39.0" text="+" />
-      <Button layoutX="877.0" layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="31.0" text="-" />
-      <ComboBox layoutX="710.0" layoutY="27.0" prefHeight="27.0" prefWidth="77.0" />
-      <TableView fx:id="screeningsTable" layoutX="580.0" layoutY="61.0" prefHeight="540.0" prefWidth="337.0">
+      <Button fx:id="addScreenings" layoutX="781.0" layoutY="27.0" mnemonicParsing="false" onAction="#goToAddScreenings" prefHeight="27.0" prefWidth="39.0" text="+" />
+      <Button fx:id="deleteScreenings" layoutX="1205.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteScreenings" prefHeight="27.0" prefWidth="39.0" text="-" />
+      <ComboBox layoutX="975.0" layoutY="30.0" prefHeight="27.0" prefWidth="77.0" />
+      <TableView fx:id="screeningsTable" layoutX="780.0" layoutY="61.0" prefHeight="716.0" prefWidth="475.0">
         <columns>
-          <TableColumn fx:id="filmNameColumn2" prefWidth="114.0" text="Film" />
-            <TableColumn fx:id="timeColumn" prefWidth="95.0" text="Time" />
-            <TableColumn fx:id="dateColumn" prefWidth="128.0" text="Date" />
+            <TableColumn fx:id="dateColumn" prefWidth="122.0" text="Date" />
+            <TableColumn fx:id="timeColumn" prefWidth="169.0" text="Time" />
+          <TableColumn fx:id="filmNameColumn2" prefWidth="183.0" text="Film" />
         </columns>
       </TableView>
-      <Label layoutX="102.0" layoutY="26.0" prefHeight="17.0" prefWidth="106.0" text="Choose Date:" />
-      <DatePicker fx:id="datePicker" layoutX="216.0" layoutY="21.0" onAction="#chooseDate" />
-      <TableView fx:id="filmTable" layoutX="5.0" layoutY="61.0" prefHeight="540.0" prefWidth="564.0">
+      <Label layoutX="193.0" layoutY="26.0" prefHeight="17.0" prefWidth="106.0" text="Choose Date:" />
+      <DatePicker fx:id="datePicker" layoutX="313.0" layoutY="21.0" onAction="#chooseDate" />
+      <TableView fx:id="filmTable" layoutX="6.0" layoutY="61.0" prefHeight="716.0" prefWidth="768.0">
         <columns>
-          <TableColumn fx:id="imageColumn" prefWidth="86.0" />
-          <TableColumn fx:id="filmNameColumn" prefWidth="110.0" text="Film" />
-            <TableColumn fx:id="filmDescripColumn" prefWidth="366.0" text="Description" />
+          <TableColumn fx:id="imageColumn" prefWidth="116.0" />
+          <TableColumn fx:id="filmNameColumn" prefWidth="225.0" text="Film" />
+            <TableColumn fx:id="filmDescripColumn" prefWidth="400.0" text="Description" />
         </columns>
       </TableView>
    </children>

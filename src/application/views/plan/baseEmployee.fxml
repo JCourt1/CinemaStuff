@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="Button" stylesheets="@baseEmployee.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.plan.BaseEmployeeController">
+<AnchorPane prefHeight="955.0" prefWidth="1351.0" styleClass="Button" stylesheets="@baseEmployee.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.plan.BaseEmployeeController">
    <children>
-      <Label layoutX="14.0" layoutY="17.0" text="Cinema Management" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0">
+      <Label layoutX="19.0" layoutY="14.0" text="Cinema Management">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="logOut" layoutX="840.0" layoutY="35.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="112.0" text="Logout" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="25.0" />
-      <Label layoutX="704.0" layoutY="27.0" prefHeight="17.0" prefWidth="112.0" text="Welcome, user" AnchorPane.rightAnchor="167.0" AnchorPane.topAnchor="27.0" />
-      <Button fx:id="exportData" layoutX="796.0" layoutY="91.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="Export data" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="91.0" />
-      <Label layoutX="14.0" layoutY="69.0" prefHeight="17.0" prefWidth="61.0" text="View by:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="69.0" />
-      <ComboBox fx:id="viewBy" layoutX="84.0" layoutY="64.0" onAction="#chooseView" prefHeight="27.0" prefWidth="92.0" AnchorPane.leftAnchor="84.0" AnchorPane.topAnchor="64.0" />
-      <Button fx:id="manageFilms" layoutX="402.0" layoutY="81.0" mnemonicParsing="false" onAction="#goToManageFilms" prefHeight="31.0" prefWidth="158.0" text="Manage Films" AnchorPane.topAnchor="81.0" />
-      <BorderPane fx:id="viewByWindow" layoutX="34.0" layoutY="120.0" prefHeight="609.0" prefWidth="903.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0" />
+      <Button fx:id="logOut" layoutX="1160.0" layoutY="29.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="112.0" text="Logout" />
+      <Label layoutX="1025.0" layoutY="36.0" prefHeight="17.0" prefWidth="112.0" text="Welcome, user" />
+      <Button fx:id="exportData" layoutX="1176.0" layoutY="82.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="Export data" />
+      <Label layoutX="31.0" layoutY="62.0" prefHeight="17.0" prefWidth="61.0" text="View by:" />
+      <ComboBox fx:id="viewBy" layoutX="104.0" layoutY="57.0" onAction="#chooseView" prefHeight="27.0" prefWidth="92.0" />
+      <Button fx:id="manageFilms" layoutX="596.0" layoutY="45.0" mnemonicParsing="false" onAction="#goToManageFilms" prefHeight="31.0" prefWidth="158.0" text="Manage Films" AnchorPane.topAnchor="45.0" />
+      <BorderPane fx:id="viewByWindow" layoutX="50.0" layoutY="142.0" prefHeight="724.0" prefWidth="1270.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="142.0" />
    </children>
    <padding>
       <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

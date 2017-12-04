@@ -1,10 +1,10 @@
 package application.views.plan.util;
 
-public class FilmSaveException extends Exception {
+public class DataSaveException extends Exception {
 	
 		String str1;
 	   
-		public FilmSaveException(String str2) {
+		public DataSaveException(String str2) {
 		str1=str2;
 	   }
 	   public String toString(){ 

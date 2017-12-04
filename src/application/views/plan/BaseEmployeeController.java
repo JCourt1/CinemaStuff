@@ -104,7 +104,7 @@ public class BaseEmployeeController implements Initializable{
             
             
             ManageFilmsController controller = loader.getController();
-            controller.setMain(this.main);
+            controller.setMain(this.main, viewByDateController);
             controller.setTheStage(tempStage);
             
             Scene scene = new Scene(newPage);
