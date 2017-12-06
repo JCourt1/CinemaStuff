@@ -9,13 +9,17 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import application.models.films.Film;
-import application.models.films.FilmListWrapper;
-import application.models.films.Seance;
-import application.models.films.SeanceListWrapper;
-import application.views.EmployeeController;
-import application.views.MainControl;
-import application.views.plan.BaseEmployeeController;
+import application.Client;
+import application.ClientWrapper;
+import application.Employee;
+import application.EmployeeWrapper;
+import application.Film;
+import application.FilmListWrapper;
+import application.Seance;
+import application.SeanceListWrapper;
+import application.EmployeeController;
+import application.MainControl;
+import application.BaseEmployeeController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,9 +37,13 @@ public class MainApplication extends Application {
 	
 	private Stage primaryStage;
 	
-	private ObservableList<Seance> seanceData = FXCollections.observableArrayList();
-	private ObservableList<Film> filmData = FXCollections.observableArrayList();
-
+	private static ObservableList<Seance> seanceData = FXCollections.observableArrayList();
+	private static ObservableList<Film> filmData = FXCollections.observableArrayList();
+	private static ObservableList<Client> clientData = FXCollections.observableArrayList();
+	private static ObservableList<Employee> employeeData = FXCollections.observableArrayList();
+	private static ObservableList<Booking> bookingData = FXCollections.observableArrayList();
+	
+	
     /**
      * Constructor
      */
@@ -52,25 +60,40 @@ public class MainApplication extends Application {
      * Returns the data as an observable list of Seances. 
      * @return
      */
-    public ObservableList<Seance> getSeanceData() {
+    public static ObservableList<Seance> getSeanceData() {
         return seanceData;
     }
     
-    public ObservableList<Film> getFilmData() {
+    public static ObservableList<Film> getFilmData() {
         return filmData;
     }
+    
+    public static ObservableList<Client> getClientData() {
+        return clientData;
+    }
+    
+    public static ObservableList<Employee> getEmployeeData() {
+        return employeeData;
+    }
+    
+    public static ObservableList<Booking> getBookingData() {
+        return bookingData;
+    }
+    
+    
+    
     
     
     
     public void showMain_Employee(){
     	try {
     		
-    		File file1 = new File("FilmData.xml");
+    		File file1 = new File("src/application/FilmData.xml");
             
             loadFilmDataFromFile(file1);
             
             
-            File file2 = new File("SeanceData.xml");
+            File file2 = new File("src/application/SeanceData.xml");
             if (file2 != null) {
             	loadSeanceDataFromFile(file2);
             }
@@ -78,7 +101,7 @@ public class MainApplication extends Application {
     		
     		
     		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(MainApplication.class.getResource("views/plan/baseEmployee.fxml"));
+    		loader.setLocation(MainApplication.class.getResource("application/baseEmployee.fxml"));
     		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
     		
     		Scene scene = new Scene(mainEmployeeView);
@@ -101,7 +124,7 @@ public class MainApplication extends Application {
     	try {
     		
     		FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApplication.class.getResource("views/Login.fxml"));
+            loader.setLocation(MainApplication.class.getResource("/application/Login.fxml"));
     		
 			Parent root = loader.load();
 			Scene scene = new Scene(root,400,400);
@@ -233,6 +256,126 @@ public class MainApplication extends Application {
     		
     		FilmListWrapper wrap = new FilmListWrapper();
     		wrap.setFilms(filmData);
+    		
+    		//Save XML to the file
+    		marshalleur.marshal(wrap, file);
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Could not save data in file: " + file.getPath());
+
+            alert.showAndWait();
+    	}
+    }
+    
+  
+    
+    public static void loadClientDataFromFile(File file) {
+    	try {
+    		
+    		JAXBContext context = JAXBContext.newInstance(ClientWrapper.class);
+    		Unmarshaller unmarshalleur = context.createUnmarshaller();
+    		
+    		ClientWrapper wrap = (ClientWrapper) unmarshalleur.unmarshal(file);
+    		
+    		clientData.clear();
+    		clientData.addAll(wrap.getClients());
+    		
+    	} catch (Exception e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Could not load: " + file.getPath());
+
+            alert.showAndWait();
+    	}
+    }
+    
+    
+    
+    
+    
+    
+    public static void saveClientDataToFile(File file) {
+    	try {
+    		
+    		JAXBContext context = JAXBContext.newInstance(ClientWrapper.class);
+    		Marshaller marshalleur = context.createMarshaller();
+    		marshalleur.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+    		
+    		ClientWrapper wrap = new ClientWrapper();
+    		wrap.setClients(clientData);
+    		
+    		//Save XML to the file
+    		marshalleur.marshal(wrap, file);
+    		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Could not save data in file: " + file.getPath());
+
+            alert.showAndWait();
+    	}
+    }
+    
+    
+    
+    
+    
+    public static void loadEmployeeDataFromFile(File file) {
+    	try {
+    		
+    		JAXBContext context = JAXBContext.newInstance(EmployeeWrapper.class);
+    		Unmarshaller unmarshalleur = context.createUnmarshaller();
+    		
+    		EmployeeWrapper wrap = (EmployeeWrapper) unmarshalleur.unmarshal(file);
+    		
+    		employeeData.clear();
+    		employeeData.addAll(wrap.getEmployees());
+    		
+    	} catch (Exception e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Could not load: " + file.getPath());
+
+            alert.showAndWait();
+    	}
+    }
+    
+    
+    
+    
+    public static void loadBookingDataFromFile(File file) {
+    	try {
+    		
+    		JAXBContext context = JAXBContext.newInstance(BookingWrapper.class);
+    		Unmarshaller unmarshalleur = context.createUnmarshaller();
+    		
+    		BookingWrapper wrap = (BookingWrapper) unmarshalleur.unmarshal(file);
+    		
+    		bookingData.clear();
+    		bookingData.addAll(wrap.getBookings());
+    		
+    	} catch (Exception e) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText("Could not load: " + file.getPath());
+
+            alert.showAndWait();
+    	}
+    }
+    
+    
+    
+    
+    
+    
+    public static void saveBookingDataToFile(File file) {
+    	try {
+    		
+    		JAXBContext context = JAXBContext.newInstance(BookingWrapper.class);
+    		Marshaller marshalleur = context.createMarshaller();
+    		marshalleur.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+    		
+    		BookingWrapper wrap = new BookingWrapper();
+    		wrap.setBookings(bookingData);
     		
     		//Save XML to the file
     		marshalleur.marshal(wrap, file);

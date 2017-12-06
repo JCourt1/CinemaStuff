@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<clients>
+    <client>
+        <email>david.g.rudolf@gmail.com</email>
+        <firstName>David</firstName>
+        <password>pass</password>
+        <userName>drudolf</userName>
+    </client>
+    <client>
+        <email>clinet@</email>
+        <firstName>client</firstName>
+        <password>password</password>
+        <userName>client</userName>
+    </client>
+    <client>
+        <email>mariananm@gmail.com</email>
+        <firstName>Marian</firstName>
+        <lastName>Norton</lastName>
+        <password>soto</password>
+        <userName>mnorton</userName>
+    </client>
+    <client>
+        <email>dleonard@gmail.com</email>
+        <firstName>David</firstName>
+        <lastName>Keith</lastName>
+        <password>surfing</password>
+        <userName>dleonard</userName>
+    </client>
+</clients>

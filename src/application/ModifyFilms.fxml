@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.addFilmsController">
+   <children>
+      <Button fx:id="saveBtn" layoutX="251.0" layoutY="257.0" mnemonicParsing="false" onAction="#saveFilm" text="Save" />
+      <TextField fx:id="filmName" layoutX="203.0" layoutY="120.0" />
+      <Label layoutX="113.0" layoutY="115.0" prefHeight="37.0" prefWidth="72.0" text="Film name" />
+      <Label fx:id="picName" layoutX="119.0" layoutY="173.0" prefHeight="27.0" prefWidth="59.0" text="PicName" />
+      <Button fx:id="uploadPic" layoutX="203.0" layoutY="173.0" mnemonicParsing="false" onAction="#choosePicture" prefHeight="27.0" prefWidth="167.0" text="Upload Picture" />
+   </children>
+</AnchorPane>
