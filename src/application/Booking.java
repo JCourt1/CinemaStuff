@@ -10,7 +10,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Button;
+
 import java.text.SimpleDateFormat;  
+
+import javafx.scene.control.Button;
 
 /**
  * Model class for a Person.
@@ -38,16 +42,22 @@ public class Booking {
     }
     
 
-    public Booking(String UserName, String Title, String ScreeningDate , int ScreeningTime, String BookingDate, String Seat) {
+    public Booking(String UserName, String Title, LocalDate ScreeningDate , int ScreeningTime, LocalDate BookingDate, String Seat) {
         this.UserName = new SimpleStringProperty(UserName);
         this.Title = new SimpleStringProperty(Title);
-        this.ScreeningDate = new SimpleObjectProperty<LocalDate>(LocalDate.parse(ScreeningDate));
+        this.ScreeningDate = new SimpleObjectProperty<LocalDate>(ScreeningDate);
         this.ScreeningTime = new SimpleIntegerProperty(ScreeningTime);
-        this.BookingDate = new SimpleObjectProperty<LocalDate>(LocalDate.parse(BookingDate));
+        this.BookingDate = new SimpleObjectProperty<LocalDate>(BookingDate);
         this.Seat = new SimpleStringProperty(Seat);
+    
         
         
     }
+    
+    
+   
+  
+    
 
     public String getUserName() {
         return UserName.get();
@@ -81,12 +91,11 @@ public class Booking {
     
     
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
-    
 	public LocalDate getScreeningDate(){
 		return ScreeningDate.get();
 	}
 	
-	public void setDay(LocalDate screeningdate) {
+	public void setScreeningDate(LocalDate screeningdate) {
         this.ScreeningDate.set(screeningdate);
     }
 

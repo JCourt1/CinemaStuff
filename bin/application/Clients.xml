@@ -3,12 +3,14 @@
     <client>
         <email>david.g.rudolf@gmail.com</email>
         <firstName>David</firstName>
+        <lastName>Rudolf</lastName>
         <password>pass</password>
         <userName>drudolf</userName>
     </client>
     <client>
         <email>clinet@</email>
         <firstName>client</firstName>
+        <lastName>client</lastName>
         <password>password</password>
         <userName>client</userName>
     </client>

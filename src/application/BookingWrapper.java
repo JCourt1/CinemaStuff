@@ -15,7 +15,7 @@ public class BookingWrapper {
 	
 	private List<Booking> bookings;
 	
-	@XmlElement(name = "client")
+	@XmlElement(name = "booking")
 	public List<Booking> getBookings() {
 		return bookings;
 	}

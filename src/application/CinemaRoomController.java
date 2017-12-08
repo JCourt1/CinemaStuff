@@ -203,7 +203,7 @@ public class CinemaRoomController {
 		hashtable.put("f6", f6);
 		
 		
-		movieTitle="Inception"; //Change this to a function that gets the name of the movie when the 'book' button is clicked
+		movieTitle="tarzan"; //Change this to a function that gets the name of the movie when the 'book' button is clicked
 
 		File file1 = new File("src/application/Bookings.xml");
         

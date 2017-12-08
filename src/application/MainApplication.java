@@ -43,23 +43,8 @@ public class MainApplication extends Application {
 	private static ObservableList<Employee> employeeData = FXCollections.observableArrayList();
 	private static ObservableList<Booking> bookingData = FXCollections.observableArrayList();
 	
-	
-    /**
-     * Constructor
-     */
-    public MainApplication() {
-        // Add some sample data
-    	seanceData.add(new Seance(12, "Indiana Jones"));
-    	seanceData.add(new Seance(13, "Indiana Jones"));
-    	seanceData.add(new Seance(14, "Indiana Jones"));
-    	
-        
-    }
 
-    /**
-     * Returns the data as an observable list of Seances. 
-     * @return
-     */
+
     public static ObservableList<Seance> getSeanceData() {
         return seanceData;
     }
@@ -223,12 +208,12 @@ public class MainApplication extends Application {
     		e.printStackTrace();
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not save data in file: " + file.getPath());
-
+    		System.out.println(e);
             alert.showAndWait();
     	}
     }
     
-    public void loadFilmDataFromFile(File file) {
+    public static void  loadFilmDataFromFile(File file) {
     	try {
     		
     		JAXBContext context = JAXBContext.newInstance(FilmListWrapper.class);
@@ -242,12 +227,12 @@ public class MainApplication extends Application {
     	} catch (Exception e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not load: " + file.getPath());
-
+    		System.out.println(e);
             alert.showAndWait();
     	}
     }
     
-    public void saveFilmDataToFile(File file) {
+    public static void saveFilmDataToFile(File file) {
     	try {
     		
     		JAXBContext context = JAXBContext.newInstance(FilmListWrapper.class);
@@ -264,7 +249,7 @@ public class MainApplication extends Application {
     		e.printStackTrace();
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not save data in file: " + file.getPath());
-
+    		System.out.println(e);
             alert.showAndWait();
     	}
     }
@@ -285,7 +270,7 @@ public class MainApplication extends Application {
     	} catch (Exception e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not load: " + file.getPath());
-
+    		System.out.println(e);
             alert.showAndWait();
     	}
     }
@@ -312,7 +297,7 @@ public class MainApplication extends Application {
     		e.printStackTrace();
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not save data in file: " + file.getPath());
-
+    		System.out.println(e);
             alert.showAndWait();
     	}
     }
@@ -335,7 +320,7 @@ public class MainApplication extends Application {
     	} catch (Exception e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not load: " + file.getPath());
-
+    		System.out.println(e);
             alert.showAndWait();
     	}
     }
@@ -357,7 +342,7 @@ public class MainApplication extends Application {
     	} catch (Exception e) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not load: " + file.getPath());
-
+    		System.out.println(e);
             alert.showAndWait();
     	}
     }
@@ -384,6 +369,7 @@ public class MainApplication extends Application {
     		e.printStackTrace();
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText("Could not save data in file: " + file.getPath());
+    		System.out.println(e);
 
             alert.showAndWait();
     	}

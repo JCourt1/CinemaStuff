@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bookings>
+    <booking>
+        <bookingDate>2017-12-01</bookingDate>
+        <screeningDate>2017-12-05</screeningDate>
+        <screeningTime>12</screeningTime>
+        <seat>c4</seat>
+        <title>Tarzan</title>
+        <userName>drudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-01</bookingDate>
+        <screeningDate>2017-12-25</screeningDate>
+        <screeningTime>12</screeningTime>
+        <seat>c4</seat>
+        <title>Fury</title>
+        <userName>drudolf</userName>
+    </booking>
+</bookings>
