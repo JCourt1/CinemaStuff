@@ -1,5 +1,6 @@
 package application;
 
+import java.beans.EventHandler;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -246,19 +248,41 @@ public void fillFilmTable() {
 	
 	File file = new File("src/application/FilmData.xml");
 	MainApplication.loadFilmDataFromFile(file);
+	File file2 = new File("src/application/SeanceData.xml");
+	MainApplication.loadSeanceDataFromFile(file2);
 	for(Film film: MainApplication.getFilmData()) {
-		//for(Seance seance: MainApplication.getSeanceData()) {
-			//if(film.getName().equals(seance.getFilm())) {
-			//if(seance.getDay().isAfter(LocalDate.now()) || (seance.getDay().isEqual(LocalDate.now()) && Integer.parseInt(seance.getTime())>LocalTime.now().getHour())) {
+		for(Seance seance: MainApplication.getSeanceData()) {
+			if(film.getName().equals(seance.getFilm())) {
+			if(seance.getDay().isAfter(LocalDate.now()) || (seance.getDay().isEqual(LocalDate.now()) && Integer.parseInt(seance.getTime().substring(0, 2))>LocalTime.now().getHour())) {
 				if(!filmList.contains(film.getName())){
 					
 					Button button = new Button("Book");
 					button.setMinWidth(65);
 					button.setMinHeight(40);
+					button.setOnAction((event) -> {
+					    // Button was clicked, do something...
+						try {
+							GoToBook(event);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					});
+					
+					
+					
+					
 					File file1 = new File(film.getPath());
 					Image image = new Image(file1.toURI().toString());
 					ImageView imageview = new ImageView();
 					imageview.setImage(image); 
+					
+				
+					
+					
+					
+					
+					
 					
 					HBox box= new HBox();
 					imageview.setPreserveRatio(true); 
@@ -284,11 +308,13 @@ public void fillFilmTable() {
 					gridPane.setMargin(item,new Insets(15,15,15,15));
 					}
 					
+					filmList.add(film.getName());
 					
 					
-				//}
-			//}
-			//}
+					
+				}
+			}
+			}
 		}
 	}
 	

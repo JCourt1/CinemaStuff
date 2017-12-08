@@ -172,7 +172,7 @@ public class MainApplication extends Application {
 	
 	
 	
-	public void loadSeanceDataFromFile(File file) {
+	public static void loadSeanceDataFromFile(File file) {
     	try {
     		
     		JAXBContext context = JAXBContext.newInstance(SeanceListWrapper.class);

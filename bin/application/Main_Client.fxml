@@ -14,22 +14,22 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Maint_Client" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainClientControl">
+<AnchorPane id="Maint_Client" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainClientControl">
    <children>
       <Label alignment="CENTER" layoutX="244.0" layoutY="23.0" prefHeight="62.0" prefWidth="194.0" text="Welcome to Cineworld" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TabPane layoutY="93.0" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="93.0" minHeight="600.0" minWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
         <Tab text="Now in cinema">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+              <AnchorPane minHeight="600.0" minWidth="800.0">
                      <children>
                         <DatePicker layoutX="233.0" layoutY="10.0" />
                         <ChoiceBox layoutX="482.0" layoutY="10.0" prefWidth="150.0" />
-                        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="600.0" prefWidth="800.0">
+                        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" minHeight="600.0" minWidth="800.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                                  <children>

@@ -9,7 +9,7 @@
     <film>
         <description>An American Werewolf in London is a 1981 horror comedy film written and directed by John Landis and starring David Naughton, Jenny Agutter and Griffin Dunne</description>
         <name>Werewolf in London 2</name>
-        <path>resources/images/Werewolf in London 2.png</path>
+        <path>resources/images/Werewolf in London 2.jpg</path>
         <ticketPrice>8</ticketPrice>
     </film>
     <film>
@@ -45,7 +45,7 @@
     <film>
         <description>The future of civilization rests in the fate of the One Ring, which has been lost for centuries. Powerful forces are unrelenting in their search for it. But fate has placed it in the hands of a young Hobbit named Frodo Baggins (Elijah Wood), who inherits the Ring and steps into legend. </description>
         <name>Lord of the Rings</name>
-        <path>resources/images/Lord of the Rings.png</path>
+        <path>resources/images/lotr.png</path>
         <ticketPrice>8</ticketPrice>
     </film>
 </films>
