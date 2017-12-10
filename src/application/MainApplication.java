@@ -7,6 +7,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import application.models.films.Booking;
+import application.models.films.BookingWrapper;
 import application.models.films.Film;
 import application.models.films.FilmListWrapper;
 import application.models.films.Seance;
@@ -30,6 +32,7 @@ public class MainApplication extends Application {
 	
 	private ObservableList<Seance> seanceData = FXCollections.observableArrayList();
 	private ObservableList<Film> filmData = FXCollections.observableArrayList();
+	private ObservableList<Booking> bookingsData = FXCollections.observableArrayList();
 	
 	@Override
 	public void start(Stage pStage) {
@@ -60,6 +63,10 @@ public class MainApplication extends Application {
     
     public ObservableList<Film> getFilmData() {
         return filmData;
+    }
+    
+    public ObservableList<Booking> getBookingData() {
+        return bookingsData;
     }
     
     public Stage getPrimaryStage() {
@@ -109,7 +116,14 @@ public class MainApplication extends Application {
 					SeanceListWrapper wrap2 = (SeanceListWrapper) unmarshalleur2.unmarshal(file);
 					seanceData.clear();
 					seanceData.addAll(wrap2.getSeances());
-					break;	
+					break;
+				case "Bookings.xml":
+					JAXBContext context3 = JAXBContext.newInstance(BookingWrapper.class);
+					Unmarshaller unmarshalleur3 = context3.createUnmarshaller();
+					BookingWrapper wrap3 = (BookingWrapper) unmarshalleur3.unmarshal(file);
+					bookingsData.clear();
+					bookingsData.addAll(wrap3.getBookings());
+					break;
 			}
 
 		} catch (Exception e) {
@@ -149,7 +163,17 @@ public class MainApplication extends Application {
 		    		wrap2.setSeances(seanceData);
 		    		
 		    		marshalleur2.marshal(wrap2, file);
-					break;	
+					break;
+				case "Bookings.xml":
+					JAXBContext context3 = JAXBContext.newInstance(BookingWrapper.class);
+		    		Marshaller marshalleur3 = context3.createMarshaller();
+		    		marshalleur3.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		    		
+		    		BookingWrapper wrap3 = new BookingWrapper();
+		    		wrap3.setBookings(bookingsData);
+		    		
+		    		marshalleur3.marshal(wrap3, file);
+					break;
 			}
 
 		} catch (Exception e) {

@@ -33,7 +33,7 @@ import javafx.util.StringConverter;
 public class AddScreeningsController implements Initializable {
 
 	private MainApplication main;
-	private ArrayList<String> tempDates;
+	private ArrayList<String> bookedTimes;
 	private ObservableList<String> list;
 	private Stage tempStage;
 	
@@ -43,8 +43,11 @@ public class AddScreeningsController implements Initializable {
 	
 	
 	
+	@FXML private Label statusLbl;
+	@FXML private Label fNameAlert;
+	@FXML private Label dateAlert;
+	@FXML private Label timesAlert;
 	
-	@FXML private Label chooseADate;
 	@FXML private DatePicker dates;
 	@FXML private Button saveBtn;
 	@FXML private ImageView pic;
@@ -53,10 +56,49 @@ public class AddScreeningsController implements Initializable {
 	@FXML
 	private void saveScreeningData() {
 		
+		
+		boolean detailsFilled = true;
 		ObservableList<String> listOfTimesPicked;
 		listOfTimesPicked = times.getSelectionModel().getSelectedItems();
-		LocalDate datePicked = dates.getValue();
-		String filmName = films.getValue().getName();
+		String warning = "You need to fill in all fields before you can save.";
+		String filmName = "";
+		LocalDate datePicked = null;
+		fNameAlert.getStyleClass().remove("alertLabels");
+		dateAlert.getStyleClass().remove("alertLabels");
+		timesAlert.getStyleClass().remove("alertLabels");
+		
+		if (films.getSelectionModel().isEmpty()) {
+			fNameAlert.setText("!");
+			fNameAlert.getStyleClass().add("alertLabels");
+			detailsFilled = false;
+		} else {
+			filmName = films.getValue().getName();
+		}
+		
+		if (dates.getValue() == null) {
+			dateAlert.setText("!");
+			dateAlert.getStyleClass().add("alertLabels");
+			detailsFilled = false;
+		} else {
+			datePicked = dates.getValue();
+		}
+		
+		if (listOfTimesPicked.isEmpty()) {
+			timesAlert.setText("!");
+			timesAlert.getStyleClass().add("alertLabels");
+			detailsFilled = false;
+		}
+		
+
+		if (! detailsFilled) {
+			
+			statusLbl.setText(warning);
+			
+			return;
+		}
+		
+		
+		
 		
 		for (String time : listOfTimesPicked) {
 			
@@ -78,7 +120,16 @@ public class AddScreeningsController implements Initializable {
         alert.setHeaderText(String.format("Screening%s successfully saved", pluralOrNot));
         
         alert.showAndWait();
+        
+        times.getSelectionModel().clearSelection();
+        
+        for (Seance screening : main.getSeanceData()) {
+			if (screening.getDay().equals(dates.getValue())) {
+			bookedTimes.add(screening.getTime());
+			}
+		}
 		
+        times.refresh();
 		
 		
 		
@@ -87,19 +138,23 @@ public class AddScreeningsController implements Initializable {
 	@FXML
 	private void datePicked() {
 		
-		tempDates = new ArrayList<String>();
+		bookedTimes = new ArrayList<String>();
 		times.getSelectionModel().clearSelection();
 		
-		if (dates.getValue() != null) {
-			chooseADate.setText("");
+		LocalDate date = dates.getValue();
+		
+		if (date == null) {
+			statusLbl.setText("Choose a date to see what times are available");
+		} else if (date.isBefore(LocalDate.now())) {
+			statusLbl.setText("Can't pick a date before today!");
+		} else {
+			statusLbl.setText("");
 			for (Seance screening : main.getSeanceData()) {
 				if (screening.getDay().equals(dates.getValue())) {
-				tempDates.add(screening.getTime());
+				bookedTimes.add(screening.getTime());
 				}
 			}
-		} else {
-			chooseADate.setText("Choose a date to see what times are available");
-		} 
+		}
 		
 		
 		times.refresh();
@@ -113,7 +168,7 @@ public class AddScreeningsController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		chooseADate.setText("Choose a date to see what times are available");
+		statusLbl.setText("Choose a date to see what times are available");
 	}
 	
 	
@@ -175,6 +230,9 @@ public class AddScreeningsController implements Initializable {
 		    	File file = new File(path);
 		    	Image image = new Image(file.toURI().toString());
 		        pic.setImage(image);
+		        pic.setPreserveRatio(true);
+		        pic.setFitHeight(60);
+		        
 		    }
 		});
 		
@@ -201,6 +259,10 @@ public class AddScreeningsController implements Initializable {
 					@Override 
 					protected void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
+						
+						LocalDate date = dates.getValue();
+						setStyle(null);
+						this.getStyleClass().remove("crossedOut");
 
 						if (item == null || empty) {
 							setText(null);
@@ -208,21 +270,24 @@ public class AddScreeningsController implements Initializable {
 						} else {
 							setText(item);
 							setDisable(false); //this was causing the problem. It needs to be reset
-							setStyle("-fx-background-color: lightblue");
+							setStyle("-fx-background-color: #b1c0d8");
 
-							if (dates.getValue() == null) {
+							if (date == null) {
 								setDisable(true);
+							} else if (date.isBefore(LocalDate.now()) || (date.isEqual(LocalDate.now()) && item.compareTo(java.time.LocalTime.now().toString()) < 0)) {
+								setDisable(true);
+								setStyle("-fx-background-color: #f5d6ff; -fx-strikethrough: true;");
+								this.getStyleClass().add("crossedOut");
 							} else {
 								
-								//
-								setStyle("-fx-background-color: lightgreen");
-
-								LocalDate date = dates.getValue();
-								for (String time : tempDates) {
+								
+								setStyle("-fx-background-color: #e0ffdd");
+								
+								for (String time : bookedTimes) {
 									if (time.equals(item)) {
 										setText(item + " - already booked");
 										setDisable(true);
-										setStyle("-fx-background-color: red");
+										setStyle("-fx-background-color: #c46a5e");
 										return;
 									}
 								}

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,7 +18,7 @@
    <bottom>
       <AnchorPane prefHeight="400.0" prefWidth="417.0" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cad4f2" height="153.0" layoutX="17.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cad4f2" height="160.0" layoutX="17.0" layoutY="99.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
             <Button fx:id="uploadImage" layoutX="31.0" layoutY="278.0" mnemonicParsing="false" onAction="#uploadPic" prefHeight="27.0" prefWidth="106.0" text="Upload Image" />
             <GridPane gridLinesVisible="true" layoutX="170.0" layoutY="100.0" prefHeight="271.0" prefWidth="367.0">
               <columnConstraints>
@@ -25,9 +26,10 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="285.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="18.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="173.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="59.0" minHeight="2.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="148.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Film Name:" />
@@ -35,17 +37,22 @@
                   <Label text="Ticket cost:" GridPane.rowIndex="2" />
                   <TextField fx:id="description" prefHeight="148.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="filmName" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="ticketCost" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="ticketCost" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Label text="Genre:" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="genreBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <Button fx:id="saveDeets" layoutX="37.0" layoutY="344.0" mnemonicParsing="false" onAction="#saveDetails" text="Save Details" />
-            <ImageView fx:id="pic" fitHeight="146.0" fitWidth="127.0" layoutX="20.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pic" fitHeight="152.0" fitWidth="123.0" layoutX="22.0" layoutY="103.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../../resources/images/placeholder.png" />
+               </image></ImageView>
             <ComboBox fx:id="chooseExistingFilm" layoutX="18.0" layoutY="50.0" onAction="#existingFilmPicked" prefHeight="31.0" prefWidth="131.0" promptText="Choose a film" />
             <Button fx:id="exit" layoutX="444.0" layoutY="18.0" mnemonicParsing="false" onAction="#exitModify" prefHeight="27.0" prefWidth="94.0" text="Exit" />
-            <CheckBox fx:id="toEditFilm" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" onAction="#enableCombo" prefHeight="18.0" prefWidth="128.0" text="Edit existing film" />
-            <Label fx:id="oldPicPath" layoutX="254.0" layoutY="14.0" />
+            <Label fx:id="storeOldPicPath" layoutX="254.0" layoutY="14.0" />
             <Button fx:id="clear" layoutX="308.0" layoutY="54.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="92.0" text="Clear Fields" />
             <Button fx:id="delete" layoutX="164.0" layoutY="52.0" mnemonicParsing="false" onAction="#deleteFilm" text="Delete film" />
+            <RadioButton fx:id="clickToEditFilm" layoutX="21.0" layoutY="23.0" mnemonicParsing="false" onAction="#enableCombo" text="Edit existing film" />
          </children>
       </AnchorPane>
    </bottom>

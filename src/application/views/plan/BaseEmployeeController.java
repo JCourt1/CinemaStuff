@@ -114,7 +114,7 @@ public class BaseEmployeeController implements Initializable{
             
 //            displayContent();
             
-            viewByDateController.refreshData();
+//            viewByDateController.refreshData();
 //            tempStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

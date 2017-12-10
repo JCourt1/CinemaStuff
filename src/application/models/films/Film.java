@@ -1,9 +1,12 @@
 package application.models.films;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 /**
  * Model class for a Person.
@@ -16,19 +19,21 @@ public class Film {
     private final StringProperty path;
     private final StringProperty description;
     private final IntegerProperty ticketPrice;
+    private final StringProperty mainGenre;
     
     
     
     public Film() {
-        this(null, null, null, 0);
+        this(null, null, null, 0, null);
     }
     
 
-    public Film(String name, String path, String description, Integer ticketPrice) {
+    public Film(String name, String path, String description, Integer ticketPrice, String mainGenre) {
         this.name = new SimpleStringProperty(name);
         this.path = new SimpleStringProperty(path);
         this.description = new SimpleStringProperty(description);
         this.ticketPrice = new SimpleIntegerProperty(ticketPrice);
+        this.mainGenre = new SimpleStringProperty(mainGenre);
     }
 
     public String getName() {
@@ -82,6 +87,18 @@ public class Film {
 		return ticketPrice;
 	}
     
+	
+	public String getMainGenre() {
+        return mainGenre.get();
+    }
+    
+    public void setMainGenre(String mainGenre) {
+        this.mainGenre.set(mainGenre);
+    }
+    
+    public StringProperty mainGenreProperty() {
+        return mainGenre;
+    }
     
     
     

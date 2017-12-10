@@ -1,8 +1,9 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
- 
-.Button {
-	-fx-color: red;
+
+.button {
+	-fx-color: blue;
 }
+
 
 .table-column {
   -fx-alignment: CENTER;
@@ -45,6 +46,10 @@
     -fx-opacity: 1;
 }
 
+
+
+
+
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
@@ -53,6 +58,20 @@
     -fx-table-header-border-color: transparent; 
     -fx-padding: 5;
 }
+
+.table-view .arrow {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: " ";
+}
+
+.table-view .sort-order-dot {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: " ";
+}
+
+
 
 
 
@@ -77,7 +96,7 @@
     -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
-    -fx-alignment: center-left;
+    -fx-alignment: center;
     -fx-opacity: 1;
 }
 
@@ -120,6 +139,7 @@
 
 
 .button {
+	-fx-color: #3c54ad;
     -fx-padding: 5 22 5 22;   
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
@@ -136,7 +156,7 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
+  -fx-background-color: #693cad;
   -fx-text-fill: #1d1d1d;
 }
 

@@ -27,6 +27,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -44,6 +46,7 @@ public class ManageFilmsController implements Initializable {
 	@FXML private TextField filmName;
 	@FXML private TextField description;
 	@FXML private ComboBox<Integer> ticketCost;
+	@FXML private ComboBox<String> genreBox;
 	@FXML private Button uploadImage;
 	@FXML private ImageView pic;
 	@FXML private Button saveDeets;
@@ -51,9 +54,9 @@ public class ManageFilmsController implements Initializable {
 	@FXML private Button clear;
 	@FXML private Button delete;
 	
-	@FXML private CheckBox toEditFilm;
+	@FXML private RadioButton clickToEditFilm;
 	@FXML private ComboBox<Film> chooseExistingFilm;
-	@FXML private Label oldPicPath;
+	@FXML private Label storeOldPicPath;
 	
 	private ViewByDateController viewByDateController;
 
@@ -63,12 +66,15 @@ public class ManageFilmsController implements Initializable {
 	@FXML
 	private void enableCombo() {
 		
-		boolean bool = !(toEditFilm.isSelected()) ? true:false;
+		boolean bool = !(clickToEditFilm.isSelected()) ? true:false;
 		
 		chooseExistingFilm.setDisable(bool);
 		
 		if (bool) {
 			clearFields();
+			File file = new File("resources/images/placeholder.png");
+			Image image = new Image(file.toURI().toString());
+			pic.setImage(image);
 		}   
 	}
 	
@@ -79,8 +85,9 @@ public class ManageFilmsController implements Initializable {
 		pic.setImage(null);
 		filmName.setText(null);
 		description.setText(null);
-		oldPicPath.setText(null);
+		storeOldPicPath.setText(null);
 		ticketCost.valueProperty().set(null);
+		genreBox.valueProperty().set(null);
 	}
 	
 	@FXML
@@ -129,10 +136,11 @@ public class ManageFilmsController implements Initializable {
 		
 		if (chooseExistingFilm.getValue() != null) {
 		Film film = chooseExistingFilm.getValue();
-		oldPicPath.setText(film.getPath());
+		storeOldPicPath.setText(film.getPath());
 		filmName.setText(film.getName());
 		description.setText(film.getDescription());
-		
+		ticketCost.getSelectionModel().select(film.getTicketPrice());
+		genreBox.getSelectionModel().select(film.getMainGenre());
 		
     	Image image = new Image((new File(film.getPath()).toURI().toString()));
         pic.setImage(image);
@@ -156,7 +164,7 @@ public class ManageFilmsController implements Initializable {
             
             Image image = new Image(file.toURI().toString());
             pic.setImage(image);
-            oldPicPath.setText(file.getPath());
+            storeOldPicPath.setText(file.getPath());
         } catch (Exception e) {
         	
         }
@@ -167,17 +175,18 @@ public class ManageFilmsController implements Initializable {
 	@FXML
 	private void saveDetails() {
 
-		String filmN = filmName.getText();
-		String oldPath = oldPicPath.getText();
+		String newFilmN = filmName.getText();
+		String oldPicPath = storeOldPicPath.getText();
 
-		String newPath = "resources/images/" + filmN + ".png";
+		String newPath = "resources/images/" + newFilmN + ".png";
 		String descrip = description.getText();
+		String genre = genreBox.getValue();
 
 		Integer ticketPrice = ticketCost.getValue();
 		
 		
 		BufferedImage image;
-		File imageFile = new File(oldPath);
+		File imageFile = new File(oldPicPath);
 		try {
 			image = ImageIO.read(imageFile);
 			ImageIO.write(image, "png",new File(newPath));
@@ -186,7 +195,7 @@ public class ManageFilmsController implements Initializable {
 			e1.printStackTrace();
 		}
 		
-		if (toEditFilm.isSelected() && chooseExistingFilm.getValue() != null) {
+		if (clickToEditFilm.isSelected() && chooseExistingFilm.getValue() != null) {
 
 			try {
 				String oldName = chooseExistingFilm.getSelectionModel().getSelectedItem().getName();
@@ -204,14 +213,15 @@ public class ManageFilmsController implements Initializable {
 							throw new DataSaveException("You need to confirm the save");
 
 						} else if(result.get() == ButtonType.OK) {
-							film.setName(filmN);
+							film.setName(newFilmN);
 							film.setDescription(descrip);
 							film.setPath(newPath);
 							film.setTicketPrice(ticketPrice);
+							film.setMainGenre(genre);
 
 							for (Seance seance: main.getSeanceData()) {
 								if (seance.getFilm().equals(oldName)) {
-									seance.setFilm(filmN);
+									seance.setFilm(newFilmN);
 								}
 							}
 							File file = new File("FilmData.xml");
@@ -219,9 +229,7 @@ public class ManageFilmsController implements Initializable {
 							File file2 = new File("SeanceData.xml");
 							main.saveData(file2);
 							
-							
-							
-							
+							viewByDateController.refreshData();
 							
 							
 							return;
@@ -235,16 +243,20 @@ public class ManageFilmsController implements Initializable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			
 
 		}
 		
 		
 
-		Film newFilm = new Film(filmN, newPath, descrip, ticketPrice);
+		Film newFilm = new Film(newFilmN, newPath, descrip, ticketPrice, genre);
 
 		main.getFilmData().add(newFilm);
 		File file = new File("FilmData.xml");
 		main.saveData(file);
+		viewByDateController.refreshData();
+		
 	}
             
             
@@ -278,6 +290,11 @@ public class ManageFilmsController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		
+		ObservableList<String> genresOfFilm = FXCollections.observableArrayList();
+		genresOfFilm.addAll("Comedy", "Horror", "Action", "Romantic Comedy", "Fantasy");
+		genreBox.setItems(genresOfFilm);
+		
+
 		ObservableList<Integer> prices = FXCollections.observableArrayList();
 		prices.addAll(5, 8, 10);
 		ticketCost.setItems(prices);
@@ -317,8 +334,8 @@ public class ManageFilmsController implements Initializable {
 		});
 		
 		
-		chooseExistingFilm.setDisable(true);
-		oldPicPath.setVisible(false);
+//		chooseExistingFilm.setDisable(true);
+//		storeOldPicPath.setVisible(false);
 		
 		
 		
@@ -363,7 +380,7 @@ public class ManageFilmsController implements Initializable {
 	});
 	
 	chooseExistingFilm.setDisable(true);
-	oldPicPath.setVisible(false);
+	storeOldPicPath.setVisible(false);
 	
 	}
 
