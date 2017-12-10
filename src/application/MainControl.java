@@ -98,12 +98,7 @@ public class MainControl {
         
         MainApplication.loadEmployeeDataFromFile(file2);
         
-        // used to create usable data in  bookings.xml
-        /*File file3 = new File("src/application/Bookings.xml");
-        Booking booking = new Booking("drudolf","tarzan",LocalDate.of(2017, 11, 30),12,LocalDate.of(2017, 12, 01),"c4");
-        MainApplication.getBookingData().add(booking);
-        MainApplication.saveBookingDataToFile(file3);*/
-		
+      
 		for(Client client : MainApplication.getClientData()) {
 			clientUsername.add(client.getUserName());
 			clientPassword.add(client.getPassword());

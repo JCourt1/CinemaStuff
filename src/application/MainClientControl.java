@@ -55,6 +55,8 @@ public class MainClientControl {
 	
 	int rowCounter =  0;
 	
+	private static String buttonId;
+	
 	private ObjectProperty<TableRow<Film>> selectedRow = new SimpleObjectProperty<>();
 
 	@FXML
@@ -257,11 +259,13 @@ public void fillFilmTable() {
 				if(!filmList.contains(film.getName())){
 					
 					Button button = new Button("Book");
+					button.setId(film.getName());
 					button.setMinWidth(65);
 					button.setMinHeight(40);
 					button.setOnAction((event) -> {
 					    // Button was clicked, do something...
 						try {
+							buttonId = button.getId();
 							GoToBook(event);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -391,5 +395,17 @@ public void Cancel() {
 	bookingTable.refresh(); //refreshes the table
 	System.out.println("Booking Cancelled");
 }
+
+
+public static String getButtonId() {
+	return buttonId;
+}
+
+
+
+
+
+
+
 
 }
