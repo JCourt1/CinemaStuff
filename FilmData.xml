@@ -15,6 +15,7 @@
     </film>
     <film>
         <description>A German submarine patrols the Atlantic Ocean during World War II, manned by a crew that must contend with tense conflicts and long stretches of confined boredom and angst.</description>
+        <mainGenre>Action</mainGenre>
         <name>Das Boot</name>
         <path>resources/images/Das Boot.png</path>
         <ticketPrice>8</ticketPrice>

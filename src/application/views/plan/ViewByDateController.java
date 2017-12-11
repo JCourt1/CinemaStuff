@@ -2,6 +2,7 @@ package application.views.plan;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +59,7 @@ public class ViewByDateController implements Initializable {
 	private HashMap<String, Integer> rowComparison = new HashMap<String, Integer>();
 	private MainApplication main;
 	private ObjectProperty<TableRow<Film>> selectedRow = new SimpleObjectProperty<>();
+	private LocalDate selectedDate;
 
 	private ObservableList<Film> filteredFilmData;
 	private ObservableList<Seance> filteredSeanceData;
@@ -337,6 +339,19 @@ public class ViewByDateController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	private void highlightDate() {
+		
+//		TableColumn<Seance, LocalDate> dCol = (TableColumn<Seance, LocalDate>) screeningsTable.getColumns().get(0);
+//		for (TableRow<LocalDate> row : dCol) {
+//			
+//		}
+		
+		selectedDate = screeningsTable.getSelectionModel().getSelectedItem().getDay();
+		
+		screeningsTable.refresh();
+		
+	}
 
 
 	@FXML
@@ -425,12 +440,14 @@ public class ViewByDateController implements Initializable {
 				}
 			}
 		}
+		screeningsTable.refresh();
 		
 	}
 	
 	//overloaded version of the method which populate screenings for all films in filtered film data
 	
 	private void populateScreenings() {
+		
 		if (datePicker.getValue() != null) {
 			ArrayList<String> filmNames = new ArrayList<String>();
 			for (Film film : filteredFilmData) {
@@ -616,7 +633,7 @@ public class ViewByDateController implements Initializable {
 		filmTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 
 			filteredSeanceData.clear();
-			screeningsTable.refresh();
+//			screeningsTable.refresh();
 			rowComparison.clear();
 			
 			
@@ -628,6 +645,8 @@ public class ViewByDateController implements Initializable {
 				
 				populateScreenings(filmName);
 			}
+			
+			screeningsTable.refresh();
 		});
 
 		// deselect rows if you click on them when they are already selected
@@ -658,7 +677,7 @@ public class ViewByDateController implements Initializable {
 		
 	}
 	
-	
+	int i =0;
 	/**
 	 * Setting up the cell value factories of the columns of the screenings table.
 	 * 
@@ -686,7 +705,7 @@ public class ViewByDateController implements Initializable {
 							//setText(null);
 						} else {
 							String str = date.toString();
-							
+							setStyle(null);
 							
 							// if the hashtable is empty, then it's the first row, so store the date and row index to the hashmap and display date in table
 							if (rowComparison.isEmpty()) {
@@ -718,15 +737,32 @@ public class ViewByDateController implements Initializable {
 								dateShouldBeDisplayed = true;
 							}
 							
+							if (date.equals(selectedDate)) {
+								setStyle("-fx-text-fill: #ff953f !important;");
+							}
 							
 							if (dateShouldBeDisplayed) {
 								setText(DateConversion.format(date));
+								
 							}
+//							System.out.println(rowComparison.toString());
 							
 							
 						}
 					}
 				});
+				
+				screeningsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+					
+					if (newSelection == null) {
+						selectedDate = null;
+					} else {
+						
+						highlightDate();
+					}
+				});
+				
 	}
 	
 	
