@@ -6,7 +6,7 @@
         <screeningTime>18</screeningTime>
         <seat>c4</seat>
         <title>Lord of the Rings</title>
-        <userName>drudolf</userName>
+        <userName>rudolf</userName>
     </booking>
     <booking>
         <bookingDate>2017-12-01</bookingDate>
@@ -14,7 +14,7 @@
         <screeningTime>11</screeningTime>
         <seat>b1</seat>
         <title>Men in black</title>
-        <userName>drudolf</userName>
+        <userName>rudolf</userName>
     </booking>
     <booking>
         <bookingDate>2017-12-10</bookingDate>
@@ -22,7 +22,7 @@
         <screeningTime>18</screeningTime>
         <seat>b2</seat>
         <title>Lord of the Rings</title>
-        <userName>drudolf</userName>
+        <userName>rudolf</userName>
     </booking>
     <booking>
         <bookingDate>2017-12-10</bookingDate>
@@ -30,7 +30,7 @@
         <screeningTime>18</screeningTime>
         <seat>a2</seat>
         <title>Lord of the Rings</title>
-        <userName>drudolf</userName>
+        <userName>rudolf</userName>
     </booking>
     <booking>
         <bookingDate>2017-12-10</bookingDate>
@@ -38,7 +38,7 @@
         <screeningTime>18</screeningTime>
         <seat>d2</seat>
         <title>Lord of the Rings</title>
-        <userName>drudolf</userName>
+        <userName>rudolf</userName>
     </booking>
     <booking>
         <bookingDate>2017-12-10</bookingDate>
@@ -46,6 +46,6 @@
         <screeningTime>18</screeningTime>
         <seat>d3</seat>
         <title>Lord of the Rings</title>
-        <userName>drudolf</userName>
+        <userName>rudolf</userName>
     </booking>
 </bookings>

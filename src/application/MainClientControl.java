@@ -130,9 +130,21 @@ public void Save(ActionEvent event) throws Exception{
 	MainApplication.getClientData().get(index).setEmail(email.getText());
 	
 	
+	
 	File file = new File("src/application/Clients.xml");
 	MainApplication.saveClientDataToFile(file);
 	
+	File file2 = new File("src/application/Bookings.xml");
+	MainApplication.loadBookingDataFromFile(file2);
+	
+	for(Booking booking : MainApplication.getBookingData()) {
+		if(booking.getUserName().equals(MainControl.currentUsername)) {
+			booking.setUserName(username.getText());
+		}
+	}
+	
+	MainApplication.saveBookingDataToFile(file2);
+	MainControl.currentUsername = username.getText();
 	
 	Alert alert = new Alert (AlertType.INFORMATION);
 	alert.setTitle("Information updated");

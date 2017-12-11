@@ -5,7 +5,7 @@
         <firstName>George</firstName>
         <lastName>Rudolf</lastName>
         <password>pass</password>
-        <userName>drudolf</userName>
+        <userName>rudolf</userName>
     </client>
     <client>
         <email>clinet@</email>
