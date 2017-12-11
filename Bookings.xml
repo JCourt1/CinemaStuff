@@ -10,10 +10,10 @@
     </booking>
     <booking>
         <bookingDate>2017-12-01</bookingDate>
-        <screeningDate>2017-12-14</screeningDate>
-        <screeningTime>11</screeningTime>
+        <screeningDate>2017-12-29</screeningDate>
+        <screeningTime>10:00</screeningTime>
         <seat>b1</seat>
-        <title>Men in black</title>
+        <title>Star Wars</title>
         <userName>drudolf</userName>
     </booking>
     <booking>
