@@ -1,8 +1,6 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-.button {
-	-fx-color: blue;
-}
+
 
 
 .table-column {
@@ -11,7 +9,8 @@
 
 
 .background {
-    -fx-background-color: #1d1d1d;
+    /* -fx-background-color: #1d1d1d;-fx-alignment: */
+    -fx-background-color: #591010;
 }
 
 .menu .left-container {
@@ -21,9 +20,12 @@
 
 .stage {
     -fx-background-color: #1d1d1d;
+    -fx-background-color: #665e5e;
 }
 
-
+.cinemaManagement {
+  -fx-font-size: 20pt !important;
+}
 
 .label {
     -fx-font-size: 11pt;
@@ -53,9 +55,9 @@
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #665e5e;
     -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent; 
+    -fx-table-header-border-color: transparent;
     -fx-padding: 5;
 }
 
@@ -71,7 +73,18 @@
     -fx-shape: " ";
 }
 
+.table-cell {
+    -fx-border-color: transparent
+}
 
+.table-row-cell:selected {
+	-fx-background-color: #7187dd;
+}
+
+.table-row-cell:selected .text {
+       -fx-fill: #ff953f ;
+
+}
 
 
 
@@ -84,11 +97,14 @@
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
-    -fx-border-color: 
+
+    -fx-border-color: #4166F5;
+    /*
+    -fx-border-color:
         transparent
         transparent
-        derive(-fx-base, 80%) 
-        transparent;
+        derive(-fx-base, 80%)
+        transparent;*/
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -101,7 +117,8 @@
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    /* -fx-background-color: -fx-focus-color; */
+    -fx-background-color: #4166F5;
 }
 
 .split-pane:horizontal > .split-pane-divider {
@@ -139,12 +156,13 @@
 
 
 .button {
-	-fx-color: #3c54ad;
-    -fx-padding: 5 22 5 22;   
+
+	-fx-border-radius: 5;
+    -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-radius: 5;
+    -fx-background-color: black;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -153,6 +171,7 @@
 
 .button:hover {
     -fx-background-color: #3a3a3a;
+    -fx-opacity: 0.4;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -164,8 +183,8 @@
     -fx-border-color: white, white;
     -fx-border-width: 1, 1;
     -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
     -fx-border-insets: 1 1 1 1, 0;
+    -fx-opacity: 0.4;
 }
 
 .button:disabled, .button:default:disabled {
@@ -181,9 +200,27 @@
 
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color,30%);
+    -fx-opacity: 0.4;
 }
 
 .table-row-cell {
   -fx-cell-size: 58px;
  }
 
+.button {
+	-fx-color: blue;
+}
+
+
+
+.filmNames .text {
+	-fx-font-size: 15pt;
+}
+
+.filmNames .column-header .text{
+	-fx-font-size: 12pt;
+}
+
+.transparentButton {
+	-fx-background-color: transparent;
+}

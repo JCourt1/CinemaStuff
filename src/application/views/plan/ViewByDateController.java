@@ -83,7 +83,12 @@ public class ViewByDateController implements Initializable {
 	@FXML private Button clearDate;
 	@FXML private Button clearGenre;
 	
-	
+	/**
+	 * 
+	 * Gets called by ManageFilmsController when saving film details or deleting them, so that 
+	 * the result is displayed automatically in the film table. 
+	 * 
+	 */
 	@FXML
 	public void refreshData() {
 		filteredFilmData.clear();
@@ -119,11 +124,6 @@ public class ViewByDateController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		setUpTable();
-		ObservableList<String> genresOfFilm = FXCollections.observableArrayList();
-		genresOfFilm.addAll("Comedy", "Horror", "Action", "Romantic Comedy", "Fantasy");
-		genres.setItems(genresOfFilm);
-		
 	}
 	
 	
@@ -140,7 +140,7 @@ public class ViewByDateController implements Initializable {
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(20);
 		
-		vbox.setStyle("-fx-border-color: red;\n" +
+		vbox.setStyle("-fx-border-color: blue;\n" +
                 "-fx-border-insets: 5;\n" +
                 "-fx-border-width: 3;\n" +
                 "-fx-border-style: dashed;\n");
@@ -230,7 +230,13 @@ public class ViewByDateController implements Initializable {
 			
 			
 			if (dateChosen.isBefore(LocalDate.now())) {
-				System.out.println("You can't pick a time before today");
+				
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText(null);
+				alert.setContentText("You can't pick a time before today");
+
+				alert.showAndWait();
 				return;
 			}
 			
@@ -399,20 +405,89 @@ public class ViewByDateController implements Initializable {
 		} catch (DataSaveException e) {
 			e.toString();
 		}
+		
 
 
 	}
 	
 	
+	private void populateScreenings(String filmName) {
+		
+		for (Seance seance : main.getSeanceData()) {
+			if (seance.getFilm().equals(filmName)) {
+
+				if (datePicker.getValue() != null) {
+					if (datePicker.getValue().equals(seance.getDay())) {
+						filteredSeanceData.add(seance);
+					}
+				} else {
+					filteredSeanceData.add(seance);
+				}
+			}
+		}
+		
+	}
+	
+	//overloaded version of the method which populate screenings for all films in filtered film data
+	
+	private void populateScreenings() {
+		if (datePicker.getValue() != null) {
+			ArrayList<String> filmNames = new ArrayList<String>();
+			for (Film film : filteredFilmData) {
+				filmNames.add(film.getName());
+			}
+			for (Seance seance : main.getSeanceData()) {
+				if (filmNames.contains(seance.getFilm())) {
+					if (datePicker.getValue().equals(seance.getDay())) {
+						filteredSeanceData.add(seance);
+					}
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * To keep things object oriented and to avoid transforming everything in static data and methods, the controller needs to be given access to an object main
+	 * of class "MainApplication". 
+	 * 
+	 * Since, in the setup of the controller, we can only call this method AFTER having created a controller object, this method
+	 * can only be called after the controller has been initialized. For this reason, any setup that requires access to data has to take place in setMain, and not in Initialize.
+	 * 
+	 * This method therefore acts as a second Initialize method.
+	 * 
+	 * @param main
+	 */
 	public void setMain(MainApplication main) {
 		this.main = main;
+		
+		initializeDataAndSetInTables();
+		initializeGenres();
+		setUpFilmTable();
+		setUpScreeningsTable();
+		
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * This method sets the observable lists of films and screenings into their respective tables.
+	 * It gets film data from main for the film table, but at this stage the screenings list is left empty.
+	 * 
+	 * However, the screenings table is given a sort order to make sure that data is displayed correctly later.
+	 * 
+	 */
+	private void initializeDataAndSetInTables() {
+		
+		placeHolderInitialize();
 		filteredFilmData = FXCollections.observableArrayList(main.getFilmData());
 		filmTable.setItems(filteredFilmData);
+		
 		filteredSeanceData = FXCollections.observableArrayList();
 		dateColumn.setSortType(TableColumn.SortType.ASCENDING);
-//		screeningsTable.setItems(filteredSeanceData);
-		
-		
 		
 		SortedList<Seance> sortedScreenings = new SortedList<>(filteredSeanceData);
 		sortedScreenings.comparatorProperty().bind(screeningsTable.comparatorProperty());
@@ -434,11 +509,42 @@ public class ViewByDateController implements Initializable {
 	}
 	
 	
+	/**
+	 * 
+	 * The ComboBox containing the genres that can be used to filter the information in the film table
+	 * is initialized with this method.
+	 */
+	private void initializeGenres() {
+		ObservableList<String> genresOfFilm = FXCollections.observableArrayList();
+
+		for (Film film: main.getFilmData()) {
+			
+			String genre = "";
+			if (film.getMainGenre() != null) {
+				genre = film.getMainGenre();
+			}
+			
+			if (!genresOfFilm.contains(genre) && !genre.equals("")) {
+				genresOfFilm.add(genre);
+			}
+		}
+		genres.setItems(genresOfFilm);
+	}
 	
-	public void setUpTable() {
+	
+	/**
+	 * The cell value factories and cell factories for rendering the data of the film table are set up here.
+	 * 
+	 * There is a listener to allow the user to display information in the screenings table by clicking
+	 * on rows in the film table.
+	 * 
+	 * There is also one which allows the user to deselect rows that have been selected (not part of TableView's
+	 * built in functionality).
+	 * 
+	 */
+	
+	public void setUpFilmTable() {
 		
-		
-		placeHolderInitialize();
 		filmNameColumn.setCellValueFactory(new PropertyValueFactory<Film, String>("name"));
 		filmDescripColumn.setCellValueFactory(new PropertyValueFactory<Film, String>("description"));
 		imageColumn.setCellValueFactory(cellData -> cellData.getValue().pathProperty());
@@ -454,18 +560,14 @@ public class ViewByDateController implements Initializable {
 					TableColumn<Film, String> param) {
 				TableCell<Film, String> cell = new TableCell<Film, String>();
 				
-				if (cell.itemProperty() != null) {
-				
-//					TableView table = cell.getTableView();
-//					TablePosition firstCell = new TablePosition(table, cell.getTableRow().getIndex(), filmDescripColumn);
-//				System.out.println(firstCell.toString());	
+				if (cell.itemProperty() != null) {	
 				
 				Text text = new Text();
 				cell.setGraphic(text);
 				cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
 				text.wrappingWidthProperty().bind(cell.widthProperty());
 				text.textProperty().bind(cell.itemProperty());
-				text.setFill(Color.ORANGE);
+				text.setFill(Color.web("#ffdda3"));
 				} else {
 				}
 				
@@ -517,23 +619,14 @@ public class ViewByDateController implements Initializable {
 			screeningsTable.refresh();
 			rowComparison.clear();
 			
+			
 			if (newSelection == null) {
 				screeningsTable.getSelectionModel().clearSelection();
 			} else {
 
-				String name = newSelection.getName();
-				for (Seance seance : main.getSeanceData()) {
-					if (seance.getFilm().equals(name)) {
-
-						if (datePicker.getValue() != null) {
-							if (datePicker.getValue().equals(seance.getDay())) {
-								filteredSeanceData.add(seance);
-							}
-						} else {
-							filteredSeanceData.add(seance);
-						}
-					}
-				}
+				String filmName = newSelection.getName();
+				
+				populateScreenings(filmName);
 			}
 		});
 
@@ -541,8 +634,6 @@ public class ViewByDateController implements Initializable {
 
 		filmTable.addEventFilter(MouseEvent.MOUSE_CLICKED, evt -> {
 			Node source = evt.getPickResult().getIntersectedNode();
-			
-			
 			
 			
 			//look for the TableRow that is the source of this mouse click event
@@ -556,19 +647,8 @@ public class ViewByDateController implements Initializable {
 				filmTable.getSelectionModel().clearSelection();
 				selectedRow = new SimpleObjectProperty<>();
 				
-				if (datePicker.getValue() != null) {
-					ArrayList<String> filmNames = new ArrayList<String>();
-					for (Film film : filteredFilmData) {
-						filmNames.add(film.getName());
-					}
-					for (Seance seance : main.getSeanceData()) {
-						if (filmNames.contains(seance.getFilm())) {
-							if (datePicker.getValue().equals(seance.getDay())) {
-									filteredSeanceData.add(seance);
-							}
-						}
-					}
-				}
+				populateScreenings();
+				
 				return;
 			}
 
@@ -576,74 +656,85 @@ public class ViewByDateController implements Initializable {
 
 		});
 		
-
+	}
+	
+	
+	/**
+	 * Setting up the cell value factories of the columns of the screenings table.
+	 * 
+	 * There is also a custom cell factory for the date column, so that only the first row of a particular 
+	 * date displays the value, making the table a bit prettier and easier to interpret.
+	 * 
+	 */
+	private void setUpScreeningsTable() {
 		// setting what goes in the screenings table
 
-		filmNameColumn2.setCellValueFactory(cellData -> cellData.getValue().filmProperty());
-		dateColumn.setCellValueFactory(new PropertyValueFactory<Seance, LocalDate>("day"));
-		timeColumn.setCellValueFactory(new PropertyValueFactory<Seance, Integer>("time"));
+				filmNameColumn2.setCellValueFactory(cellData -> cellData.getValue().filmProperty());
+				dateColumn.setCellValueFactory(new PropertyValueFactory<Seance, LocalDate>("day"));
+				timeColumn.setCellValueFactory(new PropertyValueFactory<Seance, Integer>("time"));
 
-		// setting how to render the dates
-		
-		dateColumn.setCellFactory(tc -> new TableCell<Seance, LocalDate>() {
-			@Override
-			protected void updateItem(LocalDate date, boolean empty) {
-				super.updateItem(date, empty);
+				// setting how to render the dates
 				
-				boolean toShowOrNotToShow_ThatIsTheQuestion = false;
-				
-				if (empty) {
-					//setText(null);
-				} else {
-					String str = date.toString();
-					
-					
-					// if the hashtable is empty, then it's the first row, so store the date and row index to the hashmap and display date in table
-					if (rowComparison.isEmpty()) {
-//						setText(DateConversion.format(date));
-						rowComparison.put(str, 1);
+				dateColumn.setCellFactory(tc -> new TableCell<Seance, LocalDate>() {
+					@Override
+					protected void updateItem(LocalDate date, boolean empty) {
+						super.updateItem(date, empty);
 						
-						toShowOrNotToShow_ThatIsTheQuestion = true;
+						boolean dateShouldBeDisplayed = false;
 						
-					} 
-					// if the date of the current row is in the hashmap and there is only 1 date in it, if the row is greater than or
-					//equal to the current row, display the date.
-					else if ((rowComparison.keySet().contains(str) && rowComparison.size() == 1)){
-						
-						if (rowComparison.get(str) >= getIndex() + 1) {
-							toShowOrNotToShow_ThatIsTheQuestion = true;
-						}
-					} 
-					// if the date is in the hashmap, print the date only if the row is the same
-					// (necessary when the display is out of synch with the hasmap's data)
-					else if (rowComparison.keySet().contains(str)) {
-						
-						if (rowComparison.get(str) == getIndex() + 1) {
+						if (empty) {
+							//setText(null);
+						} else {
+							String str = date.toString();
+							
+							
+							// if the hashtable is empty, then it's the first row, so store the date and row index to the hashmap and display date in table
+							if (rowComparison.isEmpty()) {
+//								setText(DateConversion.format(date));
+								rowComparison.put(str, 1);
+								
+								dateShouldBeDisplayed = true;
+								
+							} 
+							// if the date of the current row is in the hashmap and there is only 1 date in it, if the row is greater than or
+							//equal to the current row, display the date.
+							else if ((rowComparison.keySet().contains(str) && rowComparison.size() == 1)){
+								
+								if (rowComparison.get(str) >= getIndex() + 1) {
+									dateShouldBeDisplayed = true;
+								}
+							} 
+							// if the date is in the hashmap, print the date only if the row is the same
+							// (necessary when the display is out of synch with the hasmap's data)
+							else if (rowComparison.keySet().contains(str)) {
+								
+								if (rowComparison.get(str) == getIndex() + 1) {
 
-							toShowOrNotToShow_ThatIsTheQuestion = true;
+									dateShouldBeDisplayed = true;
+								}
+							// if not, that means the date isn't in the hashmap, so store it and display it in table
+							} else {
+								rowComparison.put(str, getIndex() + 1);
+								dateShouldBeDisplayed = true;
+							}
+							
+							
+							if (dateShouldBeDisplayed) {
+								setText(DateConversion.format(date));
+							}
+							
+							
 						}
-					// if not, that means the date isn't in the hashmap, so store it and display it in table
-					} else {
-						rowComparison.put(str, getIndex() + 1);
-						toShowOrNotToShow_ThatIsTheQuestion = true;
 					}
-					
-					
-					if (toShowOrNotToShow_ThatIsTheQuestion) {
-						setText(DateConversion.format(date));
-					}
-					
-					
-					///// it was just this \/ before
-					
-//					setText(DateConversion.format(date));
-					
-					
-				}
-			}
-		});
-		
+				});
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

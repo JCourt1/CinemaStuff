@@ -28,16 +28,12 @@ public class BaseEmployeeController implements Initializable{
 	@FXML private Button exportData;
 	@FXML private Button manageFilms;
 	@FXML private Button logOut;
-	@FXML private ComboBox<String> viewBy;
 	@FXML private BorderPane viewByWindow;
 	private AnchorPane root;
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-        viewBy.getItems().addAll("Date", "Films");
-        viewBy.setValue("Date");
        
 		
 	}
@@ -52,19 +48,9 @@ public class BaseEmployeeController implements Initializable{
         
         displayContent();
     }
-	
-	
-	
-	@FXML
-	private void chooseView() {
-		displayContent();
-		Fader.fadeIn(viewByWindow);
-	}
 
 	private void displayContent() {
-		String path = "views/plan/";
-		String doc = (viewBy.getValue().equals("Date") ? "viewByDate.fxml":"viewFilmInfo.fxml");
-		path += doc;
+		String path = "views/plan/viewByDate.fxml";
 		
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource(path));
@@ -78,11 +64,10 @@ public class BaseEmployeeController implements Initializable{
             	e.printStackTrace();
             }
         
-        if (doc.equals("viewByDate.fxml")) {
-        	viewByDateController = loader.getController();
-        	viewByDateController.setMain(this.main);
-        }
+        viewByDateController = loader.getController();
+        viewByDateController.setMain(this.main);
         
+        Fader.fadeIn(viewByWindow);
         
 	}
 	

@@ -76,19 +76,9 @@
         <time>14:00</time>
     </seance>
     <seance>
-        <day>2017-12-29</day>
-        <film>Star Wars</film>
-        <time>17:00</time>
-    </seance>
-    <seance>
         <day>2017-12-31</day>
         <film>Star Wars</film>
         <time>15:00</time>
-    </seance>
-    <seance>
-        <day>2017-12-31</day>
-        <film>Star Wars</film>
-        <time>17:00</time>
     </seance>
     <seance>
         <day>2017-12-31</day>
@@ -96,11 +86,6 @@
         <time>18:00</time>
     </seance>
     <seance>
-        <day>2017-12-31</day>
-        <film>Star Wars</film>
-        <time>19:00</time>
-    </seance>
-    <seance>
         <day>2017-12-21</day>
         <film>Fight club</film>
         <time>10:00</time>
@@ -114,11 +99,6 @@
         <day>2017-12-21</day>
         <film>Fight club</film>
         <time>15:00</time>
-    </seance>
-    <seance>
-        <day>2017-12-21</day>
-        <film>Fight club</film>
-        <time>17:00</time>
     </seance>
     <seance>
         <day>2017-12-30</day>
@@ -164,11 +144,6 @@
         <day>2017-12-27</day>
         <film>Lord of the Rings</film>
         <time>19:00</time>
-    </seance>
-    <seance>
-        <day>2017-12-27</day>
-        <film>Das Boot</film>
-        <time>14:00</time>
     </seance>
     <seance>
         <day>2017-12-27</day>
@@ -184,16 +159,6 @@
         <day>2017-12-20</day>
         <film>Das Boot</film>
         <time>13:00</time>
-    </seance>
-    <seance>
-        <day>2017-12-20</day>
-        <film>Das Boot</film>
-        <time>15:00</time>
-    </seance>
-    <seance>
-        <day>2017-12-20</day>
-        <film>Das Boot</film>
-        <time>17:00</time>
     </seance>
     <seance>
         <day>2017-12-20</day>

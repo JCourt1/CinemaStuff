@@ -291,7 +291,7 @@ public class ManageFilmsController implements Initializable {
 		
 		
 		ObservableList<String> genresOfFilm = FXCollections.observableArrayList();
-		genresOfFilm.addAll("Comedy", "Horror", "Action", "Romantic Comedy", "Fantasy");
+		genresOfFilm.addAll("Comedy", "Horror", "Action", "Romantic Comedy", "Fantasy", "Thriller");
 		genreBox.setItems(genresOfFilm);
 		
 
