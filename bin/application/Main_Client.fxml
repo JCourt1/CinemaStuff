@@ -21,7 +21,7 @@
             <Font name="Pristina" size="36.0" />
          </font>
       </Label>
-      <TabPane layoutY="93.0" minHeight="600.0" minWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutY="93.0" minHeight="600.0" minWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
         <Tab text="Now in cinema">
             <content>
@@ -48,7 +48,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="bookingTable" layoutX="21.0" layoutY="22.0" prefHeight="466.0" prefWidth="637.0">
+                        <TableView fx:id="bookingTable" layoutX="21.0" layoutY="22.0" prefHeight="521.0" prefWidth="756.0">
                           <columns>
                           	<TableColumn fx:id="movieColumn" prefWidth="110.39992904663086" text="Movie" />
                             <TableColumn fx:id="screeningDateColumn" minWidth="8.00006103515625" prefWidth="162.40003967285156" text="Screening date" />
@@ -60,7 +60,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Button fx:id="cancelButton" layoutX="596.0" layoutY="505.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
+                        <Button fx:id="cancelButton" layoutX="722.0" layoutY="554.0" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
                      </children></AnchorPane>
             </content>
           </Tab>

@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -26,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -40,7 +42,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.scene.control.Button;
@@ -62,6 +66,9 @@ public class MainClientControl {
 
 	String currentClientFirstName;
 	String currentClientLastName;
+	
+	@FXML
+	private TabPane tabPane;
 	
 	@FXML
 	private TextField firstName;
@@ -194,6 +201,7 @@ stage.show();
 
 @FXML
 void initialize() {	
+	
 	
 fillFilmTable();
 
@@ -360,6 +368,7 @@ public void fillFilmTable() {
 					
 					
 					
+
 					HBox box= new HBox();
 					imageview.setPreserveRatio(true); 
 					imageview.setFitHeight(70);
@@ -367,14 +376,18 @@ public void fillFilmTable() {
 					
 					box.getChildren().addAll(imageview);
 					box.setPrefHeight(70);
-					box.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+					box.setStyle("-fx-padding: 5;" + "-fx-border-style: solid inside;"
 						        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
 						        + "-fx-border-radius: 0;" + "-fx-border-color: black;");
 					
 					
 					
 					Label title =  new Label(film.getName());
+					title.setMinWidth(Region.USE_PREF_SIZE);
+					title.setFont(new Font("Arial Bold", 20));
 					Label description = new Label(film.getDescription());
+					description.setWrapText(true);
+	
 					gridPane.addRow(rowCounter, title);
 
 					gridPane.addRow(rowCounter+1, box, description, trailerButton, button);
@@ -386,6 +399,7 @@ public void fillFilmTable() {
 					gridPane.setMargin(item,new Insets(15,15,15,15));
 					}
 					
+					gridPane.setHgrow(description, Priority.ALWAYS);
 					filmList.add(film.getName());
 					
 					

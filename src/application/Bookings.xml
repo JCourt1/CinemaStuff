@@ -48,4 +48,140 @@
         <title>Lord of the Rings</title>
         <userName>rudolf</userName>
     </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>a1</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>b1</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>a2</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>b2</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>a3</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>b3</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>b4</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>a4</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>c4</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>a5</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>b5</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>c5</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>b6</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>e4</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>f4</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>f3</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
+    <booking>
+        <bookingDate>2017-12-11</bookingDate>
+        <screeningDate>2017-12-15</screeningDate>
+        <screeningTime>16</screeningTime>
+        <seat>e3</seat>
+        <title>Men in black</title>
+        <userName>rudolf</userName>
+    </booking>
 </bookings>

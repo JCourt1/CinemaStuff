@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <films>
     <film>
-        <description>pulp fiction</description>
+        <description>The lives of two mob hit men, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.</description>
         <name>Pulp fiction</name>
-        <path>resources/images/Pulp fiction.png</path>
+        <path>resources/images/pulp fiction.jpg</path>
         <ticketPrice>8</ticketPrice>
     </film>
     <film>
@@ -13,13 +13,13 @@
         <ticketPrice>8</ticketPrice>
     </film>
     <film>
-        <description>fghfghfgh</description>
+        <description>A police officer joins a secret organization that polices and monitors extraterrestrial interactions on Earth.</description>
         <name>Men in black</name>
         <path>resources/images/Men in black.png</path>
-        <ticketPrice>8</ticketPrice>
+        <ticketPrice>10</ticketPrice>
     </film>
     <film>
-        <description>Another description.</description>
+        <description>The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.</description>
         <name>The Godfather 2</name>
         <path>resources/images/The Godfather 2.png</path>
         <ticketPrice>5</ticketPrice>
@@ -31,7 +31,7 @@
         <ticketPrice>8</ticketPrice>
     </film>
     <film>
-        <description>A new Hope</description>
+        <description>Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle-station while also attempting to rescue Princess Leia from the evil Darth Vader.</description>
         <name>Star Wars</name>
         <path>resources/images/Star Wars.png</path>
         <ticketPrice>8</ticketPrice>
