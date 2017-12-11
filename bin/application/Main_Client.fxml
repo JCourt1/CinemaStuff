@@ -16,9 +16,9 @@
 
 <AnchorPane id="Maint_Client" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainClientControl">
    <children>
-      <Label alignment="CENTER" layoutX="244.0" layoutY="23.0" prefHeight="62.0" prefWidth="194.0" textAlignment="CENTER">
+      <Label fx:id="titleLabel" alignment="CENTER" layoutX="187.0" layoutY="24.0" prefHeight="62.0" prefWidth="412.0" textAlignment="CENTER" textFill="#bf0000">
          <font>
-            <Font name="Pristina" size="24.0" />
+            <Font name="Pristina" size="36.0" />
          </font>
       </Label>
       <TabPane layoutY="93.0" minHeight="600.0" minWidth="800.0" tabClosingPolicy="UNAVAILABLE">

@@ -59,6 +59,9 @@ public class MainClientControl {
 	
 	private ObjectProperty<TableRow<Film>> selectedRow = new SimpleObjectProperty<>();
 
+	String currentClientFirstName;
+	String currentClientLastName;
+	
 	@FXML
 	private TextField firstName;
 
@@ -85,6 +88,9 @@ public class MainClientControl {
 	
 	@FXML 
 	private TableView<Booking> bookingTable;
+	
+	@FXML
+	private Label titleLabel;
 	
 	@FXML private TableColumn<Booking, String> movieColumn;
 	@FXML private TableColumn<Booking, LocalDate> screeningDateColumn;
@@ -168,8 +174,8 @@ stage.show();
 }
 
 @FXML
-void initialize() {
-
+void initialize() {	
+	
 fillFilmTable();
 
 scrollPane.setContent(gridPane);
@@ -182,6 +188,15 @@ MainApplication.loadBookingDataFromFile(file1);
 
 File file2 = new File("src/application/Clients.xml");
 MainApplication.loadClientDataFromFile(file2);
+
+for(Client client: MainApplication.getClientData()) {
+	if(client.getUserName().equals(MainControl.currentUsername)) {
+		currentClientFirstName = client.getFirstName();
+		currentClientLastName = client.getLastName();
+	}
+}
+
+titleLabel.setText("Welcome " + currentClientFirstName + " " + currentClientLastName);
     
 filterBookingData();
 bookingTable.setItems(filteredList);
