@@ -112,7 +112,7 @@ public class MainApplication extends Application {
             loader.setLocation(MainApplication.class.getResource("/application/Login.fxml"));
     		
 			Parent root = loader.load();
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,800,600);
 			//scene.getStylesheets().add(getClass().getResource("application/views.css").toExternalForm());
 			primaryStage.setScene(scene);
 			

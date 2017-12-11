@@ -122,14 +122,17 @@ public class MainClientControl {
 public void Save(ActionEvent event) throws Exception{
 	
 	int index = MainControl.getClientIndex(MainControl.currentUsername);
+	System.out.println(index);
 	MainApplication.getClientData().get(index).setUserName(username.getText());
 	MainApplication.getClientData().get(index).setPassword(password.getText());
 	MainApplication.getClientData().get(index).setFirstName(firstName.getText());
 	MainApplication.getClientData().get(index).setLastName(lastName.getText());
 	MainApplication.getClientData().get(index).setEmail(email.getText());
 	
+	
 	File file = new File("src/application/Clients.xml");
 	MainApplication.saveClientDataToFile(file);
+	
 	
 	Alert alert = new Alert (AlertType.INFORMATION);
 	alert.setTitle("Information updated");
@@ -164,10 +167,17 @@ disableCancelButton();
 File file1 = new File("src/application/Bookings.xml");
     
 MainApplication.loadBookingDataFromFile(file1);
+
+File file2 = new File("src/application/Clients.xml");
+MainApplication.loadClientDataFromFile(file2);
     
 filterBookingData();
 bookingTable.setItems(filteredList);
 updateBookingTable();	
+for(Client client:MainApplication.getClientData()) {
+	System.out.println(client.getUserName());
+}
+System.out.println("current username:"+MainControl.currentUsername);
 
 
 

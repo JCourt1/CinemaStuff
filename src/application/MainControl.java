@@ -74,12 +74,16 @@ public class MainControl {
 		for(Client client : MainApplication.getClientData()) {
 		if(client.getUserName().equals(username)) {
 			 index = MainApplication.getClientData().indexOf(client);
+			break;
+		
 		}
 		else {
 			index = -1;
-		}
+		
 		}
 		
+		
+	}
 		return index;
 	}
 	   
@@ -171,7 +175,7 @@ public class MainControl {
 		if (event.getSource()==regButton) {
 			stage = (Stage) regButton.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("/application/Registration.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,800,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
@@ -194,7 +198,7 @@ public class MainControl {
 		if (event.getSource()==backButton) {
 			stage = (Stage) backButton.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,800,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();

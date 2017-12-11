@@ -67,6 +67,9 @@ public class RegistrationControl  {
 		    		alert.setHeaderText(null);
 		    		alert.setContentText("Thank you. Your details have been added");
 		    		alert.showAndWait();
+		    		 File file1 = new File("src/application/Clients.xml");
+		    			
+		    			MainApplication.loadClientDataFromFile(file1);
 					}
 				
 	
@@ -91,7 +94,7 @@ public class RegistrationControl  {
 		Stage stage;
 		Parent root;
 		
-
+		
 			stage = (Stage) backButton.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
 			Scene scene = new Scene(root,400,400);
