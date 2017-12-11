@@ -2,6 +2,7 @@ package application;
 
 import java.beans.EventHandler;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -111,14 +112,32 @@ public class MainClientControl {
 	@FXML 
 	public void GoToBook(ActionEvent event) throws Exception{
 		
-		Stage stage;
+		Stage stage = new Stage();
+		
 		stage = (Stage) LogOutButton.getScene().getWindow();
 		Parent root = FXMLLoader.load(getClass().getResource("/application/Cinema_Room.fxml"));
+		System.out.println("GoToBook function has been triggered");
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	
+
+}
+	
+	@FXML 
+	public void goToTRailer(ActionEvent event2){
+		try {
+		Parent root;
+		root = FXMLLoader.load(getClass().getResource("/application/MediaPlayer.fxml"));
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root, 800, 600));
+		System.out.println("gotoTrailer function has been triggered");
+		stage.show();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 
 }
 	
@@ -229,14 +248,14 @@ bookingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel
 		 if(newSelection.getScreeningDate().isAfter(LocalDate.now())) {
 			
 				cancelButton.setDisable(false);
-				cancelButton.textFillProperty().set(Color.GREEN);
+				
 				
 				
 		 
 		 }
 		 else if(newSelection.getScreeningDate().isEqual(LocalDate.now())&& newSelection.getScreeningTime()>LocalTime.now().getHour()) {
 			 cancelButton.setDisable(false);
-				cancelButton.textFillProperty().set(Color.GREEN);
+			
 			
 		 }
 		 
@@ -310,6 +329,22 @@ public void fillFilmTable() {
 						}
 					});
 					
+					Button trailerButton = new Button("Watch trailer");
+					trailerButton.setId("Trailer:"+film.getName());
+					trailerButton.setMinWidth(120);
+					trailerButton.setMinHeight(40);
+					trailerButton.setOnAction((event2) -> {
+					    // Button was clicked, do something...
+						try {
+							System.out.println("watching trailer....");
+							buttonId = trailerButton.getId();
+							goToTRailer(event2);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							System.out.println(e);
+						}
+					});
 					
 					
 					
@@ -336,11 +371,13 @@ public void fillFilmTable() {
 						        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
 						        + "-fx-border-radius: 0;" + "-fx-border-color: black;");
 					
+					
+					
 					Label title =  new Label(film.getName());
 					Label description = new Label(film.getDescription());
 					gridPane.addRow(rowCounter, title);
 
-					gridPane.addRow(rowCounter+1, box, description, button);
+					gridPane.addRow(rowCounter+1, box, description, trailerButton, button);
 					
 					rowCounter=rowCounter+2;
 					
@@ -367,7 +404,7 @@ public void fillFilmTable() {
 
 public void disableCancelButton(){
 	cancelButton.setDisable(true);
-	cancelButton.textFillProperty().set(Color.RED);
+	
 }
 
 
@@ -437,6 +474,7 @@ public void Cancel() {
 public static String getButtonId() {
 	return buttonId;
 }
+
 
 
 
