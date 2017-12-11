@@ -13,6 +13,7 @@ import application.MainApplication;
 import application.models.films.Booking;
 import application.models.films.Film;
 import application.models.films.Seance;
+import application.util.DateConversion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +24,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -32,8 +36,6 @@ public class ScreeningDetailsController implements Initializable {
 
 	private MainApplication main;
 	private Stage stage;
-	
-	@FXML private Button backButton;
 
 	@FXML private Rectangle a1; @FXML private Rectangle a2; @FXML private Rectangle a3; @FXML private Rectangle a4; @FXML private Rectangle a5; @FXML private Rectangle a6;
 
@@ -46,28 +48,33 @@ public class ScreeningDetailsController implements Initializable {
 	@FXML private Rectangle e1; @FXML private Rectangle e2; @FXML private Rectangle e3; @FXML private Rectangle e4; @FXML private Rectangle e5; @FXML private Rectangle e6;
 
 	@FXML private Rectangle f1; @FXML private Rectangle f2; @FXML private Rectangle f3; @FXML private Rectangle f4; @FXML private Rectangle f5; @FXML private Rectangle f6;
-
+	
+	@FXML private Button backButton;
 	@FXML private DatePicker datePicker; 
 	@FXML private ComboBox choiceBox; 
-	@FXML private Label seatLabel; 
-	@FXML private Label priceLabel;
+	@FXML private Label numBookedSeats; 
+	@FXML private Label numRemainingSeats; 
+	@FXML private Label BookingsTotalCost;
+	@FXML private Label fName; 
+	@FXML private Label fDate; 
+	@FXML private Label fTime;
+	@FXML private ImageView filmPic;
 	
 	@FXML private Button test;
 
     private ObservableList<Seance> filteredSeanceData =  FXCollections.observableArrayList();
-
 	private ObservableList<Booking> filteredBookingData = FXCollections.observableArrayList();
 	
 	private ArrayList<String> seatList = new ArrayList<String>();
 	private int ticketPrice;
-	private Map<String,Rectangle> hashtable = new HashMap<String,Rectangle>();
 	private int totalPrice;
-	private static int[] clickCounts = new int[36];
-	private static ArrayList<String> seatSelectionArray = new ArrayList<String>();
-	private Boolean bookingStatus;
-
+	
+	
+	private Map<String,Rectangle> hashtable = new HashMap<String,Rectangle>();
 	private ArrayList<String> seat = new ArrayList<String>();
+	
 	private String movieTitle;
+	private String imgPath;
 	private LocalDate screeningDay;
 	private String time;
 	
@@ -85,12 +92,15 @@ public class ScreeningDetailsController implements Initializable {
 	
 	public void updateSeats() {
 
-		bookingStatus = Boolean.TRUE;
 		for(Booking booking :filteredBookingData) {
 
 			seat.add(booking.getSeat());
 
 		}
+		
+		numBookedSeats.setText(Integer.toString(seat.size()));
+		numRemainingSeats.setText(Integer.toString(36 - seat.size()));
+		BookingsTotalCost.setText("£" + Integer.toString(seat.size() * ticketPrice));
 
 		for(int i=0; i<seat.size(); i++) {
 
@@ -189,14 +199,31 @@ public class ScreeningDetailsController implements Initializable {
 		hashtable.put("f4", f4);
 		hashtable.put("f5", f5);
 		hashtable.put("f6", f6);
-
-		bookingStatus = Boolean.FALSE;
 		
 		
 		
 		movieTitle = seance.getFilm();
 		screeningDay = seance.getDay();
 		time = seance.getTime();
+		
+		for(Film film: main.getFilmData()) {
+        	if(film.getName().equals(movieTitle)) {
+        		ticketPrice = film.getTicketPrice();
+        		imgPath = film.getPath();
+        	}
+        }
+		
+		fName.setText(movieTitle);
+		fDate.setText(DateConversion.format(screeningDay));
+		fTime.setText(time);
+		
+		
+		File file = new File(imgPath);
+		Image image = new Image(file.toURI().toString());
+		
+		filmPic.setPreserveRatio(true);
+		filmPic.setImage(image); 
+		filmPic.setFitHeight(200);
 
 		File file1 = new File("Bookings.xml");
         this.main.loadData(file1);
@@ -209,11 +236,7 @@ public class ScreeningDetailsController implements Initializable {
 		seatList.add(key);
         }
 
-        for(Film film: main.getFilmData()) {
-        	if(film.getName().equals(movieTitle)) {
-        		ticketPrice = film.getTicketPrice();
-        	}
-        }
+        
         
         updateSeats();
 		
