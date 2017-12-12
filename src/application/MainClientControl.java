@@ -144,6 +144,8 @@ public class MainClientControl {
 	 * Tableview, Contact details text fields, and the window title.
 	 */
 	void initialize() {
+		
+		setTitleLabel();
 
 		fillFilmTable();
 
@@ -158,14 +160,9 @@ public class MainClientControl {
 		File file2 = new File("src/application/Clients.xml");
 		MainApplication.loadClientDataFromFile(file2);
 
-		for (Client client : MainApplication.getClientData()) {
-			if (client.getUserName().equals(MainControl.getCurrentUsername())) {
-				currentClientFirstName = client.getFirstName();
-				currentClientLastName = client.getLastName();
-			}
-		}
+		
 
-		titleLabel.setText("Welcome " + currentClientFirstName + " " + currentClientLastName);
+		
 
 		filterBookingData();
 		bookingTable.setItems(filteredList);
@@ -290,11 +287,14 @@ public class MainClientControl {
 		MainApplication.saveBookingDataToFile(file2);
 		MainControl.setCurrenUsername(username.getText());
 
+		setTitleLabel();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information updated");
 		alert.setHeaderText(null);
 		alert.setContentText("Thank you. Your details have been udpated");
 		alert.showAndWait();
+		
+		
 
 	}
 
@@ -518,6 +518,20 @@ public class MainClientControl {
 	 */
 	public static String getButtonId() {
 		return buttonId;
+	}
+	
+	/**
+	 * This method sets the the title label to Welcome  followed by the logged-in user's first name followed by the logged-in user's last name.
+	 * This method is called at initialization and whenever the contact details of the user are changed.
+	 */
+	public  void setTitleLabel() {
+		for (Client client : MainApplication.getClientData()) {
+			if (client.getUserName().equals(MainControl.getCurrentUsername())) {
+				currentClientFirstName = client.getFirstName();
+				currentClientLastName = client.getLastName();
+			}
+		}
+		titleLabel.setText("Welcome " + currentClientFirstName + " " + currentClientLastName);
 	}
 
 }

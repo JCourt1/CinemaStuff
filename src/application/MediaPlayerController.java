@@ -34,12 +34,19 @@ import javafx.util.Duration;
 public class MediaPlayerController implements Initializable {
 
 	/***************************************************************************************
-	 * This whole class is taken from the following sources: 
+	 * This class is based on the following sources: 
 	 * 
-	 * Title: JavaFx Tutorial
-	 * For Beginners 31 - Creating Media Player in JavaFX Author:
-	 * ProgrammingKnowledge Date: 20/01/2016 Availability:
-	 * https://www.youtube.com/watch?v=sjiS4mhb0gQ
+	 * Title: JavaFx Tutorial For Beginners 31 - Creating Media Player in JavaFX
+	 * Author: ProgrammingKnowledge 
+	 * Date: 20/01/2016 
+	 * Availability: https://www.youtube.com/watch?v=sjiS4mhb0gQ
+	 * 
+	 * Title: Incorporating Media Assets Into JavaFX Applications - Controlling Media Playback
+	 * Author: Cindy Castillo
+	 * Date: April 2013
+	 * Availability: https://docs.oracle.com/javafx/2/media/playercontrol.htm
+	 * 
+	 * 
 	 *
 	 ***************************************************************************************/
 
@@ -70,9 +77,12 @@ public class MediaPlayerController implements Initializable {
 	/**
 	 * This is the main method of the MediaPlayerController class. It is called when
 	 * the MediaPlayer.fxml window is opened. It first gets the path of the media to
-	 * be played. Loads the media into the JavaFX MediaPlayer and the MediaPlayer
-	 * into the JavaFX MediaView.
+	 * be played. Loads the media into the JavaFX MediaPlayer.
 	 * 
+	 * Next the properties of the MediaPlayer and the JavaFX elements (Slider, Label, HBox, Button, etc.) are specified. 
+	 * Finally the JavaFX MediaPlayer is set within the JavaFX MediaView and the resize properties of the ImageView are changed so
+	 * that the ImageView is resized when the scene is resized whilst keeping the same aspect ratio. 
+	 * The  autoplay property of the MediaPlayer is set to true so that the media starts playing when the window initialized.
 	 */
 
 	@Override
@@ -100,7 +110,6 @@ public class MediaPlayerController implements Initializable {
 
 		mp.setOnPaused(new Runnable() {
 			public void run() {
-				System.out.println("onPaused");
 				playButton.setText(">");
 			}
 		});
@@ -148,10 +157,14 @@ public class MediaPlayerController implements Initializable {
 		DoubleProperty height = mv.fitHeightProperty();
 		width.bind(Bindings.selectDouble(mv.sceneProperty(), "width"));
 		height.bind(Bindings.selectDouble(mv.sceneProperty(), "height"));
+		
+		mp.setAutoPlay(true);
 	}
 
 	/**
-	 * This method plays the media.
+	 * This method is called when the "> (play)" button  is clicked.
+	 * First the status of the MediaPlayer is checked, if the status is UNKNOWN or HALTED then nothing should be done. If however the 
+	 * status is either PAUSED or READY or STOPPED then the MediaPlayer plays the media.
 	 * 
 	 * @param ActionEvent
 	 */
@@ -225,6 +238,10 @@ public class MediaPlayerController implements Initializable {
 		return path;
 	}
 
+	
+	/**
+	 * This method updates the slider values so that the volume and media positions can be calculated???
+	 */
 	protected void updateValues() {
 		if (playTime != null && timeSlider != null && volumeSlider != null) {
 			Platform.runLater(new Runnable() {
@@ -244,6 +261,13 @@ public class MediaPlayerController implements Initializable {
 		}
 	}
 
+	/**
+	 * This method formats the time values of the media so that it is in the hh:mm:sss format. 
+	 * 
+	 * @param elapsed
+	 * @param duration
+	 * @return String
+	 */
 	private static String formatTime(Duration elapsed, Duration duration) {
 		int intElapsed = (int) Math.floor(elapsed.toSeconds());
 		int elapsedHours = intElapsed / (60 * 60);

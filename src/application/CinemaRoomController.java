@@ -221,6 +221,7 @@ public class CinemaRoomController {
 	private ArrayList<String> seat = new ArrayList<String>();
 
 	String movieTitle;
+	String seatString;
 
 	/**
 	 * This is the main method for the CinemaRoom.fxml file. It is called after the
@@ -373,9 +374,9 @@ public class CinemaRoomController {
 							.trim();
 
 					seatLabel.setText(outputString);
-
+					seatString = outputString;
 					totalPrice = seatSelectionArray.size() * ticketPrice;
-					priceLabel.setText(Integer.toString(totalPrice));
+					priceLabel.setText("    £ " + Integer.toString(totalPrice));
 
 				} else if (clickCounts[index] % 2 == 0 && clickCounts[index] > 0) {
 					hashtable.get(seat).setFill(Color.GREEN);
@@ -395,7 +396,7 @@ public class CinemaRoomController {
 							.trim();
 
 					seatLabel.setText(outputString);
-
+					seatString = outputString;
 					totalPrice = seatSelectionArray.size() * ticketPrice;
 					priceLabel.setText("    £ " + Integer.toString(totalPrice));
 				} else {
@@ -558,7 +559,7 @@ public class CinemaRoomController {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Seats booked");
 			alert.setHeaderText(null);
-			alert.setContentText("Thank you. Your booking has been registered");
+			alert.setContentText("You have booked the following seats:  " + seatString + "  For the viewing of  "+movieTitle+"  on the  " +datePicker.getValue()+ "  at  " +choiceBox.getValue().toString() );
 			alert.showAndWait();
 
 		} catch (Exception e) {
