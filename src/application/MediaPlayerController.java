@@ -13,15 +13,36 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
+/**
+ * This is controller class that controls the MediaPlayer.fxml window. 
+ * It loads and plays the video file into a JavaFX mediaplayer.   
+ * 
+ * @author David
+ *
+ */
 public class MediaPlayerController implements Initializable{
 
+	/***************************************************************************************
+	 * This whole class is taken from the following source:
+	 * Title: JavaFx Tutorial For Beginners 31 - Creating Media Player in JavaFX
+	 * Author: ProgrammingKnowledge
+	 * Date: 20/01/2016
+	 * Availability: https://www.youtube.com/watch?v=sjiS4mhb0gQ
+	 *
+	 ***************************************************************************************/
 	@FXML private MediaView mv;
 	MediaPlayer mp;
 	Media me;
 	
 	String title = MainClientControl.getButtonId();
-	//All that needs to be changed is that the  movie path is loaded from FilmData 
 	
+	/**
+	 * This is the main method of the MediaPlayerController class. 
+	 * It is called when the MediaPlayer.fxml window is opened.
+	 * It first gets the path of the media to be played. Loads the media into the JavaFX MediaPlayer and the MediaPlayer into the JavaFX MediaView.
+	 * 
+	 */
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		String path = new File(returnTrailerPath()).getAbsolutePath();
@@ -38,24 +59,47 @@ public class MediaPlayerController implements Initializable{
 		
 	}
 	
+	/**
+	 * This method plays the media.
+	 * @param ActionEvent event
+	 */
 	public void Play(ActionEvent event) {
 		mp.play();
 	
 	}
+	/**
+	 * This method pauses the media.
+	 * @param event
+	 */
 	public void Pause(ActionEvent event) {
 		mp.pause();
 	
 	}
+	
+	/**
+	 * This method rewinds the media to the start.
+	 * @param event
+	 */
 	public void backToStart(ActionEvent event) {
 		mp.seek(mp.getStartTime());
 	
 	}
 	
+	/**
+	 * This method rewinds the media to the start and stops it.
+	 * @param event
+	 */
 	public void Stop(ActionEvent event) {
 		mp.seek(mp.getStartTime());
 		mp.stop();
 	
-	}public String returnTrailerPath() {
+	}
+	/**
+	 * This method returns the path of the media to be played. The path is saved in the Film.java class and is retrieved through the JavaFX ObservableList FilmData
+	 * by using it's getter method 'getFilmData()'
+	 * @return String
+	 */
+	public String returnTrailerPath() {
 		String path = null;
 		for(Film film: MainApplication.getFilmData()) {
 			if(film.getName().equals(MainClientControl.getButtonId())){
