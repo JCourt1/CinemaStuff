@@ -30,12 +30,17 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
+/**
+ * 
+ * @author josephcourtley
+ *
+ */
 public class AddScreeningsController implements Initializable {
 
 	private MainApplication main;
 	private ArrayList<String> bookedTimes;
 	private ObservableList<String> list;
-	private Stage tempStage;
+	private Stage stage;
 	
 //	@FXML private ComboBox<String> films;
 	@FXML private ComboBox<Film> films;
@@ -53,6 +58,24 @@ public class AddScreeningsController implements Initializable {
 	@FXML private ImageView pic;
 	
 	
+	@FXML
+	private void exitAddScreenings() {
+		stage.close();
+	}
+	
+	public void setTheStage(Stage stage) {
+		this.stage = stage;
+	}
+	
+	
+	
+	/**
+	 * Method checks if all fields are filled in, and updates statusLbl prompting the user to fill in any that are missing.
+	 * 
+	 * Afterwards, adds screenings to the main application's seanceData observable List, and updates the bookedTimes ArrayList and calls
+	 * refresh on the ListView of screening times to display the newly booked screenings immediately.
+	 * 
+	 */
 	@FXML
 	private void saveScreeningData() {
 		
@@ -110,7 +133,7 @@ public class AddScreeningsController implements Initializable {
 		main.saveData(file);
 		
 		Alert alert = new Alert(AlertType.INFORMATION);
-        alert.initOwner(tempStage);
+        alert.initOwner(stage);
         alert.setTitle("Save successful");
         
         String pluralOrNot = "";
@@ -131,10 +154,13 @@ public class AddScreeningsController implements Initializable {
 		
         times.refresh();
 		
-		
-		
 	}
 	
+	
+	/**
+	 * This method is called when the user interacts with the DatePicker. It filters which times are available for screenings on the day chosen,
+	 * and displays this in the ListView by calling its refresh method.
+	 */
 	@FXML
 	private void datePicked() {
 		
@@ -177,15 +203,20 @@ public class AddScreeningsController implements Initializable {
 	
 	
 	
+	/**
+	 * This method is called when the AddScreenings FXML file is loaded.
+	 * 
+	 * To keep things object oriented, a reference to main is passed through to the AddScreeningsController.
+	 * This can only happen after initialize() has been called, so setMain effectively does the job of initialize().
+	 * 
+	 * @param main
+	 * @param tempStage
+	 */
 	
-	
-	public void setMain(MainApplication main, Stage tempStage) {
+	public void setMain(MainApplication main, Stage tempStage, String filmToBeAutomaticallyLoaded) {
 		
 		this.main = main;
-		this.tempStage = tempStage;
-		
-		
-		
+		this.stage = tempStage;
 		
 		
 		
@@ -207,6 +238,11 @@ public class AddScreeningsController implements Initializable {
 				}
 			};
 		});
+		
+		
+		
+		
+		
 		
 		films.setConverter(new StringConverter<Film>() {
 			@Override
@@ -231,11 +267,19 @@ public class AddScreeningsController implements Initializable {
 		    	Image image = new Image(file.toURI().toString());
 		        pic.setImage(image);
 		        pic.setPreserveRatio(true);
-		        pic.setFitHeight(60);
+		        pic.setFitHeight(144);
 		        
 		    }
 		});
 		
+		if (!filmToBeAutomaticallyLoaded.equals("")) {
+			for (Film film : main.getFilmData()) {
+				if (film.getName().equals(filmToBeAutomaticallyLoaded)) {
+					films.getSelectionModel().select(film);
+					
+				}
+			}
+		}
 
 		
 		list = FXCollections.observableArrayList();

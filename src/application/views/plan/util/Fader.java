@@ -7,6 +7,10 @@ import javafx.util.Duration;
 public class Fader {
 	
 	
+	/**
+	 * Static method which, when used on a pane, makes it fade out.
+	 * @param pane
+	 */
 	public static void fadeOut(Pane pane) {
 		FadeTransition fadeOut = new FadeTransition();
 		fadeOut.setDuration(Duration.millis(500));
@@ -16,7 +20,10 @@ public class Fader {
 		fadeOut.play();
 	}
 	
-	
+	/**
+	 * Static method which, when used on a pane, makes it fade in.
+	 * @param pane
+	 */
 	public static void fadeIn(Pane pane) {
 		FadeTransition fadeIn = new FadeTransition();
 		fadeIn.setDuration(Duration.millis(2000));

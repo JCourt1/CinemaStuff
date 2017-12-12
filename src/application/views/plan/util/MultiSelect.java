@@ -6,6 +6,22 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
+
+
+/**
+*************************************************************************************
+* This class is based on the following source:
+* Title: Select multiple ListView item without pressing CTRL (Shortcut key)
+* Author: Uluk Biy
+* Date: 21/8/2015
+* Availability: https://stackoverflow.com/questions/32136669/select-multiple-listview-item-without-pressing-ctrl-shortcut-key
+*
+*************************************************************************************
+*
+*/
+
+
+
 public class MultiSelect {
 	
 	

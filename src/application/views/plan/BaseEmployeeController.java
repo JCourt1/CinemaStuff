@@ -19,6 +19,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * 
+ * @author josephcourtley
+ *
+ */
 public class BaseEmployeeController implements Initializable{
 	
 
@@ -38,6 +43,17 @@ public class BaseEmployeeController implements Initializable{
 		
 	}
 	
+	
+	/**
+	 * 
+	 * This method is called when the BaseEmployee FXML file is loaded.
+	 * 
+	 * To keep things object oriented, a reference to main is passed through to the BaseEmployeeController.
+	 * This can only happen after initialize() has been called, so setMain effectively does the job of initialize().
+	 * 
+	 * @param main
+	 * @param root
+	 */
 	public void setMain(MainApplication main, AnchorPane root) {
         this.root = root;
         this.main = main;
@@ -71,6 +87,9 @@ public class BaseEmployeeController implements Initializable{
         
 	}
 	
+	/**
+	 * Loads ManageFilms FXML file and displays in another window.
+	 */
 	@FXML
 	private void goToManageFilms() {
 		try {

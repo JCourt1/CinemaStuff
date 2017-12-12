@@ -305,7 +305,13 @@ public class ViewByDateController implements Initializable {
 	private void goToScreeningDetails() {
 		
 		if (screeningsTable.getSelectionModel().isEmpty()) {
-			System.out.println("Select a screening first.");
+			
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("Select a screening first.");
+
+			alert.showAndWait();
 			return;
 		}
 		
@@ -362,27 +368,38 @@ public class ViewByDateController implements Initializable {
 
 			loader.setLocation(MainApplication.class.getResource("views/plan/AddScreenings.fxml"));
 
-
+			String filmToBeAutomaticallyLoaded = "";
+			if (!filmTable.getSelectionModel().isEmpty()) {
+				filmToBeAutomaticallyLoaded = filmTable.getSelectionModel().getSelectedItem().getName();
+			}
+			
 			AnchorPane newPage = (AnchorPane) loader.load();
-
-
-
 
 			Stage tempStage = new Stage();
 			tempStage.setTitle("Add Screening");
-			//tempStage.initModality(Modality.WINDOW_MODAL);
+			tempStage.initModality(Modality.WINDOW_MODAL);
+			tempStage.initOwner(main.getPrimaryStage());
 
 			AddScreeningsController controller = loader.getController();
-			controller.setMain(this.main, tempStage);
+			controller.setMain(this.main, tempStage, filmToBeAutomaticallyLoaded);
 
 			Scene scene = new Scene(newPage);
 			tempStage.setScene(scene);
 
-			//tempStage.showAndWait();
-			tempStage.show();
+			tempStage.showAndWait();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	private void giveInfoAboutAdd() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("");
+		alert.setHeaderText(null);
+		alert.setContentText("To add screenings, click the plus button below and fill in the details of the film and date of the screening. You can choose multiple times from the list, if they are available.");
+
+		alert.showAndWait();
 	}
 	
 	@FXML
@@ -391,7 +408,13 @@ public class ViewByDateController implements Initializable {
 		Seance screening = screeningsTable.getSelectionModel().getSelectedItem();
 		
 		if (screening == null) {
-			System.out.println("No screening selected");
+			
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("No screening selected");
+
+			alert.showAndWait();
 			return;
 		}
 		
@@ -420,9 +443,16 @@ public class ViewByDateController implements Initializable {
 		} catch (DataSaveException e) {
 			e.toString();
 		}
-		
+	}
+	
+	@FXML
+	private void giveInfoAboutDelete() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("");
+		alert.setHeaderText(null);
+		alert.setContentText("To delete screenings, simply highlight them and click on the minus button below.");
 
-
+		alert.showAndWait();
 	}
 	
 	

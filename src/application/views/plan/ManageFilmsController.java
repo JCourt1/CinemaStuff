@@ -2,6 +2,7 @@ package application.views.plan;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -44,7 +46,7 @@ public class ManageFilmsController implements Initializable {
 	private MainApplication main;
 	
 	@FXML private TextField filmName;
-	@FXML private TextField description;
+	@FXML private TextArea description;
 	@FXML private ComboBox<Integer> ticketCost;
 	@FXML private ComboBox<String> genreBox;
 	@FXML private Button uploadImage;
@@ -83,6 +85,16 @@ public class ManageFilmsController implements Initializable {
 	private void clearFields() {
 		chooseExistingFilm.valueProperty().set(null);
 		pic.setImage(null);
+		
+//		try {
+			File file = new File("resources/images/placeholder.png");
+			Image image = new Image(file.toURI().toString());
+			pic.setImage(image);
+//		} catch (NullPointerException e) {
+//			System.out.println("Picture missing");
+//		}
+//		
+		
 		filmName.setText(null);
 		description.setText(null);
 		storeOldPicPath.setText(null);
@@ -289,7 +301,7 @@ public class ManageFilmsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		
+		description.setWrapText(true);
 		ObservableList<String> genresOfFilm = FXCollections.observableArrayList();
 		genresOfFilm.addAll("Comedy", "Horror", "Action", "Romantic Comedy", "Fantasy", "Thriller");
 		genreBox.setItems(genresOfFilm);

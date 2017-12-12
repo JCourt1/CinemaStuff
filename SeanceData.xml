@@ -41,11 +41,6 @@
         <time>12:00</time>
     </seance>
     <seance>
-        <day>2017-12-30</day>
-        <film>Star Wars</film>
-        <time>13:00</time>
-    </seance>
-    <seance>
         <day>2017-12-29</day>
         <film>Last of the Mohicans</film>
         <time>12:00</time>
@@ -219,5 +214,40 @@
         <day>2017-12-23</day>
         <film>Last of the Mohicans</film>
         <time>12:00</time>
+    </seance>
+    <seance>
+        <day>2017-12-27</day>
+        <film>Lord of the Rings</film>
+        <time>09:00</time>
+    </seance>
+    <seance>
+        <day>2017-12-27</day>
+        <film>Lord of the Rings</film>
+        <time>11:00</time>
+    </seance>
+    <seance>
+        <day>2017-12-27</day>
+        <film>Lord of the Rings</film>
+        <time>13:00</time>
+    </seance>
+    <seance>
+        <day>2017-12-27</day>
+        <film>Lord of the Rings</film>
+        <time>14:00</time>
+    </seance>
+    <seance>
+        <day>2017-12-14</day>
+        <film>Last of the Mohicans</film>
+        <time>10:00</time>
+    </seance>
+    <seance>
+        <day>2017-12-14</day>
+        <film>Last of the Mohicans</film>
+        <time>13:00</time>
+    </seance>
+    <seance>
+        <day>2017-12-14</day>
+        <film>Last of the Mohicans</film>
+        <time>15:00</time>
     </seance>
 </seances>

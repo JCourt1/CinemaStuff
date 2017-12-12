@@ -80,15 +80,9 @@ public class ScreeningDetailsController implements Initializable {
 	
 	
 	@FXML
-	private void test() {
-		System.out.println(filteredBookingData);
-		System.out.println(seat);
-		System.out.println(main.getBookingData());
+	private void exitScreeningDetail() {
+		stage.close();
 	}
-	
-	
-	
-	
 	
 	public void updateSeats() {
 
@@ -142,13 +136,6 @@ public class ScreeningDetailsController implements Initializable {
 		filteredBookingData.clear();
 		
 	    for(Booking booking: main.getBookingData()) {
-	    	
-	    	System.out.println(booking.getTitle());
-	    	System.out.println(movieTitle);
-	    	System.out.println(booking.getScreeningDate());
-	    	System.out.println(screeningDay);
-	    	System.out.println(booking.getScreeningTime());
-	    	System.out.println(time);
 
 	    	if(booking.getTitle().equals(movieTitle) && booking.getScreeningDate().equals(screeningDay) && booking.getScreeningTime().equals(time) ){
 	    		
