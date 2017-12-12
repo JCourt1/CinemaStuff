@@ -32,26 +32,71 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * 
+ * This class is the Main class of the program. 
+ * It launches the first (login-in) window when the program is run.
+ * It contains the methods and variables to load and save data from the xml files.
+ * The data is loaded into the Observable Lists. 
+ * 
+ * 
+ * @author David Rudolf
+ * 
+ *
+ */
 
 public class MainApplication extends Application {
 	
 	private Stage primaryStage;
 	
+	/**
+	 * This ObservableList contains the  sessions (wievings) that we refer to as "Seance". 
+	 * These are loaded from the SeanceData.xml file. 
+	 * 
+	 */
 	private static ObservableList<Seance> seanceData = FXCollections.observableArrayList();
+	/**
+	 * This JavaFX ObservableList contains the film objects that are loaded from the FilmData.xml file.
+	 */
 	private static ObservableList<Film> filmData = FXCollections.observableArrayList();
+	/**
+	 * This JavaFX ObservableList contains the client objects that are loaded from the Clients.xml file.
+	 */
 	private static ObservableList<Client> clientData = FXCollections.observableArrayList();
+	/**
+	 * This JavaFX ObservableList contains the employee objects that are loaded from the Employees.xml file.
+	 */
 	private static ObservableList<Employee> employeeData = FXCollections.observableArrayList();
+	/**
+	 * This JavaFX ObservableList contains the booking objects that are loaded from the Bookings.xml file.
+	 */
 	private static ObservableList<Booking> bookingData = FXCollections.observableArrayList();
 	
 
-
+/**
+ * This is the getter method for the Seance list.
+ * 
+ * @return seanceData 
+ */
     public static ObservableList<Seance> getSeanceData() {
         return seanceData;
     }
     
+    /**
+     * This is the getter method for the Film list.
+     * 
+     * @return filmData 
+     */
+    
     public static ObservableList<Film> getFilmData() {
         return filmData;
     }
+    
+    /**
+     * This is the getter method for the Client list.
+     * 
+     * @return clientData 
+     */
     
     public static ObservableList<Client> getClientData() {
         return clientData;
@@ -60,6 +105,12 @@ public class MainApplication extends Application {
     public static ObservableList<Employee> getEmployeeData() {
         return employeeData;
     }
+    
+    /**
+     * This is the getter method for the Booking list.
+     * 
+     * @return bookingData 
+     */
     
     public static ObservableList<Booking> getBookingData() {
         return bookingData;
@@ -70,40 +121,12 @@ public class MainApplication extends Application {
     
     
     
-    public void showMain_Employee(){
-    	try {
-    		
-    		File file1 = new File("src/application/FilmData.xml");
-            
-            loadFilmDataFromFile(file1);
-            
-            
-            File file2 = new File("src/application/SeanceData.xml");
-            if (file2 != null) {
-            	loadSeanceDataFromFile(file2);
-            }
-    		
-    		
-    		
-    		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(MainApplication.class.getResource("application/baseEmployee.fxml"));
-    		AnchorPane mainEmployeeView = (AnchorPane) loader.load();
-    		
-    		Scene scene = new Scene(mainEmployeeView);
-    		primaryStage.setScene(scene);
-    		
-    		BaseEmployeeController controller = loader.getController();
-    		controller.setMain(this);
-    		
-    		
-    		
-    		
-    		
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
     
+    /*
+     * This method initiates the first window in the program - the login window. 
+     *
+     * @throws IOException 
+     */
     
     public void initLogin() {
     	try {
@@ -113,7 +136,6 @@ public class MainApplication extends Application {
     		
 			Parent root = loader.load();
 			Scene scene = new Scene(root,800,600);
-			//scene.getStylesheets().add(getClass().getResource("application/views.css").toExternalForm());
 			primaryStage.setScene(scene);
 			
 			MainControl controller = loader.getController();
@@ -126,14 +148,13 @@ public class MainApplication extends Application {
 		}
     }
     
-    
-    
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
+
     
   
-    
+    /**
+     * This is the main method that will start the program. It is the main entry point for the JavaFX application.
+     * @param Stage
+     */
 	
 	@Override
 	public void start(Stage pStage) {
@@ -149,27 +170,7 @@ public class MainApplication extends Application {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	///// Loading and saving data to and from filmData and seanceData
-	
-	
-	
+// Before adding javadoc to here, change the paramater to a set file
 	
 	
 	public static void loadSeanceDataFromFile(File file) {

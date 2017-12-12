@@ -18,11 +18,13 @@ public class MediaPlayerController implements Initializable{
 	@FXML private MediaView mv;
 	MediaPlayer mp;
 	Media me;
+	
 	String title = MainClientControl.getButtonId();
 	//All that needs to be changed is that the  movie path is loaded from FilmData 
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		String path = new File("resources/videos/vid.mp4").getAbsolutePath();
+		String path = new File(returnTrailerPath()).getAbsolutePath();
 		me = new Media(new File(path).toURI().toString());
 		mp=new MediaPlayer(me);
 		mv.setMediaPlayer(mp);
@@ -53,6 +55,14 @@ public class MediaPlayerController implements Initializable{
 		mp.seek(mp.getStartTime());
 		mp.stop();
 	
+	}public String returnTrailerPath() {
+		String path = null;
+		for(Film film: MainApplication.getFilmData()) {
+			if(film.getName().equals(MainClientControl.getButtonId())){
+				path=film.getPath();
+			}
+		}
+		return path;
 	}
 	
 	

@@ -24,9 +24,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * This class is the controller of the Login.fxml and Registration.fxml files. 
+ * 
+ * 
+ * @author David
+ * @author Joseph Courtley
+ */
 public class MainControl {
 	
-	public static String currentUsername;
+	private static String currentUsername;
 	
 	@FXML
 	private Label lblStatus;
@@ -210,6 +217,14 @@ public class MainControl {
 	public void setMain(MainApplication main) {
         this.main = main;
     }
+	
+	public static String getCurrentUsername() {
+		return currentUsername;
+	}
+	
+	public static void setCurrenUsername(String name) {
+		currentUsername = name;
+	}
 	
 	
 	

@@ -6,37 +6,40 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+
 import javafx.stage.Stage;
 
-
+/**
+ * This class is the controller for the CinemaRoom.fxml file. 
+ * It controls the viewing booking functionality and the graphical representation of the cinema room.
+ * Cinema room seats are JavaFX rectangles with mous-click event listeners.
+ * 
+ * @author David Rudolf
+ * 
+ *
+ */
 public class CinemaRoomController {
 	
 	@FXML 
@@ -166,26 +169,68 @@ public class CinemaRoomController {
 	
 	
 	
-	
+	/**
+	 * This JavaFX ObsevableList is used to hold the viewings (seance) of the selected movie that are in the future.
+	 */
 	private ObservableList<Seance> filteredSeanceData =  FXCollections.observableArrayList();
 	
+	/**
+	 * This JavaFx ObservableList is used to hold the bookings that are at the selected date and time (selected through the JavaFX DatePicker and ComboBox). 
+	 */
 	private  ObservableList<Booking> filteredBookingData = FXCollections.observableArrayList();
 		
 	
-	//String[] seatList  = {"a1","a2","a3","a4","a5","a6","b1","b2","b3","b4","b5","b6","c1","c2","c3","c4","c5","c6","d1","d2","d3","d4","d5","d6","e1","e2","e3","e4","e5","e6","f1","f2","f3","f4","f5","f6"};
+	/**
+	 * This ArrayList is used to contain all the strings that label the seats in the cinema room in the right order. Starting with a1, a2, a3, etc.;
+	 * The string that labels the seat contains one letter (a to f) and one integer (1-6).
+	 */
 	ArrayList<String> seatList = new ArrayList<String>();
+	
 	int ticketPrice;
+	/**
+	 * This Java Map is used to map the different JavaFX rectangles that represent the seats to their label (in form of a String).
+	 */
 	Map<String,Rectangle> hashtable = new HashMap<String,Rectangle>();
+	
 	int totalPrice;
+	
+	/**
+	 * This integer array will register how many times has a certain JavaFX rectangle has been clicked. The array has a length of 36,
+	 * representing the 36 seats in the cinema room. 
+	 */
 	private static int[] clickCounts = new int[36];
+	
+	/**
+	 * This ArrayList will contain all the seats that have been selected by the user. This will then be used to book the selected seats
+	 * and to set the text for the price and seat JavaFX labels. 
+	 */
 	private static ArrayList<String> seatSelectionArray = new ArrayList<String>();
+	
+	/**
+	 * This Boolean is used to single the program that there is a booking on the selected date/time and the cinema seats can be booked.
+	 * If the value of this Boolean remains false then the seats will not be clickable. 
+	 */
 	Boolean bookingStatus;
 
-	private ArrayList<LocalDate> screeningDate = new ArrayList<LocalDate>();
-	private ArrayList<Integer> screeningTime = new ArrayList<Integer>();
+	/**
+	 * This ArrayList contains the seats from all the filtered bookings so that the colour of the rectangles representing booked seats will change to red on initialization.
+	 */
 	private ArrayList<String> seat = new ArrayList<String>();
+	
 	String movieTitle;
 	
+	
+	/**
+	 * This is the main method for the CinemaRoom.fxml file. It is called after the constructor, when the CinemaRoom window is launched.
+	 * First, the Java map is populated. Each JavaFX rectangle is linked to a 2-character string that will act as therectangle's label.
+	 * The Boolean "BookingStatus" is by default set to False.
+	 * The movie title of the movie that was selected from the Main_Client.fxml window is identified.
+	 * Then the BookingData, SeanceData and FilmData are loaded from the XML files. 
+	 * The fileteredSeanceData JavaFX ObservableList is populated with seances (viewings) that only happen at a later date/time. 
+	 * This is achieved by calling the setFilteredSeanceData() method.
+	 * The seatList ArrayList is populated with the string labels from the Java map. 
+	 * Finally, the ticketPrice of the selected movie is stored in the ticketPrice arrtibute.
+	 */
 	@FXML
 	void initialize() {	
 		hashtable.put("a1", a1);
@@ -257,12 +302,20 @@ public class CinemaRoomController {
 	
 	
 
+	/**
+	 * This method governs the behaviour of the program when a JavaFX rectangle (that represents a cinema room seat) is clicked.
+	 * First, the method checks the Boolean bookingStatus. If it is set to false, this indicates that either a date and time haven't been selected or there are 
+	 * not viewings on the selected date. In this case nothing will happen when the seats are clicked and an alert window is shown. 
+	 * If the Boolean is true, then the program will proceed into checking which rectangle was clicked (through the 'getSource()' method).
+	 * @param MouseEvent
+	 * @throws Exception
+	 */
 
 @FXML
 public void ClickedLabel(MouseEvent event) throws Exception{
 	if(bookingStatus == Boolean.TRUE) {
 	
-	
+		
 		
 		
 		char char1 = event.getSource().toString().charAt(13);
@@ -378,8 +431,7 @@ public void updateSeats() {
 	bookingStatus = Boolean.TRUE;
 	for(Booking booking :filteredBookingData) {
 		
-		screeningDate.add(booking.getScreeningDate());
-		screeningTime.add(booking.getScreeningTime());
+		
 		seat.add(booking.getSeat());
 	
 	}
@@ -416,7 +468,7 @@ public void comboAction(ActionEvent event) throws Exception{
 public void Book(ActionEvent event) {
 	try {
 	for(String seat: seatSelectionArray) {
-		Booking booking =  new Booking(MainControl.currentUsername, movieTitle, datePicker.getValue(), Integer.parseInt(choiceBox.getValue().toString().substring(0, 2)),  LocalDate.now(), seat);
+		Booking booking =  new Booking(MainControl.getCurrentUsername(), movieTitle, datePicker.getValue(), Integer.parseInt(choiceBox.getValue().toString().substring(0, 2)),  LocalDate.now(), seat);
 		MainApplication.getBookingData().add(booking);
 		hashtable.get(seat).setFill(Color.RED);
 	}
