@@ -386,16 +386,17 @@ public class MainClientControl {
 							trailerButton.setOnAction((event2) -> {
 
 								try {
-									if (film.gettrailerPath() != null) {
+									//if (film.gettrailerPath() != null) {
 										buttonId = trailerButton.getId();
 										goToTRailer(event2);
-									} else {
+									//} 
+										/*else {
 										Alert alert = new Alert(AlertType.ERROR);
 										alert.setTitle("No Trailer");
 										alert.setHeaderText(null);
 										alert.setContentText("Sorry, a trailer for this movie does not exist.");
 										alert.showAndWait();
-									}
+									}*/
 								} catch (Exception e) {
 
 									e.printStackTrace();
