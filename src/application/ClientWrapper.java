@@ -37,7 +37,7 @@ public class ClientWrapper {
 	
 	/**
 	 * This is a setter method for the clients Java List.
-	 * @param clients
+	 * @param List<Client>
 	 */
 	public  void setClients(List<Client> clients) {
 		this.clients = clients;

@@ -1,31 +1,38 @@
 package application;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import application.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import application.Film;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/***************************************************************************************
+ * This class is based on the following source:
+ * Title: JavaFX 8 Tutorial - Part 5: Storing Data as XML
+ * Author: Marco Jakob 
+ * Date: 12/03/2015
+ * Availability: http://code.makery.ch/library/javafx-8-tutorial/part5/
+ *
+ ***************************************************************************************/
 
+/**
+ * This is the controller class for the Registration.fxml file. 
+ * It's purpose is to save new Client data to the Clients.xml file.
+ * @author David Rudolf
+ *
+ */
 public class RegistrationControl  {
 	
 	private MainApplication main;
-	private Stage tempStage;
+	
 	
 	@FXML
 	private TextField txtUsername;
@@ -46,7 +53,18 @@ public class RegistrationControl  {
 	private Button backButton;
 	
 	
-	
+	/**
+	 * This method is called when the 'Register' button is pressed. 
+	 * It's purpose is to save the data that has been input into the text fields of the Registration.fxml window into the Clients.xml file.
+	 * 
+	 * First it checks that all  textFields have been filled. If this is not the case, and alert window will be shown. 
+	 * If all the text fields have been filled. The client data is added to the ClienData ObservableList in MainApplication.java and the elements of the ObservableList are 
+	 * saved to the XML file. An alert window then informs the user that his details have been correctly saved.
+	 * 
+	 * 
+	 * @param ActionEvent
+	 * @throws Exception
+	 */
 	@FXML
 	public void Register(ActionEvent event) throws Exception {
 		
@@ -58,7 +76,6 @@ public class RegistrationControl  {
 		           Client client = new Client(txtUsername.getText(),txtPassword.getText(), txtFirstName.getText(), txtLastName.getText(),txtEmail.getText());
 		            
 		           MainApplication.getClientData().add(client);
-		           System.out.println(MainApplication.getClientData());
 		    		File file = new File("src/application/Clients.xml");
 		    		MainApplication.saveClientDataToFile(file);
 		    		
@@ -89,7 +106,11 @@ public class RegistrationControl  {
 	}
 		
 	
-	
+	/**
+	 * This method is called when the 'Back' button is pressed.
+	 * It navigates back to the Login window.
+	 * @throws Exception
+	 */
 	 public void Back() throws Exception {
 		Stage stage;
 		Parent root;
@@ -97,7 +118,7 @@ public class RegistrationControl  {
 		
 			stage = (Stage) backButton.getScene().getWindow();
 			root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,800,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.show();
@@ -109,18 +130,18 @@ public class RegistrationControl  {
 
 	 }
 	 
-	 
+	 /**
+	  * This is the main method of the Registration.fxml window. 
+	  * It loads the client data from the Clients.fxml file when this window is opened. This is in preparation of adding new details to the Clients.fxml file.
+	  * @throws IOException
+	  */
 	 @FXML
 		void initialize() throws IOException {	
 		 
 		 File file1 = new File("src/application/Clients.xml");
 		
 		MainApplication.loadClientDataFromFile(file1);
-		for(Client client : MainApplication.getClientData()) {
-			System.out.println(client.getUserName());
-			System.out.println(client.getPassword());
-			
-		}
+		
 		
 		 
 	 }

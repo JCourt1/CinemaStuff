@@ -12,6 +12,21 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import application.LocalDateAdapter;
 
+
+/*This class is based on the following source:
+	 * Title: JavaFX 8 Tutorial - Part 5: Storing Data as XML
+	 * Author: Marco Jakob 
+	 * Date: 12/03/2015
+	 * Availability: http://code.makery.ch/library/javafx-8-tutorial/part5/
+	 *
+	 ***************************************************************************************/
+
+	/**
+	 * Model class for a booking. This will be used in conjunction with the BookingWrapper.java class to read/write data to/from the Bookings.xml files.
+	 * 
+	 *
+	 * @author David Rudolf
+	 */
 public class Seance {
 	
 	

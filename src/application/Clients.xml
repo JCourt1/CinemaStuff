@@ -35,4 +35,11 @@
         <password>pass</password>
         <userName>client</userName>
     </client>
+    <client>
+        <email>snow@gmail.com</email>
+        <firstName>John</firstName>
+        <lastName>Snow</lastName>
+        <password>thewall</password>
+        <userName>jsnow</userName>
+    </client>
 </clients>

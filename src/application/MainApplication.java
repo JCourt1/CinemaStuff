@@ -76,7 +76,7 @@ public class MainApplication extends Application {
 /**
  * This is the getter method for the Seance list.
  * 
- * @return seanceData 
+ * @return ObservableList<Seance> 
  */
     public static ObservableList<Seance> getSeanceData() {
         return seanceData;
@@ -85,7 +85,7 @@ public class MainApplication extends Application {
     /**
      * This is the getter method for the Film list.
      * 
-     * @return filmData 
+     * @return ObservableList<Film> 
      */
     
     public static ObservableList<Film> getFilmData() {
@@ -95,13 +95,18 @@ public class MainApplication extends Application {
     /**
      * This is the getter method for the Client list.
      * 
-     * @return clientData 
+     * @return ObservableList<Client> 
      */
     
     public static ObservableList<Client> getClientData() {
         return clientData;
     }
     
+    /**
+     * This is the getter method for the Employee list.
+     * 
+     * @return ObservableList<Employee> 
+     */
     public static ObservableList<Employee> getEmployeeData() {
         return employeeData;
     }
@@ -109,7 +114,7 @@ public class MainApplication extends Application {
     /**
      * This is the getter method for the Booking list.
      * 
-     * @return bookingData 
+     * @return ObservableList<Booking> 
      */
     
     public static ObservableList<Booking> getBookingData() {

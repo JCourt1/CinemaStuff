@@ -69,7 +69,7 @@ public class Client {
     
     /**
      * This method is used in the storage of the attribute.
-     * @return StringProperty UserNameProperty
+     * @return StringProperty 
      */
     public StringProperty UserNameProperty() {
         return UserName;
@@ -94,7 +94,7 @@ public class Client {
     }
     /**
      * This method is used in the storage of the attribute.
-     * @return StringProperty PasswordProperty
+     * @return StringProperty 
      */
     public StringProperty PasswordProperty() {
         return Password;
@@ -117,7 +117,7 @@ public class Client {
     }
     /**
      * This method is used in the storage of the attribute.
-     * @return StringProperty FirstNameProperty
+     * @return StringProperty 
      */
     public StringProperty FirstNameProperty() {
         return FirstName;

@@ -61,7 +61,7 @@ public class MediaPlayerController implements Initializable{
 	
 	/**
 	 * This method plays the media.
-	 * @param ActionEvent event
+	 * @param ActionEvent 
 	 */
 	public void Play(ActionEvent event) {
 		mp.play();
@@ -69,7 +69,7 @@ public class MediaPlayerController implements Initializable{
 	}
 	/**
 	 * This method pauses the media.
-	 * @param event
+	 * @param ActionEvent
 	 */
 	public void Pause(ActionEvent event) {
 		mp.pause();
@@ -78,7 +78,7 @@ public class MediaPlayerController implements Initializable{
 	
 	/**
 	 * This method rewinds the media to the start.
-	 * @param event
+	 * @param ActionEvent
 	 */
 	public void backToStart(ActionEvent event) {
 		mp.seek(mp.getStartTime());
@@ -87,7 +87,7 @@ public class MediaPlayerController implements Initializable{
 	
 	/**
 	 * This method rewinds the media to the start and stops it.
-	 * @param event
+	 * @param ActionEvent
 	 */
 	public void Stop(ActionEvent event) {
 		mp.seek(mp.getStartTime());

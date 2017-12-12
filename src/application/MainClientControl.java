@@ -513,7 +513,7 @@ public class MainClientControl {
 	 * This is the getter method for the ButtonId attribute. It is used in the
 	 * CinemaRoomController class and the MediaPlayerController class.
 	 * 
-	 * @return buttonID (the attribute containing the movie title that was selected.
+	 * @return String
 	 */
 	public static String getButtonId() {
 		return buttonId;
