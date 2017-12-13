@@ -9,14 +9,6 @@
         <userName>rudolf</userName>
     </booking>
     <booking>
-        <bookingDate>2017-12-01</bookingDate>
-        <screeningDate>2017-12-14</screeningDate>
-        <screeningTime>11</screeningTime>
-        <seat>b1</seat>
-        <title>Men in black</title>
-        <userName>rudolf</userName>
-    </booking>
-    <booking>
         <bookingDate>2017-12-10</bookingDate>
         <screeningDate>2017-12-11</screeningDate>
         <screeningTime>18</screeningTime>

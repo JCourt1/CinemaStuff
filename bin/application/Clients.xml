@@ -2,7 +2,7 @@
 <clients>
     <client>
         <email>david.g.rudolf@gmail.com</email>
-        <firstName>George</firstName>
+        <firstName>David</firstName>
         <lastName>Rudolf</lastName>
         <password>pass</password>
         <userName>rudolf</userName>
@@ -41,5 +41,12 @@
         <lastName>Snow</lastName>
         <password>thewall</password>
         <userName>jsnow</userName>
+    </client>
+    <client>
+        <email>mnorton@gmail.com</email>
+        <firstName>Marian</firstName>
+        <lastName>Norton</lastName>
+        <password>soto</password>
+        <userName>nani</userName>
     </client>
 </clients>

@@ -283,9 +283,7 @@ public class CinemaRoomController {
 		hashtable.put("f4", f4);
 		hashtable.put("f5", f5);
 		hashtable.put("f6", f6);
-
-		bookingStatus = Boolean.FALSE;
-
+		
 		movieTitle = MainClientControl.getButtonId();
 
 		File file1 = new File("src/application/Bookings.xml");
@@ -297,6 +295,7 @@ public class CinemaRoomController {
 		MainApplication.loadFilmDataFromFile(file3);
 
 		setFilteredSeanceData();
+		
 
 		for (String key : hashtable.keySet()) {
 			seatList.add(key);
@@ -307,7 +306,19 @@ public class CinemaRoomController {
 				ticketPrice = film.getTicketPrice();
 			}
 		}
+		
+		if(MainClientControl.getDatePickerInput() != null) {
+			datePicker.setValue(MainClientControl.getDatePickerInput());
+			bookingStatus = Boolean.TRUE;
+			setChoiceBox(datePicker.getValue());
+		}
+		else {
+		
+		bookingStatus = Boolean.FALSE;
 
+	
+
+		}
 	}
 
 	/**

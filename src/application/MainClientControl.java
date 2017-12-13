@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ScrollPane;
@@ -61,6 +62,8 @@ public class MainClientControl {
 	 * 
 	 */
 	private ArrayList<String> filmList = new ArrayList<String>();
+	
+	private ArrayList<String> filmList2 = new ArrayList<String>();
 
 	/**
 	 * This integer is used to count the rows in the JavaFX GridPane and helps the
@@ -86,6 +89,9 @@ public class MainClientControl {
 
 	String currentClientFirstName;
 	String currentClientLastName;
+	
+	private static LocalDate datePickerInput = null;
+	private String availableTimes;
 
 	@FXML
 	private TabPane tabPane;
@@ -136,6 +142,9 @@ public class MainClientControl {
 
 	@FXML
 	private ScrollPane scrollPane;
+	
+	@FXML
+	private DatePicker datePicker;
 
 	@FXML
 	/**
@@ -443,7 +452,7 @@ public class MainClientControl {
 				}
 			}
 		}
-
+		
 	}
 
 	/**
@@ -532,6 +541,139 @@ public class MainClientControl {
 			}
 		}
 		titleLabel.setText("Welcome " + currentClientFirstName + " " + currentClientLastName);
+	}
+	
+	
+	public void selectedDate(ActionEvent event) throws Exception {
+		
+//code of what happens when a date is picked, have to rebuild the gridpane with only films available on that date.
+		
+		File file = new File("src/application/FilmData.xml");
+		MainApplication.loadFilmDataFromFile(file);
+		File file2 = new File("src/application/SeanceData.xml");
+		MainApplication.loadSeanceDataFromFile(file2);
+		
+		gridPane.getChildren().clear();
+		
+
+		for (Film film : MainApplication.getFilmData()) {
+			for (Seance seance : MainApplication.getSeanceData()) {
+				if (film.getName().equals(seance.getFilm())) {
+					if (seance.getDay().isEqual(datePicker.getValue())) {
+						
+						
+						if (!filmList2.contains(film.getName())) {
+
+							Button button = new Button("Book");
+							button.setId(film.getName());
+							button.setMinWidth(65);
+							button.setMinHeight(40);
+							button.setOnAction((event3) -> {
+
+								try {
+
+									buttonId = button.getId();
+									GoToBook(event3);
+
+								} catch (Exception e) {
+
+									e.printStackTrace();
+								}
+							});
+
+							Button trailerButton = new Button("Watch trailer");
+							trailerButton.setId("Trailer:" + film.getName());
+							trailerButton.setMinWidth(120);
+							trailerButton.setMinHeight(40);
+							trailerButton.setOnAction((event2) -> {
+
+								try {
+									//if (film.gettrailerPath() != null) {
+										buttonId = trailerButton.getId();
+										goToTRailer(event2);
+									//} 
+										/*else {
+										Alert alert = new Alert(AlertType.ERROR);
+										alert.setTitle("No Trailer");
+										alert.setHeaderText(null);
+										alert.setContentText("Sorry, a trailer for this movie does not exist.");
+										alert.showAndWait();
+									}*/
+								} catch (Exception e) {
+
+									e.printStackTrace();
+									System.out.println(e);
+								}
+							});
+
+							File file1 = new File(film.getPath());
+							Image image = new Image(file1.toURI().toString());
+							ImageView imageview = new ImageView();
+							imageview.setImage(image);
+
+							// This is a container for the ImageView
+							HBox box = new HBox();
+							imageview.setPreserveRatio(true);
+							imageview.setFitHeight(70);
+
+							// This adds the ImageView to the HBox
+							box.getChildren().addAll(imageview);
+							box.setPrefHeight(70);
+							box.setStyle("-fx-padding: 5;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
+									+ "-fx-border-insets: 5;" + "-fx-border-radius: 0;" + "-fx-border-color: black;");
+
+							Label title = new Label(film.getName());
+							title.setMinWidth(Region.USE_PREF_SIZE);
+							title.setFont(new Font("Arial Bold", 20));
+							Label description = new Label(film.getDescription());
+							description.setWrapText(true);
+							
+							availableTimes = getAllSeanceTimes(film.getName(),datePicker.getValue());
+							
+							Label times = new Label(availableTimes);
+							title.setMinWidth(Region.USE_COMPUTED_SIZE);
+							
+							
+
+							gridPane.addRow(rowCounter, title);
+
+							gridPane.addRow(rowCounter + 1, box, description, trailerButton, button);
+							
+							gridPane.addRow(rowCounter, times);
+
+							rowCounter = rowCounter + 3;
+
+							for (Node item : gridPane.getChildren()) {
+								gridPane.setMargin(item, new Insets(15, 15, 15, 15));
+							}
+
+							filmList2.add(film.getName());
+
+						}
+					}
+				}
+			}
+		}
+		datePickerInput = datePicker.getValue();
+	}
+	
+	public String getAllSeanceTimes(String title, LocalDate date){
+		String availableTimes = "";
+		for (Film film : MainApplication.getFilmData()) {
+			for (Seance seance : MainApplication.getSeanceData()) {
+				if (film.getName().equals(title)&&film.getName().equals(seance.getFilm())) {
+					if (seance.getDay().isEqual(date)) {
+		
+						availableTimes = availableTimes + " " + seance.getTime();
+					}
+				}
+			}
+		}
+		return availableTimes;
+	}
+	
+	public static LocalDate getDatePickerInput() {
+		return datePickerInput;
 	}
 
 }
